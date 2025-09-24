@@ -7,7 +7,7 @@ const FeedFilters = () => {
   return (
     <div className="flex items-center justify-between">
       <TypographyMuted className="text-bg">Polls</TypographyMuted>
-      <BaseButton variant="secondary" icon={Funnel}>
+      <BaseButton variant="ghost" icon={Funnel}>
         Filters
       </BaseButton>
     </div>
