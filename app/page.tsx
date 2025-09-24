@@ -1,5 +1,5 @@
 import Landing from '@/modules/landing'
-import PublicLayout from '@/components/layouts/public-layout'
+import PublicLayout from '@/components/base/layouts/public-layout'
 
 export default function Home() {
   return (

@@ -33,12 +33,13 @@ const BaseInput = ({
           type={type}
           placeholder={placeholder}
           className={cn(
-            'w-full',
+            'w-full text-sm placeholder:text-sm',
             inputClassName,
             Icon && iconDirection === 'left' && 'pl-9',
             Icon && iconDirection === 'right' && 'pr-9'
           )}
         />
+
         {Icon && (
           <Icon
             className={cn('absolute top-2.5', {

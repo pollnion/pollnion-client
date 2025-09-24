@@ -48,7 +48,7 @@ export function TypographyH3({
 export function TypographyH4({
   children,
   className,
-}: React.ComponentProps<'h4'> & {className: ClassValue}) {
+}: React.ComponentProps<'h4'> & {className?: ClassValue}) {
   return (
     <h4 className={cn('scroll-m-20 text-xl font-semibold tracking-tight', className)}>
       {children}
