@@ -14,6 +14,7 @@ export type Poll = {
 export type Author = {
   id: string
   name: string
+  status: string
 }
 
 export type Content = {
