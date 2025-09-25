@@ -7,6 +7,7 @@ import * as AiIcons from 'react-icons/ai'
 interface typesPropsIcon {
   nameIcon: string
   propsIcon?: IconBaseProps
+  style?: React.CSSProperties
 }
 
 export const iconLibMap: Record<string, () => Promise<typeof AiIcons>> = {

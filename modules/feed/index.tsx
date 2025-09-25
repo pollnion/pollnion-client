@@ -2,6 +2,7 @@
 
 import React from 'react'
 import FeedCard from './feed-card'
+import FeedPost from './feed-post'
 import FeedFilters from './feed-filters'
 import useGetFeed from '@/hooks/feed/use-get-feed'
 import {Separator} from '@/components/ui/separator'
@@ -12,10 +13,10 @@ const Index = () => {
   const feedProps = useGetFeed()
 
   return (
-    <div className="col-span-8 xl:col-span-6 space-y-4 w-[700px]">
+    <div className="col-span-8 xl:col-span-6 space-y-4  w-full md:w-[560px] relative">
+      <FeedPost />
       <FeedFilters />
-      <Separator className="my-3" />
-
+      <Separator />
       <BaseVirtuoso
         data={feedProps.data}
         LoadComp={FeedCardSkeleton}

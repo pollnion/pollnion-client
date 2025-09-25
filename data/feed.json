@@ -12,6 +12,8 @@
         "description": "Thinking of adding a new feature to our app. Curious what y’all think."
       },
       "poll": {
+        "status": "open",
+        "totalVotes": 194,
         "question": "Pick your favorite feature idea:",
         "options": [
           {"id": "opt1", "label": "Dark mode", "votes": 87},
@@ -33,6 +35,8 @@
       },
       "poll": {
         "question": "What’s your go-to coding snack?",
+        "status": "open",
+        "totalVotes": 194,
         "options": [
           {"id": "opt1", "label": "Chips", "votes": 23},
           {"id": "opt2", "label": "Chocolate", "votes": 45},
@@ -52,6 +56,8 @@
         "description": "Need inspiration—should I go hiking or binge another Netflix series?"
       },
       "poll": {
+        "status": "closed",
+        "totalVotes": 194,
         "question": "What should I do this weekend?",
         "options": [
           {"id": "opt1", "label": "Hiking", "votes": 31},
@@ -72,6 +78,8 @@
         "description": "Just tried out a new frontend framework. Curious if others have tested it."
       },
       "poll": {
+        "status": "open",
+        "totalVotes": 123,
         "question": "Would you try a new frontend framework this year?",
         "options": [
           {"id": "opt1", "label": "Heck yes", "votes": 14},

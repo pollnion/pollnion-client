@@ -7,7 +7,7 @@ import FeedContent from './feed-content'
 
 const FeedCard = ({item}: {item: FeedItem}) => {
   return (
-    <div className="mb-4">
+    <div className="mb-8">
       <FeedHeader item={item} />
       <FeedContent item={item} />
       <FeedCta item={item} />

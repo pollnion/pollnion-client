@@ -5,7 +5,9 @@ export type PollOption = {
 }
 
 export type Poll = {
+  status: string
   question: string
+  totalVotes: number
   options: PollOption[]
 }
 
