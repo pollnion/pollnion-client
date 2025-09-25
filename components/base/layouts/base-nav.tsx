@@ -23,7 +23,13 @@ export default function BaseNav() {
         </BaseButton>
       </div>
       <div className="flex space-x-2 items-center">
-        <BaseInput size={20} type="text" icon={SearchIcon} placeholder="Search..." />
+        <BaseInput
+          size={20}
+          type="text"
+          icon={SearchIcon}
+          placeholder="Search..."
+          inputClassName="w-[10px] sm:w-full"
+        />
 
         <div className="hidden md:block">
           <Separator orientation="vertical" className="!h-4 w-px bg-muted" />

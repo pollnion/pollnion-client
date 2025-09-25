@@ -1,9 +1,16 @@
-import BaseAvatar from '@/components/base/avatars/base-avatar'
+import React from 'react'
 
-const FeedCard = () => {
+import FeedCta from './feed-cta'
+import {FeedItem} from '@/models/feed'
+import FeedHeader from './feed-header'
+import FeedContent from './feed-content'
+
+const FeedCard = ({item}: {item: FeedItem}) => {
   return (
-    <div className="p-3 rounded-sm">
-      <BaseAvatar />
+    <div className="mb-4">
+      <FeedHeader item={item} />
+      <FeedContent item={item} />
+      <FeedCta item={item} />
     </div>
   )
 }

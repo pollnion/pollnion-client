@@ -1,25 +1,12 @@
-import {useState} from 'react'
-import {useEffect} from 'react'
+import {useState, useEffect} from 'react'
+import MOCK_DATA from '@/data/feed.json'
+import {FeedItem} from '@/models/feed'
 
-type MockData = {
-  data: {
-    id: string
-  }[]
-}
-
-const MOCK_DATA = {
-  data: [
-    {
-      id: '123123',
-    },
-  ],
-}
-
-const FETCH_MOCK_DATA = (): Promise<MockData> =>
+const FETCH_MOCK_DATA = (): Promise<{data: FeedItem[]}> =>
   new Promise((res) => setTimeout(() => res(MOCK_DATA), 2000))
 
 const useGetFeed = () => {
-  const [data, setData] = useState<MockData['data']>([])
+  const [data, setData] = useState<FeedItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -38,7 +25,11 @@ const useGetFeed = () => {
     }
   }
 
-  return {data, isLoading}
+  const loadMore = () => {
+    console.log('load more...')
+  }
+
+  return {data, isLoading, loadMore}
 }
 
 export default useGetFeed

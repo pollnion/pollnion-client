@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "id": "p1",
+      "author": {
+        "id": "u1",
+        "name": "Alice"
+      },
+      "createdAt": 1758757903,
+      "content": {
+        "title": "What should we build next?",
+        "description": "Thinking of adding a new feature to our app. Curious what y’all think."
+      },
+      "poll": {
+        "question": "Pick your favorite feature idea:",
+        "options": [
+          {"id": "opt1", "label": "Dark mode", "votes": 87},
+          {"id": "opt2", "label": "Offline support", "votes": 42},
+          {"id": "opt3", "label": "AI integration", "votes": 65}
+        ]
+      }
+    },
+    {
+      "id": "p2",
+      "author": {
+        "id": "u2",
+        "name": "Bob"
+      },
+      "createdAt": 1758758000,
+      "content": {
+        "title": "Best snack during coding?",
+        "description": "I keep debating between chips or gummy bears… help me decide."
+      },
+      "poll": {
+        "question": "What’s your go-to coding snack?",
+        "options": [
+          {"id": "opt1", "label": "Chips", "votes": 23},
+          {"id": "opt2", "label": "Chocolate", "votes": 45},
+          {"id": "opt3", "label": "Energy drink", "votes": 19}
+        ]
+      }
+    },
+    {
+      "id": "p3",
+      "author": {
+        "id": "u3",
+        "name": "Charlie"
+      },
+      "createdAt": 1758758200,
+      "content": {
+        "title": "Weekend plans?",
+        "description": "Need inspiration—should I go hiking or binge another Netflix series?"
+      },
+      "poll": {
+        "question": "What should I do this weekend?",
+        "options": [
+          {"id": "opt1", "label": "Hiking", "votes": 31},
+          {"id": "opt2", "label": "Netflix", "votes": 52},
+          {"id": "opt3", "label": "Gaming", "votes": 27}
+        ]
+      }
+    },
+    {
+      "id": "p4",
+      "author": {
+        "id": "u4",
+        "name": "Dana"
+      },
+      "createdAt": 1758758300,
+      "content": {
+        "title": "New framework alert 🚀",
+        "description": "Just tried out a new frontend framework. Curious if others have tested it."
+      },
+      "poll": {
+        "question": "Would you try a new frontend framework this year?",
+        "options": [
+          {"id": "opt1", "label": "Heck yes", "votes": 14},
+          {"id": "opt2", "label": "Only if stable", "votes": 38},
+          {"id": "opt3", "label": "Nope, sticking with React", "votes": 29}
+        ]
+      }
+    }
+  ]
+}
