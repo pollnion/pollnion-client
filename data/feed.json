@@ -20,6 +20,10 @@
           {"id": "opt2", "label": "Offline support", "votes": 42},
           {"id": "opt3", "label": "AI integration", "votes": 65}
         ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
       }
     },
     {
@@ -42,6 +46,10 @@
           {"id": "opt2", "label": "Chocolate", "votes": 45},
           {"id": "opt3", "label": "Energy drink", "votes": 19}
         ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
       }
     },
     {
@@ -86,6 +94,10 @@
           {"id": "opt2", "label": "Only if stable", "votes": 38},
           {"id": "opt3", "label": "Nope, sticking with React", "votes": 29}
         ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
       }
     }
   ]

@@ -22,12 +22,18 @@ export type Content = {
   description: string
 }
 
+export type EngagementsCount = {
+  likes: number
+  comments: number
+}
+
 export type FeedItem = {
   id: string
   author: Author
   createdAt: number
   content: Content
   poll?: Poll
+  engagement_count?: EngagementsCount
 }
 
 export type FeedData = FeedItem[]

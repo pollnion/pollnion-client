@@ -1,6 +1,6 @@
 import React from 'react'
+import {Plus} from 'lucide-react'
 import {Funnel} from 'lucide-react'
-import {BaseIcon} from '@/components/base/icons/base-icon'
 import BaseButton from '@/components/base/buttons/base-button'
 
 const FeedFilters = () => {
@@ -13,7 +13,7 @@ const FeedFilters = () => {
 
         <div className="text-end">
           <BaseButton variant="outline">
-            <BaseIcon nameIcon="AiOutlinePlus" style={{width: 18, height: 18}} />
+            <Plus />
             <span>Add polls</span>
           </BaseButton>
         </div>

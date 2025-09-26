@@ -14,6 +14,8 @@ export const iconLibMap: Record<string, () => Promise<typeof AiIcons>> = {
   ai: () => import('react-icons/ai'),
 }
 
+// use if any icons is not available in lucide react
+// will take loading since we are importing the package via loadable
 export function BaseIcon({
   nameIcon,
   propsIcon,

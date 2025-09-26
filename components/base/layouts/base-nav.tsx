@@ -1,4 +1,5 @@
 'use client'
+import {Menu} from 'lucide-react'
 import {SearchIcon} from 'lucide-react'
 
 import {Separator} from '@/components/ui/separator'
@@ -14,7 +15,7 @@ export default function BaseNav() {
       <div className="flex align-items-center">
         <div className="block xl:hidden">
           <BaseButton variant="ghost">
-            <BaseIcon nameIcon="AiOutlineMenu" propsIcon={{size: 24}} />
+            <Menu />
           </BaseButton>
         </div>
 
