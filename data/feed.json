@@ -44,7 +44,7 @@
       "poll": {
         "question": "What’s your go-to coding snack?",
         "status": "open",
-        "totalVotes": 194,
+        "totalVotes": 87,
         "options": [
           {"id": "opt1", "label": "Chips", "votes": 23},
           {"id": "opt2", "label": "Chocolate", "votes": 45},
@@ -71,7 +71,7 @@
       },
       "poll": {
         "status": "closed",
-        "totalVotes": 194,
+        "totalVotes": 110,
         "question": "What should I do this weekend?",
         "options": [
           {"id": "opt1", "label": "Hiking", "votes": 31},
@@ -95,7 +95,7 @@
       },
       "poll": {
         "status": "open",
-        "totalVotes": 123,
+        "totalVotes": 81,
         "question": "Would you try a new frontend framework this year?",
         "options": [
           {"id": "opt1", "label": "Heck yes", "votes": 14},

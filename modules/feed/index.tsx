@@ -13,7 +13,7 @@ const Index = () => {
   const feedProps = useGetFeed()
 
   return (
-    <div className="col-span-8 xl:col-span-6 space-y-4  w-full md:w-[560px] relative">
+    <div className="col-span-8 xl:col-span-6 space-y-4 w-full md:w-[560px] relative">
       <FeedPost />
       <Separator />
       <FeedFilters />

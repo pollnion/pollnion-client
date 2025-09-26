@@ -27,7 +27,7 @@ const BaseInput = ({
   return (
     <div className={cn('flex items-center gap-2 w-full', wrapperClassName)}>
       {withLabel && <Label htmlFor={label}>{label}</Label>}
-      <div className="relative flex-1">
+      <div className="relative sm:w-[360px] md:w-[320px]">
         <Input
           size={size}
           type={type}

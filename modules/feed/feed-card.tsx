@@ -8,7 +8,7 @@ import FeedContent from './feed-content'
 
 const FeedCard = ({item}: {item: FeedItem}) => {
   return (
-    <div className={cn('py-3 border-b')}>
+    <div className={cn('py-3 mb-1 sm:mb-4 bg-neutral-900 p-3 rounded')}>
       <FeedHeader item={item} />
       <FeedContent item={item} />
       <FeedCta item={item} />

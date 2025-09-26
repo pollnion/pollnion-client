@@ -13,6 +13,6 @@ export const POLL_STATUS = {
 }
 
 export const POLL_STATUS_LABEL = {
-  [POLL_STATUS.open]: 'Open',
-  [POLL_STATUS.closed]: 'Closed',
+  [POLL_STATUS.open]: 'Poll Open',
+  [POLL_STATUS.closed]: 'Poll Closed',
 }

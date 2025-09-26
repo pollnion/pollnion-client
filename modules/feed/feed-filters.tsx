@@ -5,7 +5,7 @@ import BaseButton from '@/components/base/buttons/base-button'
 const FeedFilters = () => {
   return (
     <div className="text-end">
-      <BaseButton variant="ghost" icon={Funnel}>
+      <BaseButton variant="secondary" icon={Funnel}>
         Filters
       </BaseButton>
     </div>
