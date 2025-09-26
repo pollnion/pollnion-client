@@ -10,7 +10,14 @@ import {TypographySmall} from '@/components/base/typography/base-typography'
 import {TypographyLarge} from '@/components/base/typography/base-typography'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
-const Polls = ({poll}: {poll: FeedItem['poll']}) => {
+const Polls = ({
+  poll,
+  content,
+}: {
+  poll: FeedItem['poll']
+  content: FeedItem['content']
+}) => {
+  const {space} = content || {}
   const {options, status, totalVotes = 0} = poll || {}
 
   const isOpen = isEqual(status, POLL_STATUS.open)
@@ -18,14 +25,15 @@ const Polls = ({poll}: {poll: FeedItem['poll']}) => {
   return (
     <React.Fragment>
       <div className="flex justify-between space-x-2 mb-2">
-        <div className="flex items-center space-x-2">
-          <BaseStatusBadge status={status} />
-          {isOpen && <TypographyMuted className="text-xs">3 hrs left</TypographyMuted>}
-        </div>
-        <Badge variant="secondary">help</Badge>
+        <Badge variant="secondary">{space}</Badge>
       </div>
 
       <div className="border rounded-sm p-2">
+        <div className="flex items-center mb-2 justify-between space-x-2">
+          <BaseStatusBadge status={status} />
+          {isOpen && <TypographyMuted className="text-xs">3 hrs left</TypographyMuted>}
+        </div>
+
         {map(options, ({votes, label}, i) => (
           <div
             key={i}
@@ -39,7 +47,7 @@ const Polls = ({poll}: {poll: FeedItem['poll']}) => {
 
         <div className="pt-1 flex justify-between">
           <Badge variant="outline">{formattedNumber(totalVotes)} votes</Badge>
-          <TypographySmall>See more</TypographySmall>
+          <TypographyMuted>See more</TypographyMuted>
         </div>
       </div>
     </React.Fragment>
@@ -56,7 +64,7 @@ const FeedContent: React.FC<{item: FeedItem}> = ({item}) => {
         {title && <TypographyLarge>{title}</TypographyLarge>}
         {description && <TypographyMuted>{description}</TypographyMuted>}
       </div>
-      <Polls poll={poll} />
+      <Polls poll={poll} content={content} />
     </React.Fragment>
   )
 }

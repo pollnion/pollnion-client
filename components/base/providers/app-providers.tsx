@@ -1,4 +1,6 @@
 import React from 'react'
+import AuthProvider from './auth-provider'
+import GatedProvider from './gated-provider'
 import {ThemeProvider} from './theme-provider'
 
 type AppProvidersProps = {
@@ -13,7 +15,9 @@ const AppProviders = ({children}: AppProvidersProps) => {
       defaultTheme="system"
       disableTransitionOnChange
     >
-      {children}
+      <AuthProvider>
+        <GatedProvider>{children}</GatedProvider>
+      </AuthProvider>
     </ThemeProvider>
   )
 }

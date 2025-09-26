@@ -9,8 +9,8 @@ import BaseButton from '@/components/base/buttons/base-button'
 import {TypographySmall} from '@/components/base/typography/base-typography'
 
 const FeedCta: React.FC<{item: FeedItem}> = ({item}) => {
-  const {engagement_count} = item || {}
-  const {likes, comments} = engagement_count || {}
+  const {engagementCount} = item || {}
+  const {likes, comments} = engagementCount || {}
 
   return (
     <div className="mt-3 space-x-1">

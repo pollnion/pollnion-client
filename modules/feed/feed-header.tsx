@@ -20,7 +20,7 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
         <div className="flex items-center space-x-2">
           <BaseAvatar />
           <TypographySmall>{name}</TypographySmall>
-          {isAdmin && <ShieldCheck />}
+          {isAdmin && <ShieldCheck size={16} className="text-blue-500" />}
         </div>
         <TypographyMuted className="text-xs">1 hr ago</TypographyMuted>
       </div>

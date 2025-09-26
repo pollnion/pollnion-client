@@ -15,8 +15,8 @@ const Index = () => {
   return (
     <div className="col-span-8 xl:col-span-6 space-y-4  w-full md:w-[560px] relative">
       <FeedPost />
-      <FeedFilters />
       <Separator />
+      <FeedFilters />
       <BaseVirtuoso
         data={feedProps.data}
         LoadComp={FeedCardSkeleton}

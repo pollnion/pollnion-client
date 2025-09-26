@@ -1,11 +1,12 @@
 import React from 'react'
+import {ClassNameValue} from 'tailwind-merge'
 
 import {CardContent} from '@/components/ui/card'
 import {Skeleton} from '@/components/ui/skeleton'
 import {Avatar, AvatarFallback} from '@/components/ui/avatar'
 
 type SkeletonFeedItemProps = {
-  className?: string
+  className?: ClassNameValue
 }
 
 export const FeedCardSkeleton: React.FC<SkeletonFeedItemProps> = ({className = ''}) => {

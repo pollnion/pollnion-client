@@ -1,3 +1,6 @@
+import {POLL_STATUS} from '@/constants/status'
+import {USER_STATUS} from '@/constants/status'
+
 export type PollOption = {
   id: string
   label: string
@@ -5,7 +8,7 @@ export type PollOption = {
 }
 
 export type Poll = {
-  status: string
+  status: keyof typeof POLL_STATUS | string // temp
   question: string
   totalVotes: number
   options: PollOption[]
@@ -14,11 +17,12 @@ export type Poll = {
 export type Author = {
   id: string
   name: string
-  status: string
+  status: keyof typeof USER_STATUS | string // temp
 }
 
 export type Content = {
   title: string
+  space: string
   description: string
 }
 
@@ -33,7 +37,7 @@ export type FeedItem = {
   createdAt: number
   content: Content
   poll?: Poll
-  engagement_count?: EngagementsCount
+  engagementCount?: EngagementsCount
 }
 
 export type FeedData = FeedItem[]

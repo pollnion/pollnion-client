@@ -2,6 +2,8 @@
 import {Menu} from 'lucide-react'
 import {SearchIcon} from 'lucide-react'
 
+import BaseNavCta from './base-nav-cta'
+import BaseNavAvatar from './base-nav-avatar'
 import {Separator} from '@/components/ui/separator'
 import {BaseIcon} from '@/components/base/icons/base-icon'
 import BaseInput from '@/components/base/inputs/base-input'
@@ -9,7 +11,6 @@ import BaseButton from '@/components/base/buttons/base-button'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 export default function BaseNav() {
-  const isAuth = false
   return (
     <nav className="px-2 lg:container lg:mx-auto flex justify-between py-3 items-center sticky top-0 h-fit bg-background z-50">
       <div className="flex align-items-center">
@@ -47,14 +48,8 @@ export default function BaseNav() {
           <Separator orientation="vertical" className="!h-4 w-px bg-muted" />
         </div>
 
-        {!isAuth && (
-          <div className="flex space-x-2">
-            <BaseButton variant="ghost">
-              <span>Sign in</span>
-            </BaseButton>
-            <BaseButton>Join</BaseButton>
-          </div>
-        )}
+        <BaseNavCta />
+        <BaseNavAvatar />
       </div>
     </nav>
   )
