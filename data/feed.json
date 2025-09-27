@@ -107,6 +107,35 @@
         "likes": 0,
         "comments": 3
       }
+    },
+    {
+      "id": "p4",
+      "author": {
+        "id": "u4",
+        "name": "Dana",
+        "status": "normal"
+      },
+      "createdAt": 1758758300,
+      "content": {
+        "space": "general",
+        "title": "New framework alert 🚀",
+        "description": "Just tried out a new frontend framework. Curious if others have tested it."
+      },
+      "poll": {
+        "status": "open",
+        "totalVotes": 1,
+        "question": "Would you try a new frontend framework this year?",
+        "options": [
+          {"id": "opt1", "label": "Heck yes", "votes": 1},
+          {"id": "opt2", "label": "Only if stable", "votes": 0},
+          {"id": "opt3", "label": "Nope, sticking with React", "votes": 0},
+          {"id": "opt4", "label": "Nope, sticking with React", "votes": 0}
+        ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
+      }
     }
   ]
 }

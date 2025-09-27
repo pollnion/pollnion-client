@@ -15,6 +15,7 @@ const BaseInput = ({
   iconDirection = 'left',
   wrapperClassName,
   inputClassName,
+  ...rest
 }: React.ComponentProps<typeof Input> & {
   label?: string
   withLabel?: boolean
@@ -38,6 +39,7 @@ const BaseInput = ({
             Icon && iconDirection === 'left' && 'pl-9',
             Icon && iconDirection === 'right' && 'pr-9'
           )}
+          {...rest}
         />
 
         {Icon && (

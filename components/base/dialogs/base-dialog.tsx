@@ -19,10 +19,10 @@ type BaseDialogProps = {
   isOpen: boolean
   description?: string
   toggleOpen: () => void
-  onOkProps?: ButtonProps
+  onOkProps?: ButtonProps | any
   children: React.ReactNode
   className?: ClassNameValue
-  onCancelProps?: ButtonProps
+  onCancelProps?: ButtonProps | any
   form: any // temp
   onSubmit: any // temp
 }
@@ -49,21 +49,25 @@ const BaseDialog: React.FC<BaseDialogProps> = ({
 
       {children}
 
-      <DialogFooter>
-        <DialogClose asChild>
-          <BaseButton variant="outline" {...onCancelProps}>
-            {onCancelProps.label}
-          </BaseButton>
-        </DialogClose>
+      {(onOkProps || onCancelProps) && (
+        <DialogFooter>
+          {onCancelProps && (
+            <DialogClose asChild>
+              <BaseButton variant="outline" {...onCancelProps}>
+                {onCancelProps.label}
+              </BaseButton>
+            </DialogClose>
+          )}
 
-        <BaseButton {...onOkProps}>{onOkProps.label}</BaseButton>
-      </DialogFooter>
+          {onOkProps && <BaseButton {...onOkProps}>{onOkProps.label}</BaseButton>}
+        </DialogFooter>
+      )}
     </>
   )
 
   return (
     <Dialog open={isOpen} onOpenChange={toggleOpen}>
-      <DialogContent className={cn('sm:max-w-[425px]', className)}>
+      <DialogContent className={cn('sm:max-w-[590px]', className)}>
         {type === 'form' ? (
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

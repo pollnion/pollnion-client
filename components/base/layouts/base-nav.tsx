@@ -46,7 +46,13 @@ export default function BaseNav() {
 
         <BaseButton href="/" variant="ghost" className="p-0">
           <div className="relative w-24 h-12">
-            <Image src={IMAGE_LOGO} alt="image_logo" fill className="object-contain" />
+            <Image
+              src={IMAGE_LOGO}
+              alt="image_logo"
+              fill
+              sizes="(max-width: 768px) 120px, 200px"
+              className="object-contain"
+            />
           </div>
         </BaseButton>
       </div>
