@@ -48,7 +48,7 @@ const GatedProvider = ({children}: {children: Children}) => {
     // resets values wheneer user changes pages
     signInProps.form.reset()
     signUpProps.form.reset()
-  }, [type])
+  }, [type]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <GatedContext.Provider value={{isOpen, toggleOpen}}>
