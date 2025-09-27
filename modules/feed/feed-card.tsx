@@ -1,0 +1,19 @@
+import React from 'react'
+
+import {cn} from '@/lib/utils'
+import FeedCta from './feed-cta'
+import {FeedItem} from '@/models/feed'
+import FeedHeader from './feed-header'
+import FeedContent from './feed-content'
+
+const FeedCard = ({item}: {item: FeedItem}) => {
+  return (
+    <div className={cn('py-3 mb-1 sm:mb-4 bg-neutral-900 p-3 rounded')}>
+      <FeedHeader item={item} />
+      <FeedContent item={item} />
+      <FeedCta item={item} />
+    </div>
+  )
+}
+
+export default FeedCard
