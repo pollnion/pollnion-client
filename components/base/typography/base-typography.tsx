@@ -134,6 +134,11 @@ export function TypographySmall({
 export function TypographyMuted({
   children,
   className,
+  ...rest
 }: React.ComponentProps<'p'> & {className?: ClassValue}) {
-  return <p className={cn('text-muted-foreground text-sm', className)}>{children}</p>
+  return (
+    <p className={cn('text-muted-foreground text-sm', className)} {...rest}>
+      {children}
+    </p>
+  )
 }

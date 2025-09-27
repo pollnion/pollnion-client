@@ -26,7 +26,7 @@ const FeedPost = () => {
     },
     {
       icon: Plus,
-      children: 'Create polls',
+      children: 'Create',
     },
   ].filter(Boolean)
 

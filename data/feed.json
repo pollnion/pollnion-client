@@ -44,7 +44,7 @@
       "poll": {
         "question": "What’s your go-to coding snack?",
         "status": "open",
-        "totalVotes": 194,
+        "totalVotes": 87,
         "options": [
           {"id": "opt1", "label": "Chips", "votes": 23},
           {"id": "opt2", "label": "Chocolate", "votes": 45},
@@ -71,7 +71,7 @@
       },
       "poll": {
         "status": "closed",
-        "totalVotes": 194,
+        "totalVotes": 110,
         "question": "What should I do this weekend?",
         "options": [
           {"id": "opt1", "label": "Hiking", "votes": 31},
@@ -95,12 +95,41 @@
       },
       "poll": {
         "status": "open",
-        "totalVotes": 123,
+        "totalVotes": 81,
         "question": "Would you try a new frontend framework this year?",
         "options": [
           {"id": "opt1", "label": "Heck yes", "votes": 14},
           {"id": "opt2", "label": "Only if stable", "votes": 38},
           {"id": "opt3", "label": "Nope, sticking with React", "votes": 29}
+        ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
+      }
+    },
+    {
+      "id": "p4",
+      "author": {
+        "id": "u4",
+        "name": "Dana",
+        "status": "normal"
+      },
+      "createdAt": 1758758300,
+      "content": {
+        "space": "general",
+        "title": "New framework alert 🚀",
+        "description": "Just tried out a new frontend framework. Curious if others have tested it."
+      },
+      "poll": {
+        "status": "open",
+        "totalVotes": 1,
+        "question": "Would you try a new frontend framework this year?",
+        "options": [
+          {"id": "opt1", "label": "Heck yes", "votes": 1},
+          {"id": "opt2", "label": "Only if stable", "votes": 0},
+          {"id": "opt3", "label": "Nope, sticking with React", "votes": 0},
+          {"id": "opt4", "label": "Nope, sticking with React", "votes": 0}
         ]
       },
       "engagements_count": {

@@ -1,12 +1,13 @@
 import React from 'react'
 import {map} from 'lodash'
-import {isEqual} from 'lodash'
 import {FeedItem} from '@/models/feed'
 import {Badge} from '@/components/ui/badge'
 import {formattedNumber} from '@/lib/numbers'
+import {CircleCheckBig} from 'lucide-react'
 import {POLL_STATUS} from '@/constants/status'
-import BaseStatusBadge from '@/components/base/badges/base-status-badge'
+import {POLL_STATUS_LABEL} from '@/constants/status'
 import {TypographySmall} from '@/components/base/typography/base-typography'
+import {TypographyLead} from '@/components/base/typography/base-typography'
 import {TypographyLarge} from '@/components/base/typography/base-typography'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
@@ -18,9 +19,10 @@ const Polls = ({
   content: FeedItem['content']
 }) => {
   const {space} = content || {}
-  const {options, status, totalVotes = 0} = poll || {}
+  const {options = [], status, totalVotes = 0} = poll || {}
 
-  const isOpen = isEqual(status, POLL_STATUS.open)
+  const maxVotes = Math.max(...options.map((o) => o.votes))
+  const isClosed = POLL_STATUS.closed === status
 
   return (
     <React.Fragment>
@@ -28,28 +30,32 @@ const Polls = ({
         <Badge variant="secondary">{space}</Badge>
       </div>
 
-      <div className="border rounded-sm p-2">
-        <div className="flex items-center mb-2 justify-between space-x-2">
-          <BaseStatusBadge status={status} />
-          {isOpen && <TypographyMuted className="text-xs">3 hrs left</TypographyMuted>}
+      <div className="flex items-center mb-2 space-x-2 ml-2">
+        <TypographyLead className="text-sm text-white font-semibold">
+          {formattedNumber(totalVotes)} total votes
+        </TypographyLead>
+        <TypographyMuted className="text-xs">
+          {POLL_STATUS_LABEL[status as keyof typeof POLL_STATUS_LABEL]}
+        </TypographyMuted>
+      </div>
+
+      {map(options, ({votes, label}, i) => (
+        <div
+          key={i}
+          className="bg-neutral-800 mb-1 last:mb-0 p-2 rounded-sm whitespace-nowrap flex items-center space-x-2"
+          style={{width: `${(votes / totalVotes) * 100}%`}}
+        >
+          <TypographySmall>{votes}</TypographySmall>
+          <TypographyMuted>{label}</TypographyMuted>
+          {votes === maxVotes && isClosed && <CircleCheckBig size="16" />}
         </div>
+      ))}
 
-        {map(options, ({votes, label}, i) => (
-          <div
-            key={i}
-            className="bg-neutral-900 mb-1 last:mb-0 p-2 rounded-sm whitespace-nowrap flex items-center space-x-2"
-            style={{width: `${votes}%`}}
-          >
-            <TypographySmall>{votes}</TypographySmall>
-            <TypographyMuted>{label}</TypographyMuted>
-          </div>
-        ))}
-
-        <div className="pt-1 flex justify-between">
-          <Badge variant="outline">{formattedNumber(totalVotes)} votes</Badge>
+      {options.length > 3 && (
+        <div className="pt-1">
           <TypographyMuted>See more</TypographyMuted>
         </div>
-      </div>
+      )}
     </React.Fragment>
   )
 }

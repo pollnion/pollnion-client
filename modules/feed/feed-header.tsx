@@ -24,7 +24,7 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
         </div>
         <TypographyMuted className="text-xs">1 hr ago</TypographyMuted>
       </div>
-      <Ellipsis />
+      <Ellipsis size="18" />
     </div>
   )
 }
