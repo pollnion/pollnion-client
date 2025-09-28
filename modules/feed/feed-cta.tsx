@@ -1,6 +1,8 @@
 import React from 'react'
 import {ArrowUp} from 'lucide-react'
 import {Forward} from 'lucide-react'
+import {Repeat2} from 'lucide-react'
+import {Bookmark} from 'lucide-react'
 import {MessageCircle} from 'lucide-react'
 
 import {FeedItem} from '@/models/feed'
@@ -13,20 +15,33 @@ const FeedCta: React.FC<{item: FeedItem}> = ({item}) => {
   const {likes, comments} = engagementCount || {}
 
   return (
-    <div className="mt-3 space-x-1">
-      <BaseButton variant="secondary" className="rounded-full" size="sm">
-        <ArrowUp />
-        <TypographySmall>{formattedNumber(likes)}</TypographySmall>
-      </BaseButton>
+    <div className="flex justify-between sm:justify-start mt-3">
+      <div className="flex space-x-1">
+        <BaseButton variant="secondary" className="rounded-full" size="sm">
+          <ArrowUp />
+          <TypographySmall>{formattedNumber(likes)}</TypographySmall>
+        </BaseButton>
 
-      <BaseButton variant="secondary" className="rounded-full" size="sm">
-        <MessageCircle />
-        <TypographySmall>{formattedNumber(comments)}</TypographySmall>
-      </BaseButton>
+        <BaseButton variant="secondary" className="rounded-full" size="sm">
+          <Repeat2 />
+          <TypographySmall>{formattedNumber(likes)}</TypographySmall>
+        </BaseButton>
 
-      <BaseButton variant="secondary" className="rounded-full w-[60px]" size="sm">
-        <Forward />
-      </BaseButton>
+        <BaseButton variant="secondary" className="rounded-full" size="sm">
+          <MessageCircle />
+          <TypographySmall>{formattedNumber(comments)}</TypographySmall>
+        </BaseButton>
+      </div>
+
+      <div className="flex">
+        <BaseButton variant="ghost" className="rounded-full" size="sm">
+          <Bookmark />
+        </BaseButton>
+
+        <BaseButton variant="ghost" className="rounded-full" size="sm">
+          <Forward />
+        </BaseButton>
+      </div>
     </div>
   )
 }

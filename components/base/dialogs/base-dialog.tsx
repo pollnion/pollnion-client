@@ -23,8 +23,8 @@ type BaseDialogProps = {
   children: React.ReactNode
   className?: ClassNameValue
   onCancelProps?: ButtonProps | any
-  form: any // temp
-  onSubmit: any // temp
+  form?: any // temp
+  onSubmit?: any // temp
 }
 
 const BaseDialog: React.FC<BaseDialogProps> = ({

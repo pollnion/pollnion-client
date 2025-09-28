@@ -42,7 +42,7 @@ const GatedProvider = ({children}: {children: Children}) => {
   React.useEffect(() => {
     signInProps.form.reset()
     setType('sign_in') // back to default
-  }, [isOpen])
+  }, [isOpen]) // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
     // resets values wheneer user changes pages
