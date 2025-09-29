@@ -35,7 +35,16 @@ const PostFeedForm = ({form}: {form: UseFormReturn<FormValues>}) => {
         control={form.control}
         render={({field}) => (
           <BaseFormItem label="Description">
-            <Textarea placeholder="Enter your description" {...field} />
+            <Textarea
+              placeholder="Enter your description"
+              readOnly
+              tabIndex={-1}
+              onFocus={(e) => {
+                e.currentTarget.removeAttribute('readonly')
+                e.currentTarget.tabIndex = 0
+              }}
+              {...field}
+            />
           </BaseFormItem>
         )}
       />

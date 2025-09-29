@@ -30,9 +30,15 @@ const BaseInput = ({
       {withLabel && <Label htmlFor={label}>{label}</Label>}
       <div className="relative flex-1">
         <Input
+          readOnly
+          tabIndex={-1} // <- prevent mobile from auto-focusing
           size={size}
           type={type}
           placeholder={placeholder}
+          onFocus={(e) => {
+            e.currentTarget.removeAttribute('readonly')
+            e.currentTarget.tabIndex = 0
+          }}
           className={cn(
             'w-full text-sm placeholder:text-sm',
             inputClassName,
