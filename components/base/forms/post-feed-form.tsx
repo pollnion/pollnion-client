@@ -10,6 +10,8 @@ import {schema} from '@/hooks/feed/use-post-feed'
 import useGetTags from '@/hooks/feed/use-get-tags'
 import BaseCombobox from '../combobox/base-combobox'
 import PosteFeedFormPoll from './post-feed-form-poll'
+import BaseCheckbox from '../checkbox/base-checkbox'
+import BaseDatePicker from '../date/base-date-picker'
 
 type FormValues = z.infer<typeof schema>
 
@@ -56,6 +58,37 @@ const PostFeedForm = ({form}: {form: UseFormReturn<FormValues>}) => {
             <PosteFeedFormPoll />
           </BaseFormItem>
         )}
+      />
+
+      <FormField
+        name="status"
+        control={form.control}
+        render={({field}) => {
+          const handleChange = (val: string) => {
+            if (val === 'date') {
+              field.onChange(new Date())
+            } else {
+              field.onChange('never')
+            }
+          }
+
+          return (
+            <BaseFormItem label="Poll Status" description="Sets the duration of poll">
+              <div className="space-y-4">
+                <BaseCheckbox
+                  items={[
+                    {label: 'Open', value: 'date'},
+                    {label: 'Never close', value: 'never'},
+                  ]}
+                  value={typeof field.value === 'string' ? field.value : 'date'}
+                  onChange={handleChange}
+                />
+
+                {field.value instanceof Date && <BaseDatePicker {...field} />}
+              </div>
+            </BaseFormItem>
+          )
+        }}
       />
     </div>
   )

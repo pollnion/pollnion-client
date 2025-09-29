@@ -23,12 +23,14 @@ export const schema = z.object({
       })
     )
     .min(2, 'At least two polls are required'),
+  status: z.union([z.string().min(1, 'Status is required'), z.date()]),
 })
 
 type FormValues = z.infer<typeof schema>
 
 const defaultValues: FormValues = {
   title: '',
+  status: 'never',
   description: '',
   polls: [{label: ''}, {label: ''}],
   tags: [{label: 'Hypothetical', value: '2'}],

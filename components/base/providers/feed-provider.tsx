@@ -37,6 +37,7 @@ const FeedProvider = ({children}: {children: Children}) => {
         onSubmit={onSubmit}
         toggleOpen={toggleOpen}
         onOkProps={{label: 'Create poll'}}
+        className="h-[400px] overflow-y-scroll"
       >
         <PostFeedForm form={form} />
       </BaseDialog>
