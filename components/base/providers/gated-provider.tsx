@@ -45,10 +45,10 @@ const GatedProvider = ({children}: {children: Children}) => {
   }, [isOpen]) // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
-    // resets values wheneer user changes pages
+    // resets values whenever user changes pages
     signInProps.form.reset()
     signUpProps.form.reset()
-  }, [type])
+  }, [type, signInProps.form, signUpProps.form])
 
   return (
     <GatedContext.Provider value={{isOpen, toggleOpen}}>
@@ -58,7 +58,7 @@ const GatedProvider = ({children}: {children: Children}) => {
         type="form"
         isOpen={isOpen}
         title={type === 'sign_in' ? 'Sign in' : 'Sign up'}
-        onCancelProps={false}
+        onCancelProps={undefined}
         toggleOpen={toggleOpen}
         description={
           type === 'sign_in' ? 'Please enter your details.' : 'Create a new account.'

@@ -1,5 +1,7 @@
 import React from 'react'
+
 import AuthProvider from './auth-provider'
+import FeedProvider from './feed-provider'
 import GatedProvider from './gated-provider'
 import {ThemeProvider} from './theme-provider'
 
@@ -16,7 +18,9 @@ const AppProviders = ({children}: AppProvidersProps) => {
       disableTransitionOnChange
     >
       <AuthProvider>
-        <GatedProvider>{children}</GatedProvider>
+        <GatedProvider>
+          <FeedProvider>{children}</FeedProvider>
+        </GatedProvider>
       </AuthProvider>
     </ThemeProvider>
   )

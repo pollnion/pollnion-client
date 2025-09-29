@@ -5,6 +5,7 @@ import {ShieldCheck} from 'lucide-react'
 import {FeedItem} from '@/models/feed'
 import {USER_STATUS} from '@/constants/status'
 import BaseAvatar from '@/components/base/avatars/base-avatar'
+import BaseButton from '@/components/base/buttons/base-button'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 import {TypographySmall} from '@/components/base/typography/base-typography'
 
@@ -24,7 +25,9 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
         </div>
         <TypographyMuted className="text-xs">1 hr ago</TypographyMuted>
       </div>
-      <Ellipsis size="18" />
+      <BaseButton variant="ghost" className="rounded-full" size="sm">
+        <Ellipsis size="18" />
+      </BaseButton>
     </div>
   )
 }

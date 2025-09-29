@@ -1,5 +1,3 @@
-import React from 'react'
-
 const usePassCheck = () => {
   const passwordReq = (password: string): {text: string; match: boolean}[] => {
     return [
