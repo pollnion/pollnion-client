@@ -5,6 +5,7 @@ import {Menu, SearchIcon} from 'lucide-react'
 import BaseNavCta from './base-nav-cta'
 import BaseNavAvatar from './base-nav-avatar'
 import {IMAGE_LOGO} from '@/constants/images'
+import {useLayout} from '@/hooks/layout/useLayout'
 import {Separator} from '@/components/ui/separator'
 import {BaseIcon} from '@/components/base/icons/base-icon'
 import BaseInput from '@/components/base/inputs/base-input'
@@ -12,6 +13,8 @@ import BaseButton from '@/components/base/buttons/base-button'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 export default function BaseNav() {
+  const useLayoutProps = useLayout()
+
   const [show, setShow] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
 
@@ -39,12 +42,17 @@ export default function BaseNav() {
     >
       <div className="flex align-items-center">
         <div className="block xl:hidden">
-          <BaseButton variant="ghost">
+          <BaseButton variant="ghost" onClick={useLayoutProps.toggleOpen}>
             <Menu />
           </BaseButton>
         </div>
 
-        <BaseButton href="/" variant="ghost" className="p-0">
+        <BaseButton
+          href="/"
+          variant="ghost"
+          className="p-0"
+          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+        >
           <div className="relative w-24 h-12">
             <Image
               src={IMAGE_LOGO}

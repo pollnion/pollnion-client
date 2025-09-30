@@ -26,9 +26,9 @@ type BaseDialogProps<T extends FieldValues> = {
   description?: string
   toggleOpen: () => void
   onOkProps?: ButtonProps
-  onCancelProps?: ButtonProps
   children: React.ReactNode
   className?: ClassNameValue
+  onCancelProps?: ButtonProps
   form?: UseFormReturn<T>
   onSubmit?: SubmitHandler<T>
 }
@@ -47,7 +47,7 @@ const BaseDialog = <T extends FieldValues>({
   onCancelProps,
 }: BaseDialogProps<T>) => {
   const Content = (
-    <>
+    <React.Fragment>
       <DialogHeader>
         <DialogTitle>{title}</DialogTitle>
         {description && <DialogDescription>{description}</DialogDescription>}
@@ -69,12 +69,14 @@ const BaseDialog = <T extends FieldValues>({
           )}
         </DialogFooter>
       )}
-    </>
+    </React.Fragment>
   )
 
   return (
     <Dialog open={isOpen} onOpenChange={toggleOpen}>
-      <DialogContent className={cn('sm:max-w-[590px]', className)}>
+      <DialogContent
+        className={cn('sm:max-w-[590px] bg-neutral-900 px-3 py-4', className)}
+      >
         {type === 'form' && form ? (
           <Form {...form}>
             <form

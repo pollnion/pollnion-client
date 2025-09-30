@@ -31,7 +31,7 @@ const BaseInput = ({
       <div className="relative flex-1">
         <Input
           readOnly
-          tabIndex={-1} // <- prevent mobile from auto-focusing
+          tabIndex={-1}
           size={size}
           type={type}
           placeholder={placeholder}

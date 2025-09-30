@@ -1,0 +1,7 @@
+.scroll-invisible::-webkit-scrollbar {
+  display: none;
+}
+.scroll-invisible {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

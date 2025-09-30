@@ -1,14 +1,48 @@
 import React from 'react'
+import {Separator} from '@radix-ui/react-separator'
+
+// middle
 import Feed from '../feed'
 
-// className="grid grid-cols-1 md:grid-cols-12 md:gap-4 mt-6"
+// left
+import Spaces from '../spaces'
+import Discover from '../discover'
+
+// right
+import Share from '../share-cta'
+import Timeline from '../timeline-cta'
+
+import {cn} from '@/lib/utils'
+import styles from './styles.module.scss'
 
 const Index = () => {
   return (
-    <div className="flex justify-between mt-4">
-      <div className="hidden md:block">this is another section</div>
+    <div className="flex justify-between mt-4 sm:space-x-4">
+      {/* left */}
+      <div
+        className={cn(
+          styles['scroll-invisible'],
+          'hidden sm:block sm:w-[200px] md:w-[250px] space-y-4 sticky top-20 self-start max-h-[calc(100vh-5rem)] overflow-y-auto'
+        )}
+      >
+        <Discover />
+        <Separator orientation="horizontal" className="flex-1" />
+        <Spaces />
+      </div>
+
+      {/* middle */}
       <Feed />
-      <div className="hidden xl:block">this is another section</div>
+
+      {/* right */}
+      <div
+        className={cn(
+          styles['scroll-invisible'],
+          'hidden md:block sm:w-[200px] md:w-[250px] space-y-4 sticky top-20 self-start max-h-[calc(100vh-5rem)] overflow-y-auto'
+        )}
+      >
+        <Share />
+        <Timeline />
+      </div>
     </div>
   )
 }

@@ -26,6 +26,12 @@ const PosteFeedFormPoll = () => {
               <BaseInput
                 {...field}
                 placeholder={`Add poll ${idx + 1}`}
+                readOnly
+                tabIndex={-1}
+                onFocus={(e) => {
+                  e.currentTarget.removeAttribute('readonly')
+                  e.currentTarget.tabIndex = 0
+                }}
                 withButton={
                   idx === 0 && fields.length > 1
                     ? undefined
