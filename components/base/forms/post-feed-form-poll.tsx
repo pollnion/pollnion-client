@@ -43,7 +43,7 @@ const PosteFeedFormPoll = () => {
                         label: idx === fields.length - 1 ? 'Add' : 'Remove',
                         onClick:
                           idx === fields.length - 1
-                            ? () => append({label: ''})
+                            ? () => append({label: ''}, {shouldFocus: false})
                             : () => remove(idx),
                       }
                 }

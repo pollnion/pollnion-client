@@ -11,13 +11,14 @@ import Discover from '../discover'
 // right
 import Share from '../share-cta'
 import Timeline from '../timeline-cta'
+import LinksCta from '../links-cta'
 
 import {cn} from '@/lib/utils'
 import styles from './styles.module.scss'
 
 const Index = () => {
   return (
-    <div className="flex justify-between mt-4 sm:space-x-4">
+    <div className="flex items-center justify-between mt-4 sm:space-x-4">
       {/* left */}
       <div
         className={cn(
@@ -42,6 +43,7 @@ const Index = () => {
       >
         <Share />
         <Timeline />
+        <LinksCta />
       </div>
     </div>
   )

@@ -40,7 +40,7 @@ const BaseInput = ({
             e.currentTarget.tabIndex = 0
           }}
           className={cn(
-            'w-full text-sm placeholder:text-sm',
+            'w-full text-sm placeholder:text-sm border-none',
             inputClassName,
             Icon && iconDirection === 'left' && 'pl-9',
             Icon && iconDirection === 'right' && 'pr-9'

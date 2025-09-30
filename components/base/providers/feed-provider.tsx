@@ -36,7 +36,7 @@ const FeedProvider = ({children}: {children: Children}) => {
         isOpen={isOpen}
         onSubmit={onSubmit}
         toggleOpen={toggleOpen}
-        onOkProps={{label: 'Create poll'}}
+        onOkProps={{label: 'Create poll', className: 'w-full'}}
         className="h-[600px] overflow-y-scroll"
       >
         <PostFeedForm form={form} />

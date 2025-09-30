@@ -70,7 +70,7 @@ const BaseCombobox = ({
           aria-expanded={open}
           role="combobox"
           variant="outline"
-          className="w-full justify-between"
+          className="w-full justify-between border-none"
         >
           {displayText}
           <ChevronsUpDown className="opacity-50" />

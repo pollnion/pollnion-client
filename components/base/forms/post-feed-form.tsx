@@ -39,6 +39,7 @@ const PostFeedForm = ({form}: {form: UseFormReturn<FormValues>}) => {
               placeholder="Enter your description"
               readOnly
               tabIndex={-1}
+              className="border-none"
               onFocus={(e) => {
                 e.currentTarget.removeAttribute('readonly')
                 e.currentTarget.tabIndex = 0
