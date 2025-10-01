@@ -9,16 +9,17 @@ import Spaces from '../spaces'
 import Discover from '../discover'
 
 // right
+import Latest from '../latest'
 import Share from '../share-cta'
-import Timeline from '../timeline-cta'
 import LinksCta from '../links-cta'
+import Timeline from '../timeline-cta'
 
 import {cn} from '@/lib/utils'
 import styles from './styles.module.scss'
 
 const Index = () => {
   return (
-    <div className="flex items-center justify-between mt-4 sm:space-x-4">
+    <div className="flex items-center justify-between mt-4 md:space-x-4">
       {/* left */}
       <div
         className={cn(
@@ -38,11 +39,12 @@ const Index = () => {
       <div
         className={cn(
           styles['scroll-invisible'],
-          'hidden md:block sm:w-[200px] md:w-[250px] space-y-4 sticky top-20 self-start max-h-[calc(100vh-5rem)] overflow-y-auto'
+          'hidden md:block sm:w-[200px] md:w-[280px] space-y-4 sticky top-20 self-start max-h-[calc(100vh-5rem)] overflow-y-auto'
         )}
       >
         <Share />
         <Timeline />
+        <Latest />
         <LinksCta />
       </div>
     </div>

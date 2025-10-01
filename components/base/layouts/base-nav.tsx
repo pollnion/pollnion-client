@@ -36,9 +36,8 @@ export default function BaseNav() {
 
   return (
     <nav
-      className={`px-2 lg:container lg:mx-auto flex justify-between py-3 items-center sticky top-0 h-fit bg-background z-50 space-x-2 transition-transform duration-300 ${
-        show ? 'translate-y-0' : '-translate-y-full'
-      }`}
+      className={`px-2 lg:container lg:mx-auto lg:px-6 flex justify-between py-3 items-center sticky top-0 h-fit bg-background z-50 space-x-2 transition-transform duration-300
+  ${show ? 'translate-y-0' : 'translate-y-[-100%] sm:translate-y-0'}`}
     >
       <div className="flex align-items-center">
         <div className="block xl:hidden">
