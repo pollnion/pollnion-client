@@ -37,7 +37,7 @@ const FeedPost = () => {
 
   return (
     <React.Fragment>
-      <div className="bg-neutral-900 p-2 rounded-none sm:rounded-sm">
+      <div className="bg-card p-2 rounded-none sm:rounded-sm">
         <div className="flex items-center space-x-2">
           <BaseAvatar />
           {React.createElement(

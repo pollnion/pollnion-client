@@ -75,7 +75,7 @@ const BaseDialog = <T extends FieldValues>({
   return (
     <Dialog open={isOpen} onOpenChange={toggleOpen}>
       <DialogContent
-        className={cn('sm:max-w-[590px] bg-neutral-900 px-3 py-6 border-none', className)}
+        className={cn('sm:max-w-[590px] bg-card px-3 py-6 border-none', className)}
       >
         {type === 'form' && form ? (
           <Form {...form}>

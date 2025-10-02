@@ -11,7 +11,7 @@ const timeline: TimelineItem[] = [{description: 'Pollnion just launched! ðŸŽ‰ðŸ¥
 
 export function BaseTimeline() {
   return (
-    <div className="bg-neutral-900 rounded-sm p-3">
+    <div className="bg-card rounded-sm p-3">
       <TypographyP className="font-extrabold">What&apos;s new?</TypographyP>
 
       {map(timeline, (item, idx) => {
