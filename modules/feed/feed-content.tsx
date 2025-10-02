@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import {map, round} from 'lodash'
 import {FeedItem} from '@/models/feed'
 import {Badge} from '@/components/ui/badge'
 import {formattedNumber} from '@/lib/numbers'
@@ -39,17 +39,27 @@ const Polls = ({
         </TypographyMuted>
       </div>
 
-      {map(options, ({votes, label}, i) => (
-        <div
-          key={i}
-          className="bg-neutral-800 mb-1 last:mb-0 p-2 rounded-sm whitespace-nowrap flex items-center space-x-2"
-          style={{width: `${(votes / totalVotes) * 100}%`}}
-        >
-          <TypographySmall>{votes}</TypographySmall>
-          <TypographyMuted>{label}</TypographyMuted>
-          {votes === maxVotes && isClosed && <CircleCheckBig size="16" />}
-        </div>
-      ))}
+      <>
+        {map(options, ({votes, label}, i) => (
+          <div
+            key={i}
+            className="mb-1 relative items-center rounded-md bg-neutral-800/50 hover:bg-neutral-800/60 hover:cursor-pointer"
+          >
+            <div
+              className="bg-neutral-800 last:mb-0 p-2 rounded-sm whitespace-nowrap flex items-center space-x-2"
+              style={{width: `${(votes / totalVotes) * 100}%`}}
+            >
+              <TypographySmall>{votes}</TypographySmall>
+              <TypographyMuted>{label}</TypographyMuted>
+              {votes === maxVotes && isClosed && <CircleCheckBig size="16" />}
+            </div>
+
+            <div className="absolute top-2 right-2">
+              <TypographyMuted>{round((votes / totalVotes) * 100)} %</TypographyMuted>
+            </div>
+          </div>
+        ))}
+      </>
 
       {options.length > 3 && (
         <div className="pt-1">

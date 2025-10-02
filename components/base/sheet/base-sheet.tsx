@@ -5,6 +5,7 @@ import {
   SheetHeader,
   SheetContent,
   SheetDescription,
+  SheetFooter,
 } from '@/components/ui/sheet'
 
 const BaseSheet = ({
@@ -14,21 +15,25 @@ const BaseSheet = ({
   side = 'left',
   children,
   toggleOpen,
+  footer,
 }: DialogProps & {
   title: string
   children: Children
+  footer?: Children
   description: string
   side?: 'top' | 'right' | 'bottom' | 'left'
 }) => {
   return (
     <Sheet open={isOpen} onOpenChange={toggleOpen}>
-      <SheetContent side={side}>
-        <SheetHeader>
+      <SheetContent className="flex flex-col" side={side}>
+        <SheetHeader className="flex-none border-b p-6 text-left">
           <SheetTitle>{title}</SheetTitle>
           <SheetDescription>{description}</SheetDescription>
         </SheetHeader>
 
-        <div className="px-4">{children}</div>
+        <div className="px-4 flex-1 overflow-y-auto">{children}</div>
+
+        {footer && <SheetFooter className="flex-none border-t p-6">{footer}</SheetFooter>}
       </SheetContent>
     </Sheet>
   )

@@ -6,7 +6,7 @@ const LINK = 'https://charlidev.netlify.app/'
 
 const Index = () => {
   return (
-    <div>
+    <div className="flex space-x-2 flex-wrap">
       <TypographyMuted>Pollnion © 2025</TypographyMuted>
       <TypographyMuted>
         Made with ❤️ by{' '}

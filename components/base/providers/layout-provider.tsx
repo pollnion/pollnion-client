@@ -2,9 +2,11 @@
 
 import React from 'react'
 import {createContext} from 'react'
-import Spaces from '@/modules/discover'
-import Discover from '@/modules/discover'
+import Spaces from '@/modules/spaces'
 import useSheet from '../sheet/useSheet'
+import Discover from '@/modules/discover'
+import LinkCta from '@/modules/links-cta'
+import ShareCta from '@/modules/share-cta'
 import BaseSheet from '../sheet/base-sheet'
 
 type DefaultValues = DialogProps
@@ -28,8 +30,9 @@ const LayoutProvider = ({children}: {children: Children}) => {
     <LayoutContext.Provider value={{...sheetProps}}>
       {children}
 
-      <BaseSheet {...sheetProps} {...SHEET_CONTENTS}>
+      <BaseSheet {...sheetProps} {...SHEET_CONTENTS} footer={<LinkCta />}>
         <div className="space-y-4">
+          <ShareCta />
           <Discover />
           <Spaces />
         </div>

@@ -3,6 +3,7 @@ import React from 'react'
 import AuthProvider from './auth-provider'
 import FeedProvider from './feed-provider'
 import GatedProvider from './gated-provider'
+import ShareProvider from './share-provider'
 import {ThemeProvider} from './theme-provider'
 import LayoutProvider from './layout-provider'
 
@@ -20,9 +21,11 @@ const AppProviders = ({children}: AppProvidersProps) => {
     >
       <AuthProvider>
         <GatedProvider>
-          <LayoutProvider>
-            <FeedProvider>{children}</FeedProvider>
-          </LayoutProvider>
+          <FeedProvider>
+            <ShareProvider>
+              <LayoutProvider>{children}</LayoutProvider>
+            </ShareProvider>
+          </FeedProvider>
         </GatedProvider>
       </AuthProvider>
     </ThemeProvider>
