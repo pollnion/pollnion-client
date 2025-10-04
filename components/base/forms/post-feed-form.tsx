@@ -91,7 +91,7 @@ const PostFeedForm = ({form}: {form: UseFormReturn<FormValues>}) => {
               <div className="space-y-4">
                 <BaseCheckbox
                   items={[
-                    {label: 'Open', value: 'date'},
+                    {label: 'Open until', value: 'date'},
                     {label: 'Never close', value: 'never'},
                   ]}
                   value={typeof field.value === 'string' ? field.value : 'date'}

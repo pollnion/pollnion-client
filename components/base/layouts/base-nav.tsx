@@ -1,9 +1,10 @@
 'use client'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
+import {usePathname} from 'next/navigation'
+import {Menu, SearchIcon} from 'lucide-react'
 import {AiOutlineGithub} from 'react-icons/ai'
 
-import {Menu, SearchIcon} from 'lucide-react'
 import BaseNavCta from './base-nav-cta'
 import BaseNavAvatar from './base-nav-avatar'
 import {IMAGE_LOGO} from '@/constants/images'
@@ -13,7 +14,10 @@ import BaseButton from '@/components/base/buttons/base-button'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 export default function BaseNav() {
+  const pathname = usePathname()
   const useLayoutProps = useLayout()
+
+  const isSearchPath = pathname.startsWith('/search')
 
   const [show, setShow] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
@@ -40,7 +44,7 @@ export default function BaseNav() {
   ${show ? 'translate-y-0' : 'translate-y-[-100%] sm:translate-y-0'}`}
     >
       <div className="flex align-items-center space-x-2">
-        <div className="block xl:hidden">
+        <div className="block sm:hidden">
           <BaseButton variant="ghost" onClick={useLayoutProps.toggleOpen}>
             <Menu />
           </BaseButton>
@@ -65,13 +69,17 @@ export default function BaseNav() {
       </div>
 
       <div className="flex space-x-2 items-center">
-        <BaseButton
-          variant="outline"
-          icon={SearchIcon}
-          className="sm:w-[200px] md:w-[280px] justify-start"
-        >
-          <div className="hidden sm:block text-muted-foreground">Search...</div>
-        </BaseButton>
+        {!isSearchPath && (
+          <BaseButton
+            asChild
+            href="/search"
+            variant="outline"
+            icon={SearchIcon}
+            className="sm:w-[200px] md:w-[280px] justify-start"
+          >
+            <div className="hidden sm:block text-muted-foreground">Search...</div>
+          </BaseButton>
+        )}
 
         <div className="hidden md:block">
           <Separator orientation="vertical" className="!h-4 w-px bg-muted" />

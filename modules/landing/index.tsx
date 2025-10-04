@@ -19,7 +19,7 @@ import styles from './styles.module.scss'
 
 const Index = () => {
   return (
-    <div className="flex items-center justify-between mt-4 md:space-x-4">
+    <div className="flex items-center justify-between md:space-x-4">
       {/* left */}
       <div
         className={cn(
@@ -28,7 +28,6 @@ const Index = () => {
         )}
       >
         <Discover />
-        <Separator orientation="horizontal" className="flex-1" />
         <Spaces />
       </div>
 

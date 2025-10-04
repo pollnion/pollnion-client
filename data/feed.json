@@ -128,8 +128,8 @@
         "options": [
           {"id": "opt1", "label": "Heck yes", "votes": 1},
           {"id": "opt2", "label": "Only if stable", "votes": 0},
-          {"id": "opt3", "label": "Nope, sticking with React", "votes": 0},
-          {"id": "opt4", "label": "Nope, sticking with React", "votes": 0}
+          {"id": "opt3", "label": "No, stick sa react", "votes": 0},
+          {"id": "opt4", "label": "Auq na", "votes": 0}
         ]
       },
       "engagements_count": {

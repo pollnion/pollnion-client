@@ -12,6 +12,7 @@ import {TypographyLarge} from '@/components/base/typography/base-typography'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 import BaseStatusBadge, {StatusPoint} from '@/components/base/badges/base-status-badge'
 import {cn} from '@/lib/utils'
+import Link from 'next/link'
 
 const Polls = ({
   poll,
@@ -58,8 +59,8 @@ const Polls = ({
               )}
               style={{width: `${(votes / totalVotes) * 100}%`}}
             >
-              <TypographySmall>{votes}</TypographySmall>
-              <TypographyMuted>{label}</TypographyMuted>
+              <TypographySmall>{formattedNumber(votes)}</TypographySmall>
+              <TypographyMuted className="break-normal">{label}</TypographyMuted>
               {votes === maxVotes && isClosed && <CircleCheckBig size="16" />}
             </div>
 
@@ -80,14 +81,29 @@ const Polls = ({
 }
 
 const FeedContent: React.FC<{item: FeedItem}> = ({item}) => {
-  const {content, poll} = item || {}
+  const {content, poll, id} = item || {}
   const {title, description} = content || {}
 
   return (
     <React.Fragment>
       <div className="mb-2">
-        {title && <TypographyLarge>{title}</TypographyLarge>}
-        {description && <TypographyMuted>{description}</TypographyMuted>}
+        {title && <TypographyLarge className="break-words">{title}</TypographyLarge>}
+
+        {description && (
+          <div className="break-normal">
+            <TypographyMuted>
+              {description.length > 100 ? description.slice(0, 100) + '…' : description}
+            </TypographyMuted>
+
+            {description.length > 100 && (
+              <Link href={`/polls/${id ?? ''}`}>
+                <TypographyMuted className="hover:underline text-sm mt-1">
+                  See more
+                </TypographyMuted>
+              </Link>
+            )}
+          </div>
+        )}
       </div>
       <Polls poll={poll} content={content} />
     </React.Fragment>

@@ -19,7 +19,11 @@ export const schema = z.object({
   polls: z
     .array(
       z.object({
-        label: z.string().min(1, 'Poll option cannot be empty'),
+        label: z
+          .string()
+          .min(1, 'Poll option cannot be empty')
+          .min(2, 'Poll must be at least 2 characters')
+          .max(25, 'Poll must be at most 25 characters'),
       })
     )
     .min(2, 'At least two polls are required'),
