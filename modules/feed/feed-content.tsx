@@ -10,6 +10,8 @@ import {TypographySmall} from '@/components/base/typography/base-typography'
 import {TypographyLead} from '@/components/base/typography/base-typography'
 import {TypographyLarge} from '@/components/base/typography/base-typography'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
+import BaseStatusBadge, {StatusPoint} from '@/components/base/badges/base-status-badge'
+import {cn} from '@/lib/utils'
 
 const Polls = ({
   poll,
@@ -34,9 +36,13 @@ const Polls = ({
         <TypographyLead className="text-sm text-white font-semibold">
           {formattedNumber(totalVotes)} total votes
         </TypographyLead>
-        <TypographyMuted className="text-xs">
-          {POLL_STATUS_LABEL[status as keyof typeof POLL_STATUS_LABEL]}
-        </TypographyMuted>
+
+        <div className="flex items-center space-x-2">
+          <StatusPoint status={status} />
+          <TypographyMuted className="text-xs">
+            {POLL_STATUS_LABEL[status as keyof typeof POLL_STATUS_LABEL]}
+          </TypographyMuted>
+        </div>
       </div>
 
       <>
@@ -46,7 +52,10 @@ const Polls = ({
             className="mb-1 relative items-center rounded-md bg-neutral-800/50 hover:bg-neutral-800/60 hover:cursor-pointer"
           >
             <div
-              className="bg-neutral-800 last:mb-0 p-2 rounded-sm whitespace-nowrap flex items-center space-x-2"
+              className={cn(
+                'last:mb-0 p-2 rounded-sm whitespace-nowrap flex items-center space-x-2',
+                {'bg-neutral-700/50': true} // temp
+              )}
               style={{width: `${(votes / totalVotes) * 100}%`}}
             >
               <TypographySmall>{votes}</TypographySmall>

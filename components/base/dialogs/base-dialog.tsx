@@ -3,7 +3,6 @@ import {ClassNameValue} from 'tailwind-merge'
 import {UseFormReturn, FieldValues, SubmitHandler} from 'react-hook-form'
 
 import {cn} from '@/lib/utils'
-import {Form} from '@/components/ui/form'
 import BaseButton from '@/components/base/buttons/base-button'
 import {
   Dialog,
@@ -14,6 +13,7 @@ import {
   DialogContent,
   DialogDescription,
 } from '@/components/ui/dialog'
+import BaseForm from '../forms/base-form'
 
 type ButtonProps = {
   label: string
@@ -78,16 +78,9 @@ const BaseDialog = <T extends FieldValues>({
         className={cn('sm:max-w-[590px] bg-card px-3 py-6 border-none', className)}
       >
         {type === 'form' && form ? (
-          <Form {...form}>
-            <form
-              onSubmit={
-                onSubmit ? form.handleSubmit(onSubmit) : (e) => e.preventDefault()
-              }
-              className="space-y-8"
-            >
-              {Content}
-            </form>
-          </Form>
+          <BaseForm form={form} onSubmit={onSubmit}>
+            {Content}
+          </BaseForm>
         ) : (
           Content
         )}

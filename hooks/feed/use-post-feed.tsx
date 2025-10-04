@@ -36,7 +36,7 @@ const defaultValues: FormValues = {
   tags: [{label: 'Hypothetical', value: '2'}],
 }
 
-const fields = {defaultValues, resolver: zodResolver(schema)}
+const fields = {defaultValues, resolver: zodResolver(schema), shouldFocusError: false}
 
 const usePostFeed = () => {
   const form = useForm<FormValues>(fields)

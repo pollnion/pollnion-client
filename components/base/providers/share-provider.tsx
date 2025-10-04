@@ -16,6 +16,7 @@ import {
   WhatsappIcon,
 } from 'react-share'
 import {TypographySmall} from '../typography/base-typography'
+import {useCopyToClipboard} from '@/hooks/layout/use-copy'
 
 type DefaultValue = DialogProps
 
@@ -30,6 +31,7 @@ const ShareApp = ({isOpen, toggleOpen}: DefaultValue) => {
   const url = typeof window !== 'undefined' ? window.location.href : ''
   const shareUrl = url
   const title = 'Check this out!'
+  const {copy, copied} = useCopyToClipboard()
 
   return (
     <BaseDialog
@@ -63,7 +65,11 @@ const ShareApp = ({isOpen, toggleOpen}: DefaultValue) => {
         icon={Link}
         value={url}
         iconDirection="left"
-        withButton={{label: 'Copy', icon: Copy, onClick: () => console.log('Copied')}}
+        withButton={{
+          icon: Copy,
+          label: copied ? 'Copied' : 'Copy',
+          onClick: () => copy(shareUrl),
+        }}
       />
     </BaseDialog>
   )

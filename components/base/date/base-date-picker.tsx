@@ -40,7 +40,11 @@ const BaseDatePicker = ({
           mode="single"
           selected={value as Date}
           onSelect={handleSelect}
-          disabled={(date) => date < new Date()}
+          disabled={(date) => {
+            const today = new Date()
+            today.setHours(0, 0, 0, 0) // strip time
+            return date <= today
+          }}
         />
       </PopoverContent>
     </Popover>

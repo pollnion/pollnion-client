@@ -23,6 +23,7 @@ const defaultValues: FormValues = {email: '', password: ''}
 const fields = {
   defaultValues,
   resolver: zodResolver(schema),
+  shouldFocusError: false,
 }
 
 const useSignUp = () => {

@@ -76,7 +76,11 @@ const PostFeedForm = ({form}: {form: UseFormReturn<FormValues>}) => {
         render={({field}) => {
           const handleChange = (val: string) => {
             if (val === 'date') {
-              field.onChange(new Date())
+              const tomorrow = new Date()
+              tomorrow.setHours(0, 0, 0, 0)
+              tomorrow.setDate(tomorrow.getDate() + 1)
+
+              field.onChange(tomorrow)
             } else {
               field.onChange('never')
             }

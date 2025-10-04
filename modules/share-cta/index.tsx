@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {Forward} from 'lucide-react'
-import {useShare} from '@/hooks/layout/useShare'
+import {useShare} from '@/hooks/layout/use-share'
 import BaseButton from '@/components/base/buttons/base-button'
 import {TypographyH2, TypographyMuted} from '@/components/base/typography/base-typography'
 

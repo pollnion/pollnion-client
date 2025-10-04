@@ -66,16 +66,6 @@ const FeedPost = () => {
           })}
         </div>
       </div>
-
-      {/* will show for smaller devices */}
-      <div className="fixed bottom-4 right-4 z-50 block md:hidden">
-        <BaseButton
-          onClick={feedProps.toggleOpen}
-          className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
-        >
-          <Plus />
-        </BaseButton>
-      </div>
     </React.Fragment>
   )
 }
