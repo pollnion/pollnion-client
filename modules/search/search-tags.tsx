@@ -11,8 +11,8 @@ const TAGS = [
     href: '/search',
   },
   {
-    label: 'Accounts',
-    href: '/search/accounts',
+    label: 'Users',
+    href: '/search/users',
   },
   {
     label: 'Top polls',
@@ -38,7 +38,7 @@ const SearchTags = () => {
         return (
           <BaseButton
             key={idx}
-            variant={isActive ? 'default' : 'secondary'} // "primary" look when active
+            variant={isActive ? 'default' : 'secondary'}
             href={href}
             className="flex-shrink-0"
           >
