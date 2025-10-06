@@ -31,7 +31,7 @@ const Index = () => {
           return (
             <div
               key={idx}
-              className="hover:bg-neutral-800/50 p-2 rounded-sm hover:cursor-pointer"
+              className="hover:bg-neutral-800/50 p-1 rounded-sm hover:cursor-pointer"
             >
               {title && <TypographySmall>{title}</TypographySmall>}
               <div className="flex space-x-1 mt-1 items-center">
