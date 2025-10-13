@@ -6,7 +6,7 @@ import {Badge} from '@/components/ui/badge'
 import {POLL_STATUS, POLL_STATUS_LABEL} from '@/constants/status'
 
 export const StatusPoint = ({status}: {status?: string}) => {
-  // temprary: return nothing if the badge is open
+  // temp: return nothing if the badge is open
   if (status === 'open') {
     return null
   }

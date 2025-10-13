@@ -3,12 +3,14 @@
 import React from 'react'
 import {useState} from 'react'
 import {createContext} from 'react'
-import BaseDialog from '../dialogs/base-dialog'
+
+import SignUpForm from '../forms/sign-up-form'
 import SignInForm from '../forms/sign-in-form'
+import BaseDialog from '../dialogs/base-dialog'
+
 import useSignUp from '@/hooks/auth/use-sign-up'
 import useSignIn from '@/hooks/auth/use-sign-in'
 import {useAuth} from '@/hooks/providers/use-auth'
-import SignUpForm from '../forms/sign-up-form'
 import usePassCheck from '@/hooks/auth/use-pass-check'
 
 type DefaultValues = DialogProps

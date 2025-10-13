@@ -1,4 +1,5 @@
 import React from 'react'
+import {Toaster} from 'sonner'
 
 import AuthProvider from './auth-provider'
 import FeedProvider from './feed-provider'
@@ -6,7 +7,6 @@ import GatedProvider from './gated-provider'
 import ShareProvider from './share-provider'
 import {ThemeProvider} from './theme-provider'
 import LayoutProvider from './layout-provider'
-import {Toaster} from 'sonner'
 
 type AppProvidersProps = {
   children: React.ReactNode

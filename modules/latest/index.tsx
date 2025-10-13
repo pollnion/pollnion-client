@@ -15,9 +15,7 @@ const Index = () => {
 
   const _data = take(data, 3)
 
-  if (isLoading) {
-    return <LatestSkeleton />
-  }
+  if (isLoading) return <LatestSkeleton />
 
   return (
     <div className="bg-neutral-900 rounded-sm p-3">
@@ -26,8 +24,10 @@ const Index = () => {
       <div className="my-2">
         {map(_data, (item, idx) => {
           const {content, poll} = item || {}
+
           const {title, space} = content || {}
           const {totalVotes} = poll || {}
+
           return (
             <div
               key={idx}

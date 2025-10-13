@@ -1,18 +1,19 @@
 import React from 'react'
+import Link from 'next/link'
 import {map, round} from 'lodash'
+import {CircleCheckBig} from 'lucide-react'
+
+import {cn} from '@/lib/utils'
 import {FeedItem} from '@/models/feed'
 import {Badge} from '@/components/ui/badge'
 import {formattedNumber} from '@/lib/numbers'
-import {CircleCheckBig} from 'lucide-react'
 import {POLL_STATUS} from '@/constants/status'
 import {POLL_STATUS_LABEL} from '@/constants/status'
+import {StatusPoint} from '@/components/base/badges/base-status-badge'
 import {TypographySmall} from '@/components/base/typography/base-typography'
 import {TypographyLead} from '@/components/base/typography/base-typography'
 import {TypographyLarge} from '@/components/base/typography/base-typography'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
-import BaseStatusBadge, {StatusPoint} from '@/components/base/badges/base-status-badge'
-import {cn} from '@/lib/utils'
-import Link from 'next/link'
 
 const Polls = ({
   poll,
@@ -24,8 +25,8 @@ const Polls = ({
   const {space} = content || {}
   const {options = [], status, totalVotes = 0} = poll || {}
 
-  const maxVotes = Math.max(...options.map((o) => o.votes))
   const isClosed = POLL_STATUS.closed === status
+  const maxVotes = Math.max(...options.map((o) => o.votes))
 
   return (
     <React.Fragment>

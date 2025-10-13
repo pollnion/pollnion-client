@@ -11,19 +11,13 @@ const useSearch = () => {
   const {pushQuery} = useFilter()
   const params = useGetAllParams()
 
-  console.log(params)
-
   // stable debounced function
   const debouncedPush = useCallback(
-    debounce((item: string) => {
-      pushQuery({q: item})
-    }, 500),
+    debounce((item: string) => pushQuery({q: item}), 500),
     [pushQuery]
   )
 
-  const onChange = (item: string) => {
-    debouncedPush(item)
-  }
+  const onChange = (item: string) => debouncedPush(item)
 
   return {form, onChange}
 }

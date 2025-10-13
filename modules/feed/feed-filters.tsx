@@ -1,5 +1,6 @@
 import React from 'react'
 import {Funnel} from 'lucide-react'
+
 import BaseButton from '@/components/base/buttons/base-button'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 

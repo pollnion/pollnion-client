@@ -1,8 +1,8 @@
 import React from 'react'
 import {Search} from 'lucide-react'
 
-import BaseInput from '@/components/base/inputs/base-input'
 import useSearch from '@/hooks/layout/use-search'
+import BaseInput from '@/components/base/inputs/base-input'
 
 const SearchResultHeader = () => {
   const {onChange} = useSearch()

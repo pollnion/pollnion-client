@@ -1,10 +1,9 @@
 import React from 'react'
 import {map} from 'lodash'
 
+import feed from '@/data/feed.json'
 import SearchResultCard from './search-result-card'
 import SearchHeader from '@/components/base/search/search-header'
-
-import feed from '@/data/feed.json'
 
 const SearchResult = () => {
   return (

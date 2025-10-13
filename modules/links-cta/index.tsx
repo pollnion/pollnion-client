@@ -1,6 +1,7 @@
 import React from 'react'
-import {TypographyMuted} from '@/components/base/typography/base-typography'
 import Link from 'next/link'
+
+import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 const LINK = 'https://charlidev.netlify.app/'
 

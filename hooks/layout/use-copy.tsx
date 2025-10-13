@@ -1,4 +1,4 @@
-import {successToast} from '@/lib/sonner'
+import {notify} from '@/lib/sonner'
 import {useState, useCallback} from 'react'
 
 export function useCopyToClipboard(timeout = 2000) {
@@ -25,7 +25,7 @@ export function useCopyToClipboard(timeout = 2000) {
         }
 
         setCopied(true)
-        successToast('Copied!')
+        notify.success('Copied!')
         setTimeout(() => setCopied(false), timeout)
       } catch (err) {
         console.error('Copy failed:', err)

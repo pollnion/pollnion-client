@@ -2,8 +2,6 @@ import React from 'react'
 import {ClassNameValue} from 'tailwind-merge'
 import {UseFormReturn, FieldValues, SubmitHandler} from 'react-hook-form'
 
-import {cn} from '@/lib/utils'
-import BaseButton from '@/components/base/buttons/base-button'
 import {
   Dialog,
   DialogClose,
@@ -13,7 +11,9 @@ import {
   DialogContent,
   DialogDescription,
 } from '@/components/ui/dialog'
+import {cn} from '@/lib/utils'
 import BaseForm from '../forms/base-form'
+import BaseButton from '@/components/base/buttons/base-button'
 
 type ButtonProps = {
   label: string

@@ -1,12 +1,14 @@
 'use client'
 
 import React from 'react'
+
 import FeedCard from './feed-card'
 import FeedPost from './feed-post'
 import FeedFilters from './feed-filters'
+import FeedCardSkeleton from './feed-card-skeleton'
+
 import useGetFeed from '@/hooks/feed/use-get-feed'
 import {Separator} from '@/components/ui/separator'
-import FeedCardSkeleton from './feed-card-skeleton'
 import BaseVirtuoso from '@/components/base/virtuoso/base-virtuoso'
 
 const Index = () => {
