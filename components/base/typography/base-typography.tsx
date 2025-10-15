@@ -131,6 +131,15 @@ export function TypographySmall({
   )
 }
 
+export function TypographyMedium({
+  children,
+  className,
+}: React.ComponentProps<'div'> & {className?: ClassValue}) {
+  return (
+    <div className={cn('text-md leading-none font-medium', className)}>{children}</div>
+  )
+}
+
 export function TypographyMuted({
   children,
   className,

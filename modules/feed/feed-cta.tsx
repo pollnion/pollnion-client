@@ -17,17 +17,17 @@ const FeedCta: React.FC<{item: FeedItem}> = ({item}) => {
   const buttons = [
     {
       // likes
-      Icon: ArrowUp,
+      icon: ArrowUp,
       label: formattedNumber(likes),
     },
     {
       // likes
-      Icon: Repeat2,
+      icon: Repeat2,
       label: formattedNumber(likes),
     },
     {
       // likes
-      Icon: MessageCircle,
+      icon: MessageCircle,
       label: formattedNumber(comments),
     },
   ]
@@ -35,11 +35,11 @@ const FeedCta: React.FC<{item: FeedItem}> = ({item}) => {
   const buttons_v2 = [
     {
       // bookmark
-      Icon: Bookmark,
+      icon: Bookmark,
     },
     {
       // forward
-      Icon: Forward,
+      icon: Forward,
     },
   ]
 

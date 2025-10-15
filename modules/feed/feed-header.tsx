@@ -7,8 +7,13 @@ import {FeedItem} from '@/models/feed'
 import {USER_STATUS} from '@/constants/status'
 import BaseAvatar from '@/components/base/avatars/base-avatar'
 import BaseButton from '@/components/base/buttons/base-button'
-import {TypographyMuted} from '@/components/base/typography/base-typography'
+import BaseHoverCard from '@/components/base/hover-card/base-hover-card'
+import {
+  TypographyMedium,
+  TypographyMuted,
+} from '@/components/base/typography/base-typography'
 import {TypographySmall} from '@/components/base/typography/base-typography'
+import {formattedNumber} from '@/lib/numbers'
 
 const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
   const {author} = item || {} // createdAt
@@ -16,12 +21,35 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
 
   const isAdmin = isEqual(status, USER_STATUS.admin)
 
+  const Trigger = () => {
+    return (
+      <div className="flex items-center space-x-2 hover:underline hover:text-blue-300/90 decoration-blue-300/90">
+        <BaseAvatar />
+        <TypographySmall>{name}</TypographySmall>
+      </div>
+    )
+  }
+
+  const Content = () => {
+    return (
+      <div className="flex space-x-2">
+        <BaseAvatar className="h-12 w-12" />
+        <div>
+          <TypographyMedium>{name}</TypographyMedium>
+          <TypographyMuted className="text-sm">
+            {formattedNumber(123)} followers
+          </TypographyMuted>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex justify-between items-center space-x-2">
+    <div className="flex items-center space-x-2 justify-between">
       <div className="flex items-center space-x-2">
         <div className="flex items-center space-x-2">
-          <BaseAvatar />
-          <TypographySmall>{name}</TypographySmall>
+          <BaseHoverCard trigger={<Trigger />} content={<Content />} />
+
           {isAdmin && <ShieldCheck size={16} className="text-blue-500" />}
         </div>
         <TypographyMuted className="text-xs">1 hr ago</TypographyMuted>
