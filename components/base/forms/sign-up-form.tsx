@@ -5,21 +5,23 @@
 import {z} from 'zod'
 import React from 'react'
 import {FcGoogle} from 'react-icons/fc'
-import BaseInput from '../inputs/base-input'
 import {UseFormReturn} from 'react-hook-form'
+
+import PassChecker from './pass-checker'
+import BaseFormItem from './base-form-item'
+import BaseInput from '../inputs/base-input'
+import {FormField} from '@/components/ui/form'
 import BaseButton from '../buttons/base-button'
 import {schema} from '@/hooks/auth/use-sign-in'
 import {Separator} from '@/components/ui/separator'
-import {FormItem, FormField, FormControl, FormMessage} from '@/components/ui/form'
 import {TypographyMuted} from '../typography/base-typography'
-import PassChecker from './pass-checker'
 
 type FormValues = z.infer<typeof schema>
 
 type SignUpFormProps = {
   form: UseFormReturn<FormValues>
   toggleType: (type: string) => void
-  passwordReq: any // temp
+  passwordReq: (password: string) => {text: string; match: boolean}[]
 }
 
 const SignUpForm = ({form, toggleType, passwordReq}: SignUpFormProps) => {
@@ -40,12 +42,9 @@ const SignUpForm = ({form, toggleType, passwordReq}: SignUpFormProps) => {
         name="email"
         control={form.control}
         render={({field}) => (
-          <FormItem>
-            <FormControl>
-              <BaseInput type="email" placeholder="Enter your email" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+          <BaseFormItem>
+            <BaseInput type="email" placeholder="Enter your email" {...field} />
+          </BaseFormItem>
         )}
       />
 
@@ -53,13 +52,9 @@ const SignUpForm = ({form, toggleType, passwordReq}: SignUpFormProps) => {
         control={form.control}
         name="password"
         render={({field}) => (
-          <FormItem className="relative">
-            <FormControl>
-              <BaseInput id="password" placeholder="Enter your password" {...field} />
-            </FormControl>
-
-            <FormMessage />
-          </FormItem>
+          <BaseFormItem>
+            <BaseInput id="password" placeholder="Enter your password" {...field} />
+          </BaseFormItem>
         )}
       />
 

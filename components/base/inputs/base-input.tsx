@@ -19,7 +19,7 @@ const BaseInput = ({
 }: React.ComponentProps<typeof Input> & {
   label?: string
   withLabel?: boolean
-  withButton?: boolean
+  withButton?: AnyObject
   iconDirection?: 'left' | 'right'
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>
   wrapperClassName?: string
@@ -30,11 +30,17 @@ const BaseInput = ({
       {withLabel && <Label htmlFor={label}>{label}</Label>}
       <div className="relative flex-1">
         <Input
+          readOnly
+          tabIndex={-1}
           size={size}
           type={type}
           placeholder={placeholder}
+          onFocus={(e) => {
+            e.currentTarget.removeAttribute('readonly')
+            e.currentTarget.tabIndex = 0
+          }}
           className={cn(
-            'w-full text-sm placeholder:text-sm',
+            'w-full text-sm placeholder:text-sm border-none',
             inputClassName,
             Icon && iconDirection === 'left' && 'pl-9',
             Icon && iconDirection === 'right' && 'pr-9'
@@ -54,8 +60,8 @@ const BaseInput = ({
         )}
       </div>
       {withButton && (
-        <BaseButton type="submit" variant="outline">
-          Subscribe
+        <BaseButton type="submit" variant="outline" {...withButton}>
+          {withButton.label || 'Subscribe'}
         </BaseButton>
       )}
     </div>

@@ -130,3 +130,13 @@
     cursor: pointer;
   }
 }
+
+@layer utilities {
+  .scroll-invisible::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll-invisible {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}

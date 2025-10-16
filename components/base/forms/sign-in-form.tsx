@@ -3,12 +3,14 @@
 import {z} from 'zod'
 import React from 'react'
 import {FcGoogle} from 'react-icons/fc'
-import BaseInput from '../inputs/base-input'
 import {UseFormReturn} from 'react-hook-form'
+
+import BaseFormItem from './base-form-item'
+import BaseInput from '../inputs/base-input'
+import {FormField} from '@/components/ui/form'
 import BaseButton from '../buttons/base-button'
 import {schema} from '@/hooks/auth/use-sign-in'
 import {Separator} from '@/components/ui/separator'
-import {FormItem, FormField, FormControl, FormMessage} from '@/components/ui/form'
 import {TypographyMuted} from '../typography/base-typography'
 
 type FormValues = z.infer<typeof schema>
@@ -36,12 +38,9 @@ const SignInForm = ({form, toggleType}: SignInFormProps) => {
         name="email"
         control={form.control}
         render={({field}) => (
-          <FormItem>
-            <FormControl>
-              <BaseInput type="email" placeholder="Enter your email" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+          <BaseFormItem>
+            <BaseInput type="email" placeholder="Enter your email" {...field} />
+          </BaseFormItem>
         )}
       />
 
@@ -49,12 +48,9 @@ const SignInForm = ({form, toggleType}: SignInFormProps) => {
         name="password"
         control={form.control}
         render={({field}) => (
-          <FormItem>
-            <FormControl>
-              <BaseInput type="password" placeholder="Enter your password" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
+          <BaseFormItem>
+            <BaseInput type="password" placeholder="Enter your password" {...field} />
+          </BaseFormItem>
         )}
       />
 

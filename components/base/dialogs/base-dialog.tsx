@@ -2,34 +2,40 @@
 
 import React from 'react'
 import {ClassNameValue} from 'tailwind-merge'
+import {UseFormReturn, FieldValues, SubmitHandler} from 'react-hook-form'
 
+import {
+  Dialog,
+  DialogClose,
+  DialogTitle,
+  DialogFooter,
+  DialogHeader,
+  DialogContent,
+  DialogDescription,
+} from '@/components/ui/dialog'
 import {cn} from '@/lib/utils'
-import {Form} from '@/components/ui/form'
-import {DialogHeader} from '@/components/ui/dialog'
-import {DialogContent} from '@/components/ui/dialog'
-import {DialogDescription} from '@/components/ui/dialog'
+import BaseForm from '../forms/base-form'
 import BaseButton from '@/components/base/buttons/base-button'
-import {Dialog, DialogClose, DialogTitle, DialogFooter} from '@/components/ui/dialog'
 
 type ButtonProps = {
   label: string
 } & React.ComponentProps<typeof BaseButton>
 
-type BaseDialogProps = {
+type BaseDialogProps<T extends FieldValues> = {
   type?: 'normal' | 'form'
   title: string
   isOpen: boolean
   description?: string
   toggleOpen: () => void
-  onOkProps?: ButtonProps | any
+  onOkProps?: ButtonProps
   children: React.ReactNode
   className?: ClassNameValue
-  onCancelProps?: ButtonProps | any
-  form: any // temp
-  onSubmit: any // temp
+  onCancelProps?: ButtonProps
+  form?: UseFormReturn<T>
+  onSubmit?: SubmitHandler<T>
 }
 
-const BaseDialog: React.FC<BaseDialogProps> = ({
+const BaseDialog = <T extends FieldValues>({
   type = 'normal',
   title,
   isOpen,
@@ -39,11 +45,11 @@ const BaseDialog: React.FC<BaseDialogProps> = ({
   toggleOpen,
   form,
   onSubmit,
-  onOkProps = {label: 'Save changes'},
-  onCancelProps = {label: 'Cancel'},
-}) => {
+  onOkProps,
+  onCancelProps,
+}: BaseDialogProps<T>) => {
   const Content = (
-    <>
+    <React.Fragment>
       <DialogHeader>
         <DialogTitle>{title}</DialogTitle>
         {description && <DialogDescription>{description}</DialogDescription>}
@@ -56,26 +62,27 @@ const BaseDialog: React.FC<BaseDialogProps> = ({
           {onCancelProps && (
             <DialogClose asChild>
               <BaseButton variant="outline" {...onCancelProps}>
-                {onCancelProps.label}
+                {onCancelProps?.label || 'Cancel'}
               </BaseButton>
             </DialogClose>
           )}
-
-          {onOkProps && <BaseButton {...onOkProps}>{onOkProps.label}</BaseButton>}
+          {onOkProps && (
+            <BaseButton {...onOkProps}>{onOkProps.label || 'Save changes'}</BaseButton>
+          )}
         </DialogFooter>
       )}
-    </>
+    </React.Fragment>
   )
 
   return (
     <Dialog open={isOpen} onOpenChange={toggleOpen}>
-      <DialogContent className={cn('sm:max-w-[590px]', className)}>
-        {type === 'form' ? (
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {Content}
-            </form>
-          </Form>
+      <DialogContent
+        className={cn('sm:max-w-[590px] bg-card px-3 py-6 border-none', className)}
+      >
+        {type === 'form' && form ? (
+          <BaseForm form={form} onSubmit={onSubmit}>
+            {Content}
+          </BaseForm>
         ) : (
           Content
         )}

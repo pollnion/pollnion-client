@@ -1,22 +1,21 @@
 'use client'
 
 import React from 'react'
+
 import FeedCard from './feed-card'
 import FeedPost from './feed-post'
-import FeedFilters from './feed-filters'
+import FeedCardSkeleton from './feed-card-skeleton'
+
 import useGetFeed from '@/hooks/feed/use-get-feed'
 import {Separator} from '@/components/ui/separator'
-import FeedCardSkeleton from './feed-card-skeleton'
 import BaseVirtuoso from '@/components/base/virtuoso/base-virtuoso'
 
 const Index = () => {
   const feedProps = useGetFeed()
 
   return (
-    <div className="col-span-8 xl:col-span-6 space-y-4 w-full md:w-[560px] relative">
+    <div className="space-y-4 w-full md:w-[560px] relative">
       <FeedPost />
-      <Separator />
-      <FeedFilters />
       <BaseVirtuoso
         data={feedProps.data}
         LoadComp={FeedCardSkeleton}
