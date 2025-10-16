@@ -10,12 +10,9 @@ const BaseNavCta = () => {
   if (isAuth) return null
 
   return (
-    <div className="flex space-x-2">
-      <BaseButton variant="ghost" onClick={toggleOpen}>
-        <span>Sign in</span>
-      </BaseButton>
-      <BaseButton onClick={toggleOpen}>Join</BaseButton>
-    </div>
+    <BaseButton onClick={toggleOpen}>
+      <span>Sign in</span>
+    </BaseButton>
   )
 }
 

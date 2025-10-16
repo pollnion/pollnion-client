@@ -3,12 +3,14 @@
 import React from 'react'
 import {useState} from 'react'
 import {createContext} from 'react'
-import BaseDialog from '../dialogs/base-dialog'
+
+import SignUpForm from '../forms/sign-up-form'
 import SignInForm from '../forms/sign-in-form'
+import BaseDialog from '../dialogs/base-dialog'
+
 import useSignUp from '@/hooks/auth/use-sign-up'
 import useSignIn from '@/hooks/auth/use-sign-in'
 import {useAuth} from '@/hooks/providers/use-auth'
-import SignUpForm from '../forms/sign-up-form'
 import usePassCheck from '@/hooks/auth/use-pass-check'
 
 type DefaultValues = DialogProps
@@ -42,13 +44,13 @@ const GatedProvider = ({children}: {children: Children}) => {
   React.useEffect(() => {
     signInProps.form.reset()
     setType('sign_in') // back to default
-  }, [isOpen])
+  }, [isOpen]) // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
-    // resets values wheneer user changes pages
+    // resets values whenever user changes pages
     signInProps.form.reset()
     signUpProps.form.reset()
-  }, [type])
+  }, [type, signInProps.form, signUpProps.form])
 
   return (
     <GatedContext.Provider value={{isOpen, toggleOpen}}>
@@ -58,7 +60,7 @@ const GatedProvider = ({children}: {children: Children}) => {
         type="form"
         isOpen={isOpen}
         title={type === 'sign_in' ? 'Sign in' : 'Sign up'}
-        onCancelProps={false}
+        onCancelProps={undefined}
         toggleOpen={toggleOpen}
         description={
           type === 'sign_in' ? 'Please enter your details.' : 'Create a new account.'

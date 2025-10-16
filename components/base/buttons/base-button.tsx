@@ -57,8 +57,17 @@ const BaseButton = React.forwardRef<
 
   return (
     <Button ref={ref} asChild={asChild} variant={variant} {...restProps}>
-      {Icon && <Icon />}
-      {href ? <Link href={href}>{children}</Link> : children}
+      {href ? (
+        <Link href={href} className="flex items-center">
+          {Icon && <Icon className="mr-1" />}
+          {children}
+        </Link>
+      ) : (
+        <>
+          {Icon && <Icon />}
+          {children}
+        </>
+      )}
     </Button>
   )
 })

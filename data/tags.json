@@ -1,0 +1,44 @@
+{
+  "data": [
+    {
+      "value": "1",
+      "label": "Technology"
+    },
+    {
+      "value": "2",
+      "label": "Hypothetical"
+    },
+    {
+      "value": "3",
+      "label": "Science"
+    },
+    {
+      "value": "4",
+      "label": "Philosophy"
+    },
+    {
+      "value": "5",
+      "label": "Entertainment"
+    },
+    {
+      "value": "6",
+      "label": "Health"
+    },
+    {
+      "value": "7",
+      "label": "Politics"
+    },
+    {
+      "value": "8",
+      "label": "Education"
+    },
+    {
+      "value": "9",
+      "label": "Sports"
+    },
+    {
+      "value": "10",
+      "label": "Random"
+    }
+  ]
+}

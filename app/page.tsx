@@ -3,7 +3,7 @@ import PublicLayout from '@/components/base/layouts/public-layout'
 
 export default function Home() {
   return (
-    <PublicLayout showNav>
+    <PublicLayout showNav showFooter>
       <Landing />
     </PublicLayout>
   )

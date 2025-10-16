@@ -25,7 +25,7 @@ export function TypographyH2({
   return (
     <h2
       className={cn(
-        'scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0',
+        'scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0',
         className
       )}
     >
@@ -128,6 +128,15 @@ export function TypographySmall({
     <small className={cn('text-sm leading-none font-medium', className)}>
       {children}
     </small>
+  )
+}
+
+export function TypographyMedium({
+  children,
+  className,
+}: React.ComponentProps<'div'> & {className?: ClassValue}) {
+  return (
+    <div className={cn('text-md leading-none font-medium', className)}>{children}</div>
   )
 }
 

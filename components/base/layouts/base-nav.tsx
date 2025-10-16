@@ -1,17 +1,24 @@
 'use client'
-import {useEffect, useState} from 'react'
 import Image from 'next/image'
+import {useEffect, useState} from 'react'
+import {usePathname} from 'next/navigation'
 import {Menu, SearchIcon} from 'lucide-react'
+import {AiOutlineGithub} from 'react-icons/ai'
+
 import BaseNavCta from './base-nav-cta'
 import BaseNavAvatar from './base-nav-avatar'
 import {IMAGE_LOGO} from '@/constants/images'
+import {useLayout} from '@/hooks/layout/use-layout'
 import {Separator} from '@/components/ui/separator'
-import {BaseIcon} from '@/components/base/icons/base-icon'
-import BaseInput from '@/components/base/inputs/base-input'
 import BaseButton from '@/components/base/buttons/base-button'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 export default function BaseNav() {
+  const pathname = usePathname()
+  const useLayoutProps = useLayout()
+
+  const isSearchPath = pathname.startsWith('/search')
+
   const [show, setShow] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
 
@@ -33,18 +40,22 @@ export default function BaseNav() {
 
   return (
     <nav
-      className={`px-2 lg:container lg:mx-auto flex justify-between py-3 items-center sticky top-0 h-fit bg-background z-50 space-x-2 transition-transform duration-300 ${
-        show ? 'translate-y-0' : '-translate-y-full'
-      }`}
+      className={`px-2 lg:container lg:mx-auto lg:px-6 flex justify-between py-3 items-center sticky top-0 h-fit bg-background z-50 space-x-2 transition-transform duration-300
+  ${show ? 'translate-y-0' : 'translate-y-[-100%] sm:translate-y-0'}`}
     >
-      <div className="flex align-items-center">
-        <div className="block xl:hidden">
-          <BaseButton variant="ghost">
+      <div className="flex align-items-center space-x-2">
+        <div className="block sm:hidden">
+          <BaseButton variant="ghost" onClick={useLayoutProps.toggleOpen}>
             <Menu />
           </BaseButton>
         </div>
 
-        <BaseButton href="/" variant="ghost" className="p-0">
+        <BaseButton
+          href="/"
+          variant="ghost"
+          className="p-2"
+          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+        >
           <div className="relative w-24 h-12">
             <Image
               src={IMAGE_LOGO}
@@ -58,13 +69,17 @@ export default function BaseNav() {
       </div>
 
       <div className="flex space-x-2 items-center">
-        <BaseInput
-          size={20}
-          type="text"
-          icon={SearchIcon}
-          placeholder="Search..."
-          inputClassName="md:w-[315px]"
-        />
+        {!isSearchPath && (
+          <BaseButton
+            asChild
+            href="/search"
+            variant="outline"
+            icon={SearchIcon}
+            className="sm:w-[200px] md:w-[280px] justify-start"
+          >
+            <div className="hidden sm:block text-muted-foreground">Search...</div>
+          </BaseButton>
+        )}
 
         <div className="hidden md:block">
           <Separator orientation="vertical" className="!h-4 w-px bg-muted" />
@@ -72,7 +87,7 @@ export default function BaseNav() {
 
         <div className="hidden md:block">
           <BaseButton variant="ghost">
-            <BaseIcon nameIcon="AiOutlineGithub" propsIcon={{size: 24}} />
+            <AiOutlineGithub size={24} />
             <TypographyMuted className="text-xs">3.4k</TypographyMuted>
           </BaseButton>
         </div>
