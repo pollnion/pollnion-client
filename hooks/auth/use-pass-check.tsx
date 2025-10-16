@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 const usePassCheck = () => {
   const passwordReq = (password: string): {text: string; match: boolean}[] => {
     return [
