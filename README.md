@@ -50,7 +50,8 @@ Follow these instructions to set up and run the project locally.
     Create a file named `.env.development.local` in the root directory and add the necessary environment variables. You will need a public image hosting link for `NEXT_PUBLIC_IMAGE_LINK`.
     ```
     NEXT_PUBLIC_IMAGE_LINK=https://i.ibb.co
-    ```
+    ``` 
+    Request from the owner of this repository for other sensitive keys.  
 
 4.  **Run the development server:**
     The application will be available at `http://localhost:8080`.
