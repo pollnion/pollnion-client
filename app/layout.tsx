@@ -1,10 +1,11 @@
-// added testing test
 import {Geist, Geist_Mono} from 'next/font/google'
 
 import './globals.css'
 import type {Metadata} from 'next'
 import AppProviders from '@/components/base/providers/app-providers'
 import {Suspense} from 'react'
+
+console.log('This is test')
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
