@@ -7,10 +7,10 @@ import {AiOutlineGithub} from 'react-icons/ai'
 
 import BaseNavCta from './base-nav-cta'
 import BaseNavAvatar from './base-nav-avatar'
-import {IMAGE_LOGO} from '@/constants/images'
 import {useLayout} from '@/hooks/layout/use-layout'
 import {Separator} from '@/components/ui/separator'
 import BaseButton from '@/components/base/buttons/base-button'
+import {IMAGE_LOGO_TEXT, IMAGE_LOGO} from '@/constants/images'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 export default function BaseNav() {
@@ -50,22 +50,33 @@ export default function BaseNav() {
           </BaseButton>
         </div>
 
-        <BaseButton
-          href="/"
-          variant="ghost"
-          className="p-2"
-          onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
-        >
-          <div className="relative w-24 h-12">
-            <Image
-              src={IMAGE_LOGO}
-              alt="image_logo"
-              fill
-              sizes="(max-width: 768px) 120px, 200px"
-              className="object-contain"
-            />
-          </div>
-        </BaseButton>
+        <div className="flex items-center gap-2">
+          <Image
+            width={32}
+            height={32}
+            alt="Pollnion logo icon"
+            src={IMAGE_LOGO}
+            className="object-contain hover:cursor-pointer max-w-[28px]"
+            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          />
+
+          <BaseButton
+            href="/"
+            variant="ghost"
+            className="p-0 hidden md:flex items-center"
+            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+          >
+            <div className="relative w-24 h-8 flex items-center">
+              <Image
+                src={IMAGE_LOGO_TEXT}
+                alt="Pollnion text logo"
+                fill
+                sizes="(max-width: 768px) 120px, 200px"
+                className="object-contain"
+              />
+            </div>
+          </BaseButton>
+        </div>
       </div>
 
       <div className="flex space-x-2 items-center">

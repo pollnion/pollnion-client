@@ -7,7 +7,7 @@ const BaseNavAvatar = () => {
 
   if (!isAuth) return null
 
-  return <BaseAvatar />
+  return <BaseAvatar alt="avatar" />
 }
 
 export default BaseNavAvatar
