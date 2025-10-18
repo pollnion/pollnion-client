@@ -9,6 +9,7 @@ import FeedCardSkeleton from './feed-card-skeleton'
 import useGetFeed from '@/hooks/feed/use-get-feed'
 import {Separator} from '@/components/ui/separator'
 import BaseVirtuoso from '@/components/base/virtuoso/base-virtuoso'
+import FeedFilters from './feed-filters'
 
 const Index = () => {
   const feedProps = useGetFeed()
@@ -16,6 +17,7 @@ const Index = () => {
   return (
     <div className="space-y-4 w-full md:w-[560px] relative">
       <FeedPost />
+      <FeedFilters />
       <BaseVirtuoso
         data={feedProps.data}
         LoadComp={FeedCardSkeleton}
