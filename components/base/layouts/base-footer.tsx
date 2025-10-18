@@ -54,7 +54,7 @@ const BaseFooter = () => {
       onClick: () => console.log('messages clicked!'),
     },
     {
-      children: <BaseAvatar />,
+      children: <BaseAvatar alt="avatar" />,
       onClick: () => console.log('Profile clicked!'),
     },
   ]

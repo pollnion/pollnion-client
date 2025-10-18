@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 export default function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center h-screen text-center px-4">
@@ -7,12 +9,12 @@ export default function NotFound() {
       <p className="text-lg text-gray-500 mb-6">
         Oops. That page went missing — like it never existed 😵‍💫
       </p>
-      <a
+      <Link
         href="/"
         className="px-5 py-2.5 rounded-full bg-black text-white font-medium hover:bg-gray-800 transition-colors"
       >
         Take me home 🏠
-      </a>
+      </Link>
     </div>
   )
 }

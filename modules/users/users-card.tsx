@@ -12,7 +12,7 @@ const UsersCard = ({item}: {item: {id?: string; name: string; followers: number}
   return (
     <section className="bg-card p-3 rounded-sm flex items-center space-y-2 space-x-2 justify-between">
       <div className="flex space-x-2 items-center">
-        <BaseAvatar className="h-12 w-12" />
+        <BaseAvatar className="h-12 w-12" alt="avatar" />
         <div className="flex flex-col space-x-2">
           <TypographySmall className="text-lg">{name}</TypographySmall>
           <div className="flex items-center space-x-2">
