@@ -1,9 +1,10 @@
+import {Suspense} from 'react'
+import {Analytics} from '@vercel/analytics/next'
 import {Geist, Geist_Mono} from 'next/font/google'
 
 import './globals.css'
 import type {Metadata} from 'next'
 import AppProviders from '@/components/base/providers/app-providers'
-import {Suspense} from 'react'
 
 console.log('This is test')
 
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <Analytics />
         <Suspense>
           <AppProviders>{children}</AppProviders>
         </Suspense>
