@@ -7,13 +7,17 @@ import type {Session, User} from '@supabase/supabase-js'
 type AuthContextType = {
   isAuth: User | null
   loading: boolean
+  handleSignOut: () => Promise<void>
   handleGoogleLogin: () => Promise<void>
+  handleFacebookLogin: () => Promise<void>
 }
 
 const defaultValues: AuthContextType = {
   isAuth: null,
   loading: true,
+  handleSignOut: async () => {},
   handleGoogleLogin: async () => {},
+  handleFacebookLogin: async () => {},
 }
 
 export const AuthContext = createContext<AuthContextType>(defaultValues)
@@ -23,33 +27,44 @@ const AuthProvider = ({children}: {children: ReactNode}) => {
   const [loading, setLoading] = useState(true)
 
   const handleGoogleLogin = async () => {
+    await new Promise((res) => setTimeout(res, 300))
     const {error} = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {redirectTo: window.location.origin},
     })
 
+    setLoading(false)
+
     if (error) console.error('Login error:', error)
   }
 
   const handleFacebookLogin = async () => {
+    await new Promise((res) => setTimeout(res, 300)) // quick UX flash
     const {error} = await supabase.auth.signInWithOAuth({
       provider: 'facebook',
       options: {redirectTo: window.location.origin},
     })
 
+    setLoading(false)
+
     if (error) console.error('Facebook login error:', error.message)
   }
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut()
+    try {
+      await new Promise((res) => setTimeout(res, 300)) // quick UX flash
+      await supabase.auth.signOut()
+      window.location.reload()
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const fetchSession = async () => {
     const {data, error} = await supabase.auth.getSession()
     if (error) console.error('Session fetch error:', error)
-
-    console.log(data)
-
     setIsAuth(data.session?.user ?? null)
     setLoading(false)
   }
@@ -68,7 +83,9 @@ const AuthProvider = ({children}: {children: ReactNode}) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{isAuth, loading, handleGoogleLogin}}>
+    <AuthContext.Provider
+      value={{isAuth, loading, handleGoogleLogin, handleSignOut, handleFacebookLogin}}
+    >
       {children}
     </AuthContext.Provider>
   )

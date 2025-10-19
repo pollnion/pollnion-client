@@ -3,6 +3,7 @@
 import {z} from 'zod'
 import React from 'react'
 import {FcGoogle} from 'react-icons/fc'
+import {FaFacebook} from 'react-icons/fa6'
 import {UseFormReturn} from 'react-hook-form'
 
 import BaseFormItem from './base-form-item'
@@ -22,13 +23,32 @@ type SignInFormProps = {
 }
 
 const SignInForm = ({form, toggleType}: SignInFormProps) => {
-  const {handleGoogleLogin} = useAuth()
+  const {handleGoogleLogin, handleFacebookLogin, loading} = useAuth()
 
   return (
     <div className="space-y-4">
-      <BaseButton variant="outline" className="w-full" onClick={handleGoogleLogin}>
+      <BaseButton
+        type="button"
+        variant="outline"
+        disabled={loading}
+        isLoading={loading}
+        className="w-full"
+        onClick={handleGoogleLogin}
+      >
         <FcGoogle />
         Sign in with Google
+      </BaseButton>
+
+      <BaseButton
+        type="button"
+        variant="outline"
+        disabled={loading}
+        isLoading={loading}
+        className="w-full"
+        onClick={handleFacebookLogin}
+      >
+        <FaFacebook />
+        Sign in with Facebook
       </BaseButton>
 
       <div className="flex items-center justify-center space-x-4">
