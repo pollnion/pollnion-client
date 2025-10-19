@@ -1,9 +1,9 @@
 'use client'
 import Image from 'next/image'
 import {useEffect, useState} from 'react'
-import {usePathname} from 'next/navigation'
 import {Menu, SearchIcon} from 'lucide-react'
 import {AiOutlineGithub} from 'react-icons/ai'
+import {usePathname, useRouter} from 'next/navigation'
 
 import BaseNavCta from './base-nav-cta'
 import BaseNavAvatar from './base-nav-avatar'
@@ -14,13 +14,14 @@ import {IMAGE_LOGO_TEXT, IMAGE_LOGO} from '@/constants/images'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 export default function BaseNav() {
+  const {push} = useRouter()
   const pathname = usePathname()
   const useLayoutProps = useLayout()
 
-  const isSearchPath = pathname.startsWith('/search')
-
   const [show, setShow] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+
+  const isSearchPath = pathname.startsWith('/search')
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +58,10 @@ export default function BaseNav() {
             alt="Pollnion logo icon"
             src={IMAGE_LOGO}
             className="object-contain hover:cursor-pointer max-w-[28px]"
-            onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+            onClick={() => {
+              push('/')
+              window.scrollTo({top: 0, behavior: 'smooth'})
+            }}
           />
 
           <BaseButton

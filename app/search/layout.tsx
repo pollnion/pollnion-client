@@ -34,18 +34,12 @@ const Layout = ({children}: {children: Children}) => {
           </React.Fragment>
         }
       >
-        <div className="space-y-4">
-          <div className="sticky top-0 z-10 bg-background pb-2 space-y-2">
-            <BaseButton variant="ghost" icon={ChevronLeft} href="/">
-              Go back
-            </BaseButton>
-
-            <SearchResultHeader />
-            <SearchTags />
-          </div>
-
-          {children}
+        <div className="px-2 py-4 sticky top-0 md:top-15 z-49 bg-background space-y-2">
+          <SearchResultHeader />
+          <SearchTags />
         </div>
+
+        {children}
       </PublicColLayout>
     </PublicLayout>
   )

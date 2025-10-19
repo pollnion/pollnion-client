@@ -34,7 +34,7 @@ const SearchTags = () => {
   const currentType = searchParams.get('type')
 
   return (
-    <div className="px-2 flex items-center space-x-2 overflow-x-auto scroll-invisible">
+    <div className="flex items-center space-x-2 overflow-x-auto scroll-invisible">
       {TAGS.map((tag) => {
         const isActive = currentType === tag.type || (!currentType && !tag.type)
         const href = tag.type ? `/search?type=${tag.type}` : '/search'
