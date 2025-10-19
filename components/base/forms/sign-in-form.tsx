@@ -12,6 +12,7 @@ import BaseButton from '../buttons/base-button'
 import {schema} from '@/hooks/auth/use-sign-in'
 import {Separator} from '@/components/ui/separator'
 import {TypographyMuted} from '../typography/base-typography'
+import {useAuth} from '@/hooks/providers/use-auth'
 
 type FormValues = z.infer<typeof schema>
 
@@ -21,9 +22,11 @@ type SignInFormProps = {
 }
 
 const SignInForm = ({form, toggleType}: SignInFormProps) => {
+  const {handleGoogleLogin} = useAuth()
+
   return (
     <div className="space-y-4">
-      <BaseButton variant="outline" className="w-full">
+      <BaseButton variant="outline" className="w-full" onClick={handleGoogleLogin}>
         <FcGoogle />
         Sign in with Google
       </BaseButton>
