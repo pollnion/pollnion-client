@@ -1,48 +1,56 @@
 'use client'
 
 import React from 'react'
-import {map} from 'lodash'
-import {usePathname} from 'next/navigation'
+import Link from 'next/link'
+import {cn} from '@/lib/utils'
+import {useSearchParams} from 'next/navigation'
 import BaseButton from '@/components/base/buttons/base-button'
 
 const TAGS = [
   {
     label: 'For you',
-    href: '/search',
+    type: undefined, // default (no query)
   },
   {
     label: 'Users',
-    href: '/search/users',
+    type: 'users',
   },
   {
     label: 'Top polls',
-    href: '/search/polls',
+    type: 'polls',
   },
   {
     label: 'Spaces',
-    href: '/search/spaces',
+    type: 'spaces',
   },
   {
     label: 'Bookmark',
-    href: '/search/bookmark',
+    type: 'bookmark',
   },
 ]
 
 const SearchTags = () => {
-  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const currentType = searchParams.get('type')
 
   return (
-    <div className="px-2 flex items-center space-x-1 overflow-x-auto scroll-invisible">
-      {map(TAGS, ({label, href}, idx) => {
-        const isActive = href && pathname === href
+    <div className="px-2 flex items-center space-x-2 overflow-x-auto scroll-invisible">
+      {TAGS.map((tag) => {
+        const isActive = currentType === tag.type || (!currentType && !tag.type)
+        const href = tag.type ? `/search?type=${tag.type}` : '/search'
+
         return (
           <BaseButton
-            key={idx}
-            variant={isActive ? 'default' : 'secondary'}
+            key={tag.label}
             href={href}
-            className="flex-shrink-0"
+            className={cn(
+              'px-3 py-1 text-sm font-medium transition-colors',
+              isActive
+                ? 'bg-primary text-black'
+                : 'bg-muted hover:bg-muted/80 text-foreground/80'
+            )}
           >
-            {label}
+            {tag.label}
           </BaseButton>
         )
       })}

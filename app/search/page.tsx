@@ -1,6 +1,3 @@
-// app/search/page.tsx
-// **Remove** "use client"
-
 import SearchPage from '@/modules/search'
 
 export async function generateMetadata({params}: {params: {username: string}}) {

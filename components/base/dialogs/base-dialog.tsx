@@ -41,7 +41,7 @@ const BaseDialog = <T extends FieldValues>({
   isOpen,
   children,
   className,
-  description,
+  description = 'Please enter your details',
   toggleOpen,
   form,
   onSubmit,
