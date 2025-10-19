@@ -16,7 +16,7 @@ const PublicLayout: React.FC<PublicLayoutProps> & React.ComponentProps<'div'> = 
   return (
     <div>
       {showNav && <BaseNav />}
-      <main className="px-0 sm:px-2 lg:container lg:mx-auto lg:px-6 mt-5">
+      <main className="px-0 sm:px-2 lg:container lg:mx-auto lg:px-6 mt-0 md:mt-5">
         {children}
       </main>
       {showFooter && <BaseFooter />}

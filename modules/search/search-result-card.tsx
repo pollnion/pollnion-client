@@ -1,15 +1,9 @@
 import React from 'react'
 import {FeedItem} from '@/models/feed'
-import FeedContent from '../feed/feed-content'
-import FeedHeader from '@/modules/feed/feed-header'
+import FeedCard from '../feed/feed-card'
 
 const SearchResultCard = ({item}: {item: FeedItem}) => {
-  return (
-    <div className="bg-card p-3 col-span-12 xl:col-span-6 rounded-none sm:rounded">
-      <FeedHeader item={item} />
-      <FeedContent item={item} />
-    </div>
-  )
+  return <FeedCard item={item} />
 }
 
 export default SearchResultCard

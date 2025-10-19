@@ -8,13 +8,11 @@ const SearchResultHeader = () => {
   const {onChange} = useSearch()
 
   return (
-    <div className="px-2">
-      <BaseInput
-        icon={Search}
-        placeholder="Search by keyword"
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
+    <BaseInput
+      icon={Search}
+      placeholder="Search by keyword"
+      onChange={(e) => onChange(e.target.value)}
+    />
   )
 }
 

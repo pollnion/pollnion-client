@@ -47,14 +47,14 @@ const BaseFooter = () => {
       icon: Plus,
       variant: 'default',
       onClick: feedProps.toggleOpen,
-      className: 'w-12 h-12 rounded-full',
+      className: 'w-8 h-8 rounded-full',
     },
     {
       icon: MessageCircle,
       onClick: () => console.log('messages clicked!'),
     },
     {
-      children: <BaseAvatar />,
+      children: <BaseAvatar alt="avatar" />,
       onClick: () => console.log('Profile clicked!'),
     },
   ]
