@@ -2,7 +2,6 @@ import React from 'react'
 import {map} from 'lodash'
 
 import UsersCard from './users-card'
-import SearchHeader from '@/components/base/search/search-header'
 
 const USERS = [
   {
@@ -59,8 +58,7 @@ const USERS = [
 
 const Users = () => {
   return (
-    <div className="px-0 sm:px-2 space-y-2">
-      <SearchHeader length={USERS.length} />
+    <div className="space-y-2">
       {map(USERS, (item, idx) => {
         return <UsersCard key={idx} item={item} />
       })}

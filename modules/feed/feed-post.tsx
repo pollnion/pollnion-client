@@ -39,7 +39,7 @@ const FeedPost = () => {
     <React.Fragment>
       <div className="bg-card p-2 rounded-none sm:rounded-sm">
         <div className="flex items-center space-x-2">
-          <BaseAvatar />
+          <BaseAvatar alt="avatar" />
           {React.createElement(
             BaseButton,
             btn as React.ComponentProps<typeof BaseButton>

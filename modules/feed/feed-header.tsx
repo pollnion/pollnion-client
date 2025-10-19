@@ -24,7 +24,7 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
   const Trigger = () => {
     return (
       <div className="flex items-center space-x-2 hover:underline hover:text-blue-300/90 decoration-blue-300/90">
-        <BaseAvatar />
+        <BaseAvatar alt="avatar" />
         <TypographySmall>{name}</TypographySmall>
       </div>
     )
@@ -33,7 +33,7 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
   const Content = () => {
     return (
       <div className="flex space-x-2">
-        <BaseAvatar className="h-12 w-12" />
+        <BaseAvatar className="h-12 w-12" alt="avatar" />
         <div>
           <TypographyMedium>{name}</TypographyMedium>
           <TypographyMuted className="text-sm">

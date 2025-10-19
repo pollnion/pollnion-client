@@ -5,7 +5,7 @@ import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 
 const DEFAULT_LINK = 'https://github.com/shadcn.png'
 
-const BaseAvatar: React.FC<{src?: string; alt?: string; className?: ClassNameValue}> = ({
+const BaseAvatar: React.FC<{src?: string; alt: string; className?: ClassNameValue}> = ({
   src = DEFAULT_LINK,
   alt = 'sample',
   className,
