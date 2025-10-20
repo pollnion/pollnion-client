@@ -1,9 +1,11 @@
 'use client'
 
-import React, {useState} from 'react'
+import React from 'react'
 import {Check, ChevronsUpDown} from 'lucide-react'
+import {useFieldArray, useFormContext} from 'react-hook-form'
 
 import {cn} from '@/lib/utils'
+import {useToggle} from '@/store/useToggle'
 import {Button} from '@/components/ui/button'
 import {
   Command,
@@ -14,19 +16,14 @@ import {
   CommandEmpty,
 } from '@/components/ui/command'
 import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
-import {useFieldArray, useFormContext} from 'react-hook-form'
-
-type Tag = {
-  value: string
-  label: string
-}
+import {useSearch} from '@/store/useSearch'
 
 type FormValues = {
-  tags: Tag[]
+  tags: AnyObject[]
 }
 
 type BaseComboboxProps = {
-  data: Tag[]
+  data: AnyObject[]
   isLoading?: boolean
   searchable?: boolean
 }
@@ -36,8 +33,8 @@ const BaseCombobox = ({
   isLoading = false,
   searchable = true,
 }: BaseComboboxProps) => {
-  const [open, setOpen] = useState(false)
-  const [searchValue, setSearchValue] = useState('')
+  const {val, setVal} = useSearch()
+  const {open, setOpen} = useToggle()
 
   const {control} = useFormContext<FormValues>()
   const {fields, append, remove} = useFieldArray({
@@ -45,7 +42,7 @@ const BaseCombobox = ({
     name: 'tags',
   })
 
-  const toggleItem = (item: Tag) => {
+  const toggleItem = (item: AnyObject) => {
     const idx = fields.findIndex((f) => f.value === item.value)
 
     if (idx >= 0) {
@@ -59,7 +56,7 @@ const BaseCombobox = ({
     fields.length > 0 ? fields.map((f) => f.label).join(', ') : 'Select items...'
 
   const filteredData = searchable
-    ? data.filter((item) => item.label.toLowerCase().includes(searchValue.toLowerCase()))
+    ? data.filter((item) => item.label.toLowerCase().includes(val.toLowerCase()))
     : data
 
   return (
@@ -81,8 +78,8 @@ const BaseCombobox = ({
           <CommandInput
             placeholder="Search item..."
             className="h-9"
-            value={searchable ? searchValue : undefined}
-            onValueChange={searchable ? setSearchValue : undefined}
+            value={searchable ? val : undefined}
+            onValueChange={searchable ? (v) => setVal(v) : undefined}
           />
 
           <CommandList>

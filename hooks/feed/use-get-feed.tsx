@@ -1,27 +1,29 @@
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import MOCK_DATA from '@/data/feed.json'
 import {FeedItem} from '@/models/feed'
+import {useMultiData} from '@/store/useData'
+import {useLoading} from '@/store/useLoading'
 
 const FETCH_MOCK_DATA = (): Promise<{data: FeedItem[]}> =>
   new Promise((res) => setTimeout(() => res(MOCK_DATA), 2000))
 
 const useGetFeed = () => {
-  const [data, setData] = useState<FeedItem[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const {data, setData} = useMultiData()
+  const {isLoading, setLoading} = useLoading()
 
   useEffect(() => {
     getData()
   }, [])
 
   const getData = async () => {
-    setIsLoading(true)
+    setLoading(true)
     try {
       const {data} = await FETCH_MOCK_DATA()
       setData(data)
     } catch (error) {
       console.error(error)
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
   }
 

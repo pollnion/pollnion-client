@@ -4,6 +4,7 @@ import * as React from 'react'
 import {format} from 'date-fns'
 import {Calendar as CalendarIcon} from 'lucide-react'
 
+import {useToggle} from '@/store/useToggle'
 import {Button} from '@/components/ui/button'
 import {Calendar} from '@/components/ui/calendar'
 import {Popover, PopoverContent, PopoverTrigger} from '@/components/ui/popover'
@@ -15,7 +16,7 @@ const BaseDatePicker = ({
   value: Date | string
   onChange: (item: Date) => void
 }) => {
-  const [open, setOpen] = React.useState(false)
+  const {open, setOpen} = useToggle()
 
   const handleSelect = (date: Date) => {
     onChange(date)

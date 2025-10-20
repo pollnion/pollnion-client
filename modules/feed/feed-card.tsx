@@ -9,7 +9,7 @@ import {FeedItem} from '@/models/feed'
 import FeedHeader from './feed-header'
 import FeedContent from './feed-content'
 
-const FeedCard = ({item}: {item: FeedItem}) => {
+const FeedCard = ({item}: AnyObject) => {
   const {push} = useRouter()
 
   const {author, id} = item || {}

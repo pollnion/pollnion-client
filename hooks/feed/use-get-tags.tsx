@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
-import {useState} from 'react'
 import MOCK_DATA from '@/data/tags.json'
+import {useLoading} from '@/store/useLoading'
+import {useMultiData} from '@/store/useData'
 
 type Item = {
   label: string
@@ -11,8 +12,8 @@ const FETCH_MOCK_DATA = (): Promise<{data: Item[]}> =>
   new Promise((res) => setTimeout(() => res(MOCK_DATA), 2000))
 
 const useGetTags = () => {
-  const [data, setData] = useState<Item[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const {data, setData} = useMultiData()
+  const {isLoading, setLoading} = useLoading()
 
   useEffect(() => {
     getData()
@@ -20,13 +21,13 @@ const useGetTags = () => {
 
   const getData = async () => {
     try {
-      setIsLoading(true)
+      setLoading(true)
       const {data} = await FETCH_MOCK_DATA()
       setData(data)
     } catch (error) {
       console.log(error)
     } finally {
-      setIsLoading(false)
+      setLoading(false)
     }
   }
 

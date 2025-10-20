@@ -4,10 +4,10 @@ import React from 'react'
 import {map} from 'lodash'
 import {useSearchParams} from 'next/navigation'
 
+import Users from '../users'
 import feed from '@/data/feed.json'
 import SearchResultCard from './search-result-card'
 import SearchHeader from '@/components/base/search/search-header'
-import Users from '../users'
 // (optional future imports: Polls, Spaces, Bookmark, etc.)
 
 const SearchResult = () => {

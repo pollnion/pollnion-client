@@ -3,20 +3,18 @@
 import React from 'react'
 import {createContext} from 'react'
 import Spaces from '@/modules/spaces'
-import useSheet from '../sheet/useSheet'
 import Discover from '@/modules/discover'
 import LinkCta from '@/modules/links-cta'
 import ShareCta from '@/modules/share-cta'
 import BaseSheet from '../sheet/base-sheet'
-
-type DefaultValues = DialogProps
+import {useToggle} from '@/store/useToggle'
 
 const defaultValues = {
   isOpen: false,
   toggleOpen: () => {},
 }
 
-export const LayoutContext = createContext(defaultValues as DefaultValues)
+export const LayoutContext = createContext(defaultValues as DialogProps)
 
 const SHEET_CONTENTS = {
   title: 'Tags & Spaces',
@@ -24,13 +22,18 @@ const SHEET_CONTENTS = {
 }
 
 const LayoutProvider = ({children}: {children: Children}) => {
-  const sheetProps = useSheet()
+  const {open, setOpen} = useToggle()
+
+  const props = {
+    isOpen: open,
+    toggleOpen: () => setOpen(!open),
+  }
 
   return (
-    <LayoutContext.Provider value={{...sheetProps}}>
+    <LayoutContext.Provider value={{...props}}>
       {children}
 
-      <BaseSheet {...sheetProps} {...SHEET_CONTENTS} footer={<LinkCta />}>
+      <BaseSheet {...props} {...SHEET_CONTENTS} footer={<LinkCta />}>
         <div className="space-y-4">
           <ShareCta />
           <Discover />
