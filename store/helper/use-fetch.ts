@@ -10,9 +10,13 @@ type FetchOptions<T> = {
   id?: string | number
   filters?: Partial<T>
   payload?: Partial<T> | Partial<T>[] // for create/update
+  delayMs?: number // optional delay
 }
 
 type DBMethod = 'read' | 'create' | 'update' | 'delete'
+
+// 💤 simple promise-based delay
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export async function fetch<T>(
   method: DBMethod,
@@ -25,8 +29,9 @@ export async function fetch<T>(
     from,
     filters,
     payload,
-    ascending = true,
+    ascending = false,
     orderBy = 'created_at',
+    delayMs = 1, // default half a second
   } = options
 
   let query: any = supabase.from(table)
@@ -53,29 +58,30 @@ export async function fetch<T>(
         })
       }
 
+      await delay(delayMs)
       return await query
     }
 
     // 🟢 CREATE
     case 'create': {
       if (!payload) throw new Error('Missing payload for create')
-      query = query.insert(payload).select()
-      return await query
+      await delay(delayMs)
+      return await query.insert(payload).select()
     }
 
     // 🟡 UPDATE
     case 'update': {
       if (!payload) throw new Error('Missing payload for update')
       if (id === undefined) throw new Error('Missing id for update')
-      query = query.update(payload).eq('id', id).select().single()
-      return await query
+      await delay(delayMs)
+      return await query.update(payload).eq('id', id).select().single()
     }
 
     // 🔴 DELETE
     case 'delete': {
       if (id === undefined) throw new Error('Missing id for delete')
-      query = query.delete().eq('id', id)
-      return await query
+      await delay(delayMs)
+      return await query.delete().eq('id', id)
     }
 
     default:
