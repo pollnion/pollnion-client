@@ -1,6 +1,6 @@
 import React from 'react'
+import {map} from 'lodash'
 import Link from 'next/link'
-import {isNaN, map, round} from 'lodash'
 import {CircleCheckBig} from 'lucide-react'
 
 import {cn} from '@/lib/utils'
@@ -30,7 +30,7 @@ const Polls = ({
 
   return (
     <React.Fragment>
-      <div className="flex justify-between space-x-2 mb-2">
+      <div className="flex space-x-2 mb-2">
         {(space || []).map((item: {label: string; value: string}, idx: number) => {
           const {label, value} = item || {}
           return (

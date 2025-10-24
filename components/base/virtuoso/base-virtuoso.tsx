@@ -29,6 +29,8 @@ function BaseVirtuoso<T>({
       endReached={loadMore}
       increaseViewportBy={viewPort}
       itemContent={(idx, item) => children(idx, item)}
+      components={{Footer: isLoading ? LoadComp : undefined}}
+      computeItemKey={(idx, item: any) => item.id ?? idx} // 👈 prevents key resets
     />
   )
 }

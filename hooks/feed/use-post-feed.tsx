@@ -5,6 +5,7 @@ import {zodResolver} from '@hookform/resolvers/zod'
 
 import {useAuth} from '../providers/use-auth'
 import {useCreateStore} from '@/store/actions/use-create-store'
+import {notify} from '@/lib/sonner'
 
 export const schema = z.object({
   title: z
@@ -79,13 +80,19 @@ const defaultValues: FormValues = {
 
 const fields = {defaultValues, resolver: zodResolver(schema), shouldFocusError: false}
 
-const usePostFeed = () => {
+const usePostFeed = (callback: () => void) => {
   const {isAuth} = useAuth()
   const store = useCreateStore('feed')
   const form = useForm<FormValues>(fields)
 
-  const onSubmit = (values: FormValues) => {
-    store.onSubmit(parse(values, isAuth as AnyObject))
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await store.onSubmit(parse(values, isAuth as AnyObject))
+    } finally {
+      notify.success('Created successfully!')
+      if (callback) callback()
+    }
+
     // callback
   }
 

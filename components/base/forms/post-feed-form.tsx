@@ -7,16 +7,16 @@ import BaseInput from '../inputs/base-input'
 import {FormField} from '@/components/ui/form'
 import {Textarea} from '@/components/ui/textarea'
 import {schema} from '@/hooks/feed/use-post-feed'
-import useGetTags from '@/hooks/feed/use-get-tags'
 import BaseCombobox from '../combobox/base-combobox'
 import PosteFeedFormPoll from './post-feed-form-poll'
 import BaseCheckbox from '../checkbox/base-checkbox'
 import BaseDatePicker from '../date/base-date-picker'
+import {useReadStore} from '@/store/actions/use-read-store'
 
 type FormValues = z.infer<typeof schema>
 
 const PostFeedForm = ({form}: {form: UseFormReturn<FormValues>}) => {
-  const tagsProps = useGetTags()
+  const tagsProps = useReadStore<{label: string; value: string}>('tags')
 
   return (
     <div className="space-y-4">

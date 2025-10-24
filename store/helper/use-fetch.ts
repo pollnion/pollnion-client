@@ -3,8 +3,10 @@ import {supabase} from '@/supabase/client'
 import type {PostgrestResponse, PostgrestSingleResponse} from '@supabase/supabase-js'
 
 type FetchOptions<T> = {
-  to?: number
   from?: number
+  to?: number
+  limit?: number
+  offset?: number
   orderBy?: string
   ascending?: boolean
   id?: string | number
@@ -15,7 +17,6 @@ type FetchOptions<T> = {
 
 type DBMethod = 'read' | 'create' | 'update' | 'delete'
 
-// 💤 simple promise-based delay
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export async function fetch<T>(
@@ -25,13 +26,15 @@ export async function fetch<T>(
 ): Promise<PostgrestResponse<T> | PostgrestSingleResponse<T>> {
   const {
     id,
-    to,
     from,
+    to,
+    limit,
+    offset,
     filters,
     payload,
     ascending = false,
     orderBy = 'created_at',
-    delayMs = 1, // default half a second
+    delayMs = 1, // optional delay
   } = options
 
   let query: any = supabase.from(table)
@@ -45,7 +48,10 @@ export async function fetch<T>(
         query = query.eq('id', id).single()
       } else {
         query = query.order(orderBy, {ascending})
-        if (from !== undefined && to !== undefined) {
+
+        if (typeof offset === 'number' && typeof limit === 'number') {
+          query = query.range(offset, offset + limit - 1)
+        } else if (typeof from === 'number' && typeof to === 'number') {
           query = query.range(from, to)
         }
       }

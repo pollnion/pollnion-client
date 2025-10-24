@@ -9,7 +9,7 @@ type CreateStore = {
   onSubmit: (item: AnyObject) => Promise<void>
 }
 
-const store = (table: string) =>
+const createStore = (table: string) =>
   create<CreateStore>((set) => ({
     error: null,
     isLoading: false,
@@ -17,7 +17,7 @@ const store = (table: string) =>
     onSubmit: async (payload) => {
       set({isLoading: true, error: null})
       try {
-        const {error} = await fetch('create', table, {payload: payload})
+        const {error} = await fetch('create', table, {payload})
         if (error) throw error
       } catch (err: unknown) {
         const error = err as PostgrestError
@@ -29,7 +29,11 @@ const store = (table: string) =>
     },
   }))
 
+const storeCache: Record<string, ReturnType<typeof createStore>> = {}
+
 export const useCreateStore = (table: string) => {
-  const hook = store(table)
-  return hook()
+  if (!storeCache[table]) {
+    storeCache[table] = createStore(table)
+  }
+  return storeCache[table]()
 }
