@@ -1,11 +1,9 @@
 import {Virtuoso} from 'react-virtuoso'
 import React, {ComponentType, ReactNode} from 'react'
 
-type BaseVirtuosoProps<T> = {
-  data: T[]
+type BaseVirtuosoProps<T> = ReadType<T> & {
   viewPort?: number
-  isLoading?: boolean
-  loadMore: () => void
+
   LoadComp: ComponentType
   style?: React.CSSProperties
   children: (idx: number, item: T) => ReactNode

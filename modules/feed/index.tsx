@@ -7,11 +7,12 @@ import FeedPost from './feed-post'
 import FeedFilters from './feed-filters'
 import FeedCardSkeleton from './feed-card-skeleton'
 
-import useGetFeed from '@/hooks/feed/use-get-feed'
+import {FeedItem} from '@/models/feed'
+import {useReadStore} from '@/store/actions/use-read-store'
 import BaseVirtuoso from '@/components/base/virtuoso/base-virtuoso'
 
 const Index = () => {
-  const feedProps = useGetFeed()
+  const feedProps = useReadStore<FeedItem>('feed', {ascending: false})
 
   return (
     <React.Fragment>
@@ -20,8 +21,8 @@ const Index = () => {
       <BaseVirtuoso
         data={feedProps.data}
         LoadComp={FeedCardSkeleton}
-        loadMore={feedProps.loadMore}
         isLoading={feedProps.isLoading}
+        loadMore={feedProps.loadMore}
       >
         {(idx, item) => <FeedCard key={idx} item={item} />}
       </BaseVirtuoso>

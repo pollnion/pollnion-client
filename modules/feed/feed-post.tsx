@@ -4,6 +4,7 @@ import {Plus} from 'lucide-react'
 import {Vote} from 'lucide-react'
 import {MessageCircleQuestionMark} from 'lucide-react'
 
+import {useGate} from '@/hooks/providers/use-gate'
 import {useFeed} from '@/hooks/providers/use-feed'
 import {Separator} from '@/components/ui/separator'
 import BaseAvatar from '@/components/base/avatars/base-avatar'
@@ -11,12 +12,13 @@ import BaseButton from '@/components/base/buttons/base-button'
 
 const FeedPost = () => {
   const feedProps = useFeed()
+  const gateProps = useGate()
 
   const btn = {
     variant: 'secondary',
     className: 'flex-1 min-w-0',
     children: '💡 Got a question? Turn it into a poll!',
-    onClick: feedProps.toggleOpen,
+    onClick: () => gateProps.toggleOpen(feedProps.toggleOpen),
   }
 
   const btns = [

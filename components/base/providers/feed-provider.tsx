@@ -17,13 +17,15 @@ const defaultValue = {
 export const FeedContext = createContext(defaultValue as DefaultValue)
 
 const FeedProvider = ({children}: {children: Children}) => {
-  const {form, onSubmit} = usePostFeed()
+  const {form, onSubmit, isLoading} = usePostFeed()
   const [isOpen, setIsOpen] = useState(false)
   const toggleOpen = () => setIsOpen(!isOpen)
 
   useEffect(() => {
     form.reset()
   }, [isOpen, form])
+
+  const loading = form.formState.isSubmitting || isLoading
 
   return (
     <FeedContext.Provider value={{toggleOpen, isOpen}}>
@@ -36,8 +38,13 @@ const FeedProvider = ({children}: {children: Children}) => {
         isOpen={isOpen}
         onSubmit={onSubmit}
         toggleOpen={toggleOpen}
-        onOkProps={{label: 'Create poll', className: 'w-full'}}
         className="h-[600px] overflow-y-scroll"
+        onOkProps={{
+          label: 'Create poll',
+          className: 'w-full',
+          disabled: loading,
+          isLoading: loading,
+        }}
       >
         <PostFeedForm form={form} />
       </BaseDialog>

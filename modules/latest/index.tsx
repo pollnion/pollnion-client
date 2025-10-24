@@ -6,12 +6,12 @@ import {map, take} from 'lodash'
 import {Badge} from '@/components/ui/badge'
 import {formattedNumber} from '@/lib/numbers'
 import LatestSkeleton from './latest-skeleton'
-import useGetFeed from '@/hooks/feed/use-get-feed'
 import {TypographySmall} from '@/components/base/typography/base-typography'
 import {TypographyMuted} from '@/components/base/typography/base-typography'
+import {useReadStore} from '@/store/actions/use-read-store'
 
 const Index = () => {
-  const {data, isLoading} = useGetFeed()
+  const {data, isLoading} = useReadStore('feed')
 
   const _data = take(data, 3)
 
@@ -35,7 +35,16 @@ const Index = () => {
             >
               {title && <TypographySmall>{title}</TypographySmall>}
               <div className="flex space-x-1 mt-1 items-center">
-                <Badge variant="secondary">{space}</Badge>
+                {(space || []).map(
+                  (item: {label: string; value: string}, idx: number) => {
+                    const {label, value} = item || {}
+                    return (
+                      <Badge key={idx + value} variant="secondary">
+                        {label}
+                      </Badge>
+                    )
+                  }
+                )}
                 <TypographyMuted className="text-xs">
                   {formattedNumber(totalVotes)} total votes
                 </TypographyMuted>

@@ -2,7 +2,7 @@
 
 import React, {createContext, useEffect, useState, ReactNode} from 'react'
 import {supabase} from '@/supabase/client'
-import type {Session, User} from '@supabase/supabase-js'
+import type {User} from '@supabase/supabase-js'
 
 type AuthContextType = {
   isAuth: User | null

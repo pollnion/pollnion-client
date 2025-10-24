@@ -22,7 +22,7 @@ export type Author = {
 
 export type Content = {
   title: string
-  space: string
+  space: {value: string; label: string}[]
   description: string
 }
 
@@ -34,7 +34,7 @@ export type EngagementsCount = {
 export type FeedItem = {
   id: string
   author: Author
-  createdAt: number
+  created_at: number
   content: Content
   poll?: Poll
   engagementCount?: EngagementsCount

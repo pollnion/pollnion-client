@@ -7,7 +7,7 @@
         "name": "Alice",
         "status": "normal"
       },
-      "createdAt": 1758757903,
+      "created_at": 1758757903,
       "content": {
         "space": "general",
         "title": "What should we build next?",
@@ -35,7 +35,7 @@
         "name": "Bob",
         "status": "normal"
       },
-      "createdAt": 1758758000,
+      "created_at": 1758758000,
       "content": {
         "space": "general",
         "title": "Best snack during coding?",
@@ -63,7 +63,7 @@
         "name": "Charlie",
         "status": "admin"
       },
-      "createdAt": 1758758200,
+      "created_at": 1758758200,
       "content": {
         "space": "general",
         "title": "Weekend plans?",
@@ -87,7 +87,7 @@
         "name": "Dana",
         "status": "normal"
       },
-      "createdAt": 1758758300,
+      "created_at": 1758758300,
       "content": {
         "space": "general",
         "title": "New framework alert 🚀",
@@ -115,7 +115,7 @@
         "name": "Dana",
         "status": "normal"
       },
-      "createdAt": 1758758300,
+      "created_at": 1758758300,
       "content": {
         "space": "general",
         "title": "New framework alert 🚀",

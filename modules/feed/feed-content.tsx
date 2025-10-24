@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import {map, round} from 'lodash'
+import {isNaN, map, round} from 'lodash'
 import {CircleCheckBig} from 'lucide-react'
 
 import {cn} from '@/lib/utils'
@@ -31,7 +31,14 @@ const Polls = ({
   return (
     <React.Fragment>
       <div className="flex justify-between space-x-2 mb-2">
-        <Badge variant="secondary">{space}</Badge>
+        {(space || []).map((item: {label: string; value: string}, idx: number) => {
+          const {label, value} = item || {}
+          return (
+            <Badge key={idx + value} variant="secondary">
+              {label}
+            </Badge>
+          )
+        })}
       </div>
 
       <div className="flex items-center mb-2 space-x-2 ml-2">
@@ -48,28 +55,42 @@ const Polls = ({
       </div>
 
       <>
-        {map(options, ({votes, label}, i) => (
-          <div
-            key={i}
-            className="mb-1 relative items-center rounded-md bg-neutral-800/50 hover:bg-neutral-800/60 hover:cursor-pointer"
-          >
-            <div
-              className={cn(
-                'last:mb-0 p-2 rounded-sm whitespace-nowrap flex items-center space-x-2',
-                {'bg-neutral-700/50': true} // temp
-              )}
-              style={{width: `${(votes / totalVotes) * 100}%`}}
-            >
-              <TypographySmall>{formattedNumber(votes)}</TypographySmall>
-              <TypographyMuted className="break-normal">{label}</TypographyMuted>
-              {votes === maxVotes && isClosed && <CircleCheckBig size="16" />}
-            </div>
+        {map(options, ({votes, label}, i) => {
+          // Helper — outside the loop if you can, but keeping here for clarity
+          const getPercent = (num: number, total: number) => {
+            if (!total) return 0
+            const result = (num / total) * 100
+            return Math.round(result)
+          }
 
-            <div className="absolute top-2 right-2">
-              <TypographyMuted>{round((votes / totalVotes) * 100)} %</TypographyMuted>
+          const percent = getPercent(votes, totalVotes)
+          const width = `${Math.max(0, Math.min(percent, 100))}%`
+          const isWinner = votes === maxVotes && isClosed
+
+          return (
+            <div
+              key={i}
+              className={cn(
+                'mb-1 relative items-center rounded-md bg-neutral-800/50 hover:bg-neutral-800/60 hover:cursor-pointer'
+              )}
+            >
+              <div
+                className={cn('rounded-sm whitespace-nowrap bg-neutral-700/50')}
+                style={{width}}
+              >
+                <div className="p-2 flex items-center space-x-2 last:mb-0">
+                  <TypographySmall>{formattedNumber(votes)}</TypographySmall>
+                  <TypographyMuted className="break-normal">{label}</TypographyMuted>
+                  {isWinner && <CircleCheckBig size={16} />}
+                </div>
+              </div>
+
+              <div className="absolute top-2 right-2">
+                <TypographyMuted>{percent} %</TypographyMuted>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </>
 
       {options.length > 3 && (

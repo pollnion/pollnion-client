@@ -4,19 +4,18 @@ import {Ellipsis} from 'lucide-react'
 import {ShieldCheck} from 'lucide-react'
 
 import {FeedItem} from '@/models/feed'
+import {timeDifference} from '@/lib/dates'
+import {formattedNumber} from '@/lib/numbers'
 import {USER_STATUS} from '@/constants/status'
 import BaseAvatar from '@/components/base/avatars/base-avatar'
 import BaseButton from '@/components/base/buttons/base-button'
 import BaseHoverCard from '@/components/base/hover-card/base-hover-card'
-import {
-  TypographyMedium,
-  TypographyMuted,
-} from '@/components/base/typography/base-typography'
 import {TypographySmall} from '@/components/base/typography/base-typography'
-import {formattedNumber} from '@/lib/numbers'
+import {TypographyMedium} from '@/components/base/typography/base-typography'
+import {TypographyMuted} from '@/components/base/typography/base-typography'
 
 const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
-  const {author} = item || {} // createdAt
+  const {author, created_at} = item || {}
   const {name, status} = author || {}
 
   const isAdmin = isEqual(status, USER_STATUS.admin)
@@ -52,7 +51,9 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
 
           {isAdmin && <ShieldCheck size={16} className="text-blue-500" />}
         </div>
-        <TypographyMuted className="text-xs">1 hr ago</TypographyMuted>
+        <TypographyMuted className="text-xs">
+          {timeDifference(created_at)}
+        </TypographyMuted>
       </div>
       <BaseButton variant="ghost" className="rounded-full" size="sm">
         <Ellipsis size="18" />

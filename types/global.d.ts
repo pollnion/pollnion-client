@@ -17,3 +17,13 @@ type AnyObject = {
 type RouteParams = {
   [key: string]: any
 }
+
+type ReadType<T> = {
+  // vars
+  data: T[]
+  isLoading: boolean
+  error?: Error | null | string
+
+  // function
+  loadMore?: () => void
+}

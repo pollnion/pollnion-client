@@ -12,8 +12,9 @@ import useSignUp from '@/hooks/auth/use-sign-up'
 import useSignIn from '@/hooks/auth/use-sign-in'
 import {useAuth} from '@/hooks/providers/use-auth'
 import usePassCheck from '@/hooks/auth/use-pass-check'
+import {isEmpty} from 'lodash'
 
-type DefaultValues = DialogProps
+type DefaultValues = DialogProps & {toggleOpen: (action?: () => void) => void}
 
 const defaultValues = {
   isOpen: false,
@@ -33,8 +34,9 @@ const GatedProvider = ({children}: {children: Children}) => {
   const [isOpen, setIsOpen] = useState(false)
   const [type, setType] = useState('sign_in')
 
-  const toggleOpen = () => {
-    if (!isAuth) return setIsOpen(!isOpen)
+  const toggleOpen = (action?: () => void) => {
+    if (isEmpty(isAuth)) return setIsOpen(!isOpen)
+    return action?.()
   }
 
   const toggleType = (type: string) => {
@@ -61,7 +63,7 @@ const GatedProvider = ({children}: {children: Children}) => {
         isOpen={isOpen}
         title={type === 'sign_in' ? 'Sign in' : 'Sign up'}
         onCancelProps={undefined}
-        toggleOpen={toggleOpen}
+        toggleOpen={() => toggleOpen()}
         description={
           type === 'sign_in' ? 'Please enter your details.' : 'Create a new account.'
         }
