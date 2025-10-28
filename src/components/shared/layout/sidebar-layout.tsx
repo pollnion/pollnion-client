@@ -1,6 +1,6 @@
 import { Children, Element } from "@/types/global";
 
-const SideLayout: React.FC<{
+const SideBarLayout: React.FC<{
   left: Children;
   right: Children;
   children: Children;
@@ -16,4 +16,4 @@ const SideLayout: React.FC<{
   );
 };
 
-export default SideLayout;
+export default SideBarLayout;
