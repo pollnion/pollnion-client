@@ -5,7 +5,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { VariantProps } from "class-variance-authority";
 
 import type { Children, Element } from "@/types/global";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button as ShadcnBtn, buttonVariants } from "@/components/ui/button";
 
 type Props = React.ComponentPropsWithoutRef<"button"> &
   VariantProps<typeof buttonVariants> & {
@@ -16,7 +16,7 @@ type Props = React.ComponentPropsWithoutRef<"button"> &
     icon?: React.ElementType;
   };
 
-const Index = forwardRef<HTMLButtonElement, Props>((props, ref): Element => {
+const Button = forwardRef<HTMLButtonElement, Props>((props, ref): Element => {
   const {
     href,
     variant,
@@ -40,7 +40,7 @@ const Index = forwardRef<HTMLButtonElement, Props>((props, ref): Element => {
 
   if (href) {
     return (
-      <Button
+      <ShadcnBtn
         ref={ref}
         asChild={asChild}
         variant={variant}
@@ -50,12 +50,12 @@ const Index = forwardRef<HTMLButtonElement, Props>((props, ref): Element => {
         <Link href={href} className="flex items-center">
           {content}
         </Link>
-      </Button>
+      </ShadcnBtn>
     );
   }
 
   return (
-    <Button
+    <ShadcnBtn
       ref={ref}
       asChild={asChild}
       variant={variant}
@@ -63,10 +63,10 @@ const Index = forwardRef<HTMLButtonElement, Props>((props, ref): Element => {
       {...rest}
     >
       {content}
-    </Button>
+    </ShadcnBtn>
   );
 });
 
-Index.displayName = "Index";
+Button.displayName = "Index";
 
-export default Index;
+export default Button;

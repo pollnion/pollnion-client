@@ -48,7 +48,7 @@ type TypographyProps<T extends React.ElementType> = AsProp<T> &
     keyof VariantProps<typeof typographyVariants> | "as"
   >;
 
-export function Index<T extends React.ElementType = "p">({
+export function Typography<T extends React.ElementType = "p">({
   as,
   variant,
   weight,

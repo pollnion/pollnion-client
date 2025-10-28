@@ -1,3 +1,5 @@
+import Button from "@/components/custom/button";
+
 export default function Home() {
-  return <div>test</div>;
+  return <Button>test</Button>;
 }
