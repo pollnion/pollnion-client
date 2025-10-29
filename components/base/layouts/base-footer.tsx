@@ -1,11 +1,12 @@
 'use client'
 
 import map from 'lodash/map'
+import throttle from 'lodash/throttle'
 import {Plus} from 'lucide-react'
 import {House} from 'lucide-react'
 import {Vote} from 'lucide-react'
 import {MessageCircle} from 'lucide-react'
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 
 import BaseButton from '../buttons/base-button'
 import BaseAvatar from '../avatars/base-avatar'
@@ -15,24 +16,28 @@ type BaseButtonProps = React.ComponentProps<typeof BaseButton>
 
 const BaseFooter = () => {
   const [show, setShow] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
+  const lastScrollYRef = useRef(0)
   const feedProps = useFeed()
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
+    const handleScroll = throttle(() => {
+      const currentScrollY = window.scrollY
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
         // scrolling down
         setShow(false)
       } else {
         // scrolling up
         setShow(true)
       }
-      setLastScrollY(window.scrollY)
-    }
+      lastScrollYRef.current = currentScrollY
+    }, 100)
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
+    window.addEventListener('scroll', handleScroll, {passive: true})
+    return () => {
+      handleScroll.cancel()
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const buttons: BaseButtonProps[] = [
     {
@@ -64,17 +69,9 @@ const BaseFooter = () => {
       className={`sm:hidden fixed bottom-0 left-0 right-0 px-4 py-3 flex justify-around items-center bg-background z-50 transition-transform duration-300
       ${show ? 'translate-y-0' : 'translate-y-full'}`}
     >
-      {map(buttons, (items, idx) => {
-        return (
-          <React.Fragment key={idx}>
-            {React.createElement(BaseButton, {
-              className: 'w-12 h-12',
-              variant: 'ghost',
-              ...items,
-            })}
-          </React.Fragment>
-        )
-      })}
+      {map(buttons, (items, idx) => (
+        <BaseButton key={idx} className="w-12 h-12" variant="ghost" {...items} />
+      ))}
     </footer>
   )
 }
