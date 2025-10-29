@@ -12,7 +12,7 @@ const RightLayout = () => {
 
 export default function Home() {
   return (
-    <PublicLayout showFooter={true} showNavbar={true}>
+    <PublicLayout showNavbar={true}>
       <SideBarLayout left={<LeftLayout />} right={<RightLayout />}>
         <Button>test</Button>
       </SideBarLayout>

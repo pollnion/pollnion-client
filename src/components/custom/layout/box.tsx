@@ -6,7 +6,8 @@ import { cva, VariantProps } from "class-variance-authority";
 export const boxVariants = cva("inline-block p-0 m-0 box-border", {
   variants: {
     size: {
-      sm: "text-sm p-2",
+      xs: "text-sm p-0",
+      sm: "text-sm p-1",
       md: "text-base p-4",
       lg: "text-lg p-6",
     },
@@ -39,13 +40,13 @@ export const boxVariants = cva("inline-block p-0 m-0 box-border", {
     flow: {
       col: "flex-col",
       row: "flex-row",
-      center: "items-center justify-center",
+      center: "items-center", // justify-center
     },
   },
   defaultVariants: {
-    size: "md",
+    size: "sm",
     color: "neutral",
-    radius: "md",
+    radius: "sm",
     shadow: "none",
     display: "block",
   },

@@ -1,22 +1,21 @@
 import React from "react";
-import Link from "next/link";
-import { forwardRef } from "react";
-import { Spinner } from "@/components/ui/spinner";
+import { LucideIcon } from "lucide-react";
 import { VariantProps } from "class-variance-authority";
 
-import type { Children, Element } from "@/types/global";
-import { Button as ShadcnBtn, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import { Spinner } from "@/components/ui/spinner";
+import { Button, buttonVariants } from "@/components/ui/button";
 
-type Props = React.ComponentPropsWithoutRef<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    href?: string;
-    asChild?: boolean;
-    children: Children;
-    isLoading?: boolean;
-    icon?: React.ElementType;
-  };
-
-const Button = forwardRef<HTMLButtonElement, Props>((props, ref): Element => {
+const BaseButton = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<"button"> &
+    VariantProps<typeof buttonVariants> & {
+      icon?: LucideIcon;
+      href?: string;
+      asChild?: boolean;
+      isLoading?: boolean;
+    }
+>((props, ref) => {
   const {
     href,
     variant,
@@ -24,49 +23,52 @@ const Button = forwardRef<HTMLButtonElement, Props>((props, ref): Element => {
     isLoading,
     icon: Icon,
     asChild = false,
-    ...rest
+    size = "sm",
+    ...restProps
   } = props;
 
-  const content = (
-    <>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        Icon && <Icon className={href ? "mr-1" : ""} />
-      )}
-      {children}
-    </>
-  );
-
-  if (href) {
+  if (isLoading) {
     return (
-      <ShadcnBtn
+      <Button
         ref={ref}
+        size={size}
         asChild={asChild}
         variant={variant}
-        disabled={isLoading}
-        {...rest}
+        {...restProps}
       >
-        <Link href={href} className="flex items-center">
-          {content}
-        </Link>
-      </ShadcnBtn>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          Icon && <Icon className={href ? "mr-1" : ""} />
+        )}
+        {children}
+      </Button>
     );
   }
 
   return (
-    <ShadcnBtn
+    <Button
       ref={ref}
+      size={size}
       asChild={asChild}
       variant={variant}
-      disabled={isLoading}
-      {...rest}
+      {...restProps}
     >
-      {content}
-    </ShadcnBtn>
+      {href ? (
+        <Link href={href} className="flex items-center">
+          {Icon && <Icon className="mr-1" />}
+          {children}
+        </Link>
+      ) : (
+        <>
+          {Icon && <Icon />}
+          {children}
+        </>
+      )}
+    </Button>
   );
 });
 
-Button.displayName = "Index";
+BaseButton.displayName = "BaseButton";
 
-export default Button;
+export default BaseButton;

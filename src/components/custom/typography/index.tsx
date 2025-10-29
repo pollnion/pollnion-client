@@ -11,7 +11,9 @@ const typographyVariants = cva("", {
       h4: "scroll-m-20 text-xl font-semibold tracking-tight",
       p: "leading-7 text-base",
       small: "text-sm font-medium leading-none",
+      ["small-xs"]: "text-xs font-medium leading-none",
       muted: "text-sm text-muted-foreground",
+      ["muted-xs"]: "text-xs text-muted-foreground",
       code: "relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm",
       lead: "text-xl text-muted-foreground",
       large: "text-lg font-semibold",
@@ -31,7 +33,7 @@ const typographyVariants = cva("", {
     },
   },
   defaultVariants: {
-    variant: "p",
+    variant: "small",
     weight: "normal",
     align: "left",
   },

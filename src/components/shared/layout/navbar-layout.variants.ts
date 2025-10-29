@@ -1,7 +1,12 @@
+import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 
 export const navbarVariants = cva(
-  "px-2 lg:container lg:mx-auto lg:px-6 flex justify-between py-3 items-center sticky top-0 h-fit bg-background z-50 space-x-2 transition-transform duration-300",
+  cn(
+    "transition-transform duration-300",
+    "items-center sticky top-0 h-fit bg-background z-50 space-x-2",
+    "px-2 lg:container lg:mx-auto lg:px-1 flex justify-between py-1"
+  ),
   {
     variants: {
       isVisible: {

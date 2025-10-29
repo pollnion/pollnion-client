@@ -8,8 +8,8 @@ const PublicLayout = ({
   showNavbar,
 }: {
   children: React.ReactNode;
-  showFooter: boolean;
-  showNavbar: boolean;
+  showFooter?: boolean;
+  showNavbar?: boolean;
 }) => {
   return (
     <React.Fragment>
