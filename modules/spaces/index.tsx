@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 
 import spaces from '@/data/tags.json'
 import BaseButton from '@/components/base/buttons/base-button'

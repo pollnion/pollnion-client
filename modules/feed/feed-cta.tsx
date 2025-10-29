@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {ArrowUp} from 'lucide-react'
 import {Forward} from 'lucide-react'
 import {Repeat2} from 'lucide-react'
@@ -21,12 +21,12 @@ const FeedCta: React.FC<{item: FeedItem}> = ({item}) => {
       label: formattedNumber(likes),
     },
     {
-      // likes
+      // reposts
       icon: Repeat2,
       label: formattedNumber(likes),
     },
     {
-      // likes
+      // comments
       icon: MessageCircle,
       label: formattedNumber(comments),
     },
@@ -46,30 +46,32 @@ const FeedCta: React.FC<{item: FeedItem}> = ({item}) => {
   return (
     <div className="flex justify-between sm:justify-start mt-3">
       <div className="flex space-x-1">
-        {map(buttons, (item, idx) => {
-          return React.createElement(BaseButton, {
-            ...item,
-            key: idx,
-            size: 'sm',
-            variant: 'secondary',
-            className: 'rounded-full',
-          })
-        })}
+        {map(buttons, ({icon, label}, idx) => (
+          <BaseButton
+            key={idx}
+            icon={icon}
+            size="sm"
+            variant="secondary"
+            className="rounded-full"
+          >
+            {label}
+          </BaseButton>
+        ))}
       </div>
 
       <div className="flex">
-        {map(buttons_v2, (item, idx) => {
-          return React.createElement(BaseButton, {
-            ...item,
-            key: idx,
-            size: 'sm',
-            variant: 'ghost',
-            className: 'rounded-full',
-          })
-        })}
+        {map(buttons_v2, ({icon}, idx) => (
+          <BaseButton
+            key={idx}
+            icon={icon}
+            size="sm"
+            variant="ghost"
+            className="rounded-full"
+          />
+        ))}
       </div>
     </div>
   )
 }
 
-export default FeedCta
+export default React.memo(FeedCta)

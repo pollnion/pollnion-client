@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 
 import UsersCard from './users-card'
 import SearchHeader from '@/components/base/search/search-header'

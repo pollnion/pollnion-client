@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {Label} from '@/components/ui/label'
 import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group'
 

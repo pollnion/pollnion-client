@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {Plus} from 'lucide-react'
 import {Vote} from 'lucide-react'
 import {MessageCircleQuestionMark} from 'lucide-react'
@@ -13,7 +13,7 @@ const FeedPost = () => {
   const feedProps = useFeed()
 
   const btn = {
-    variant: 'secondary',
+    variant: 'secondary' as const,
     className: 'flex-1 min-w-0',
     children: '💡 Got a question? Turn it into a poll!',
     onClick: feedProps.toggleOpen,
@@ -40,30 +40,21 @@ const FeedPost = () => {
       <div className="bg-card p-2 rounded-none sm:rounded-sm">
         <div className="flex items-center space-x-2">
           <BaseAvatar />
-          {React.createElement(
-            BaseButton,
-            btn as React.ComponentProps<typeof BaseButton>
-          )}
+          <BaseButton {...btn} />
         </div>
 
         <Separator className="my-2" />
 
         <div className="flex justify-around items-center">
-          {map(btns, (props: React.ComponentProps<typeof BaseButton>, i: number) => {
-            return (
-              <React.Fragment key={i}>
-                {React.createElement(BaseButton, {
-                  variant: 'secondary',
-                  className: 'flex-1 min-w-0',
-                  ...props,
-                })}
-                <Separator
-                  orientation="vertical"
-                  className="!h-6 mx-2 block last:hidden"
-                />
-              </React.Fragment>
-            )
-          })}
+          {map(btns, (props, i: number) => (
+            <React.Fragment key={i}>
+              <BaseButton variant="secondary" className="flex-1 min-w-0" {...props} />
+              <Separator
+                orientation="vertical"
+                className="!h-6 mx-2 block last:hidden"
+              />
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </React.Fragment>

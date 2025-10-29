@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {usePathname} from 'next/navigation'
 import BaseButton from '@/components/base/buttons/base-button'
 

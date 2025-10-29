@@ -1,5 +1,5 @@
 import React from 'react'
-import {isEqual} from 'lodash'
+import isEqual from 'lodash/isEqual'
 import {Ellipsis} from 'lucide-react'
 import {ShieldCheck} from 'lucide-react'
 
@@ -61,4 +61,4 @@ const FeedHeader: React.FC<{item: FeedItem}> = ({item}) => {
   )
 }
 
-export default FeedHeader
+export default React.memo(FeedHeader)

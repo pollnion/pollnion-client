@@ -1,7 +1,7 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {TypographyMuted} from '../typography/base-typography'
-import {TypographyP, TypographySmall} from '../typography/base-typography'
+import {TypographyP} from '../typography/base-typography'
 
 type TimelineItem = {
   description?: string

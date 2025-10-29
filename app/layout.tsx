@@ -5,8 +5,6 @@ import type {Metadata} from 'next'
 import AppProviders from '@/components/base/providers/app-providers'
 import {Suspense} from 'react'
 
-console.log('This is test')
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],

@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {Heart} from 'lucide-react'
 import {Book} from 'lucide-react'
 import {Search} from 'lucide-react'

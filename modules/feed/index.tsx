@@ -24,7 +24,7 @@ const Index = () => {
         loadMore={feedProps.loadMore}
         isLoading={feedProps.isLoading}
       >
-        {(idx, item) => <FeedCard key={idx} item={item} />}
+        {(idx, item) => <FeedCard key={item.id} item={item} />}
       </BaseVirtuoso>
     </div>
   )

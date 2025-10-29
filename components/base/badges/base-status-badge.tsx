@@ -1,5 +1,5 @@
 import React from 'react'
-import {isEqual} from 'lodash'
+import isEqual from 'lodash/isEqual'
 
 import {cn} from '@/lib/utils'
 import {Badge} from '@/components/ui/badge'

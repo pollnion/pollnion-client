@@ -1,7 +1,8 @@
 'use client'
 
 import React from 'react'
-import {map, take} from 'lodash'
+import map from 'lodash/map'
+import take from 'lodash/take'
 
 import {Badge} from '@/components/ui/badge'
 import {formattedNumber} from '@/lib/numbers'
