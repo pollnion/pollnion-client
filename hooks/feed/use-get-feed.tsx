@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import MOCK_DATA from '@/data/feed.json'
 import {FeedItem} from '@/models/feed'
 
@@ -9,11 +9,7 @@ const useGetFeed = () => {
   const [data, setData] = useState<FeedItem[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    getData()
-  }, [])
-
-  const getData = async () => {
+  const getData = useCallback(async () => {
     setIsLoading(true)
     try {
       const {data} = await FETCH_MOCK_DATA()
@@ -23,7 +19,11 @@ const useGetFeed = () => {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    getData()
+  }, [getData])
 
   const loadMore = () => {
     console.log('load more...')

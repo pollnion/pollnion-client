@@ -20,4 +20,4 @@ const FeedCard = ({item}: {item: FeedItem}) => {
   )
 }
 
-export default FeedCard
+export default React.memo(FeedCard)

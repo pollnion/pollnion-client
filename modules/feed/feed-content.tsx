@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import {map, round} from 'lodash'
+import map from 'lodash/map'
+import round from 'lodash/round'
 import {CircleCheckBig} from 'lucide-react'
 
 import {cn} from '@/lib/utils'
@@ -111,4 +112,4 @@ const FeedContent: React.FC<{item: FeedItem}> = ({item}) => {
   )
 }
 
-export default FeedContent
+export default React.memo(FeedContent)

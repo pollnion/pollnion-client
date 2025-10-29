@@ -22,7 +22,9 @@ const FeedProvider = ({children}: {children: Children}) => {
   const toggleOpen = () => setIsOpen(!isOpen)
 
   useEffect(() => {
-    form.reset()
+    if (!isOpen) {
+      form.reset()
+    }
   }, [isOpen, form])
 
   return (
