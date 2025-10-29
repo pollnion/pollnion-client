@@ -39,28 +39,33 @@ const BaseFooter = () => {
     }
   }, [])
 
-  const buttons: BaseButtonProps[] = [
+  const buttons: (BaseButtonProps & {id: string})[] = [
     {
+      id: 'home',
       icon: House,
-      onClick: () => console.log('House clicked!'),
+      onClick: () => {}, // TODO: Implement navigation
     },
     {
+      id: 'vote',
       icon: Vote,
-      onClick: () => console.log('Vote clicked!'),
+      onClick: () => {}, // TODO: Implement navigation
     },
     {
+      id: 'create',
       icon: Plus,
       variant: 'default',
       onClick: feedProps.toggleOpen,
       className: 'w-12 h-12 rounded-full',
     },
     {
+      id: 'messages',
       icon: MessageCircle,
-      onClick: () => console.log('messages clicked!'),
+      onClick: () => {}, // TODO: Implement navigation
     },
     {
+      id: 'profile',
       children: <BaseAvatar />,
-      onClick: () => console.log('Profile clicked!'),
+      onClick: () => {}, // TODO: Implement navigation
     },
   ]
 
@@ -69,9 +74,9 @@ const BaseFooter = () => {
       className={`sm:hidden fixed bottom-0 left-0 right-0 px-4 py-3 flex justify-around items-center bg-background z-50 transition-transform duration-300
       ${show ? 'translate-y-0' : 'translate-y-full'}`}
     >
-      {map(buttons, ({className, ...items}, idx) => (
+      {map(buttons, ({id, className, ...items}) => (
         <BaseButton
-          key={idx}
+          key={id}
           variant="ghost"
           className={className || 'w-12 h-12'}
           {...items}
