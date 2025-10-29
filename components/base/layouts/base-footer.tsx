@@ -69,8 +69,13 @@ const BaseFooter = () => {
       className={`sm:hidden fixed bottom-0 left-0 right-0 px-4 py-3 flex justify-around items-center bg-background z-50 transition-transform duration-300
       ${show ? 'translate-y-0' : 'translate-y-full'}`}
     >
-      {map(buttons, (items, idx) => (
-        <BaseButton key={idx} className="w-12 h-12" variant="ghost" {...items} />
+      {map(buttons, ({className, ...items}, idx) => (
+        <BaseButton
+          key={idx}
+          variant="ghost"
+          className={className || 'w-12 h-12'}
+          {...items}
+        />
       ))}
     </footer>
   )
