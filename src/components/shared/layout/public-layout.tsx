@@ -14,7 +14,9 @@ const PublicLayout = ({
   return (
     <React.Fragment>
       {showNavbar && <NavbarLayout />}
-      <React.Fragment>{children}</React.Fragment>
+      <main className="px-0 sm:px-2 lg:container lg:mx-auto mt-3 md:mt-5">
+        {children}
+      </main>
       {showFooter && <FooterLayout />}
     </React.Fragment>
   );

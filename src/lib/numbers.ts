@@ -1,5 +1,10 @@
 import numeral from "numeral";
 
+/**
+ * Format number into abbreviated string
+ * @param number
+ * @returns
+ */
 export const formatNum = (number = 0) => {
   // sample formatting
   // 1000 // "1k"

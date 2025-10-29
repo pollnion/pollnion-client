@@ -15,6 +15,10 @@ const store = create<ScrollPositionState>((set) => ({
   setLastScrollY: (lastScrollY) => set({ lastScrollY }),
 }));
 
+/**
+ * Hook to track scroll position and show/hide based on scroll direction
+ * @returns
+ */
 const useScrollPosition = () => {
   const { lastScrollY, setLastScrollY, show, setShow } = store();
 

@@ -6,7 +6,6 @@ import LogoImg from "../images/logo-img";
 import GithubBtn from "../buttons/gh-btn";
 import SearchBtn from "../buttons/search-btn";
 import Button from "@/components/custom/button";
-import LogoTxtImg from "../images/logo-text-img";
 import Box from "@/components/custom/layout/box";
 import NavbarLayoutCTA from "./navbar-layout.cta";
 import NavbarLayoutAvatar from "./navbar-layout.avatar";
@@ -14,6 +13,7 @@ import useScrollPosition from "@/store/utils/use-scroll-position";
 
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import LogoTxtBtn from "../buttons/logo-txt-btn";
 import { usePathChecker } from "@/lib/path-checker";
 import { Separator } from "@/components/ui/separator";
 import { navbarVariants } from "./navbar-layout.variants";
@@ -50,17 +50,7 @@ const NavbarLayout = () => {
 
         <Box display="flex" flow="center" className="gap-2">
           <LogoImg onClick={handleImgClick} />
-
-          <Button
-            href="/"
-            variant="ghost"
-            className="p-0 hidden md:flex items-center"
-            onClick={handleImgClick}
-          >
-            <div className="relative w-24 h-8 flex">
-              <LogoTxtImg />
-            </div>
-          </Button>
+          <LogoTxtBtn onClick={handleImgClick} />
         </Box>
       </Box>
 

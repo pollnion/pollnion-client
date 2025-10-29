@@ -1,19 +1,50 @@
-import { Children, Element } from "@/types/global";
+import { cn } from "@/lib/utils";
+import { Children } from "@/types/global";
 
-const SideBarLayout: React.FC<{
-  left: Children;
-  right: Children;
+const commonStyles =
+  "space-y-4 sticky top-20 self-start max-h-[calc(100vh-5rem)] overflow-y-auto scroll-invisible";
+
+interface SideColumnProps {
   children: Children;
-}> = ({ left, right, children }): Element => {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] lg:grid-cols-[240px_1fr_300px] gap-4">
-      {left && <aside className="hidden md:block">{left}</aside>}
+  className?: string;
+}
 
-      {children && <main>{children}</main>}
+/**
+ * SideColumn — base wrapper for left and right side sections
+ */
+const SideColumn = ({ children, className }: SideColumnProps) => (
+  <aside className={cn(commonStyles, className)}>{children}</aside>
+);
 
-      {right && <aside className="hidden lg:block">{right}</aside>}
-    </div>
-  );
-};
+/**
+ * PublicColLayout — 3-column layout (Left, Middle, Right)
+ *
+ * left: hidden on mobile, shown on sm+
+ * right: hidden on md-, shown on md+
+ * children: main middle content
+ */
+interface PublicColLayoutProps {
+  left?: Children;
+  right?: Children;
+  children: Children;
+}
 
-export default SideBarLayout;
+const PublicColLayout = ({ left, right, children }: PublicColLayoutProps) => (
+  <div className="flex items-start justify-between md:space-x-2">
+    {left && (
+      <SideColumn className="hidden sm:block sm:w-[200px] md:w-[280]">
+        {left}
+      </SideColumn>
+    )}
+
+    <div className="w-full md:w-[620px] space-y-4">{children}</div>
+
+    {right && (
+      <SideColumn className="hidden md:block sm:w-[200px] md:w-[280px]">
+        {right}
+      </SideColumn>
+    )}
+  </div>
+);
+
+export default PublicColLayout;
