@@ -1,5 +1,5 @@
 import React from 'react'
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {Plus} from 'lucide-react'
 import {Vote} from 'lucide-react'
 import {MessageCircleQuestionMark} from 'lucide-react'

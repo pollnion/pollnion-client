@@ -1,6 +1,6 @@
 'use client'
 
-import {map} from 'lodash'
+import map from 'lodash/map'
 import {Plus} from 'lucide-react'
 import {House} from 'lucide-react'
 import {Vote} from 'lucide-react'
