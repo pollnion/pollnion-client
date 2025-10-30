@@ -1,0 +1,71 @@
+import React from "react";
+import { cn } from "@/lib/utils";
+import {
+  DialogClose,
+  DialogTitle,
+  DialogFooter,
+  DialogHeader,
+  DialogContent,
+  DialogDescription,
+  Dialog as UiDialog,
+} from "@/components/ui/dialog";
+import { FieldValues } from "react-hook-form";
+
+import Button from "../button";
+import { Element } from "@/types/global";
+import { DialogProps } from "@/types/ui";
+
+const Dialog: React.FC<DialogProps<FieldValues>> = ({
+  type,
+  isOpen,
+  toggle,
+  title,
+  description,
+  onOkProps,
+  onCancelProps,
+  className,
+  children,
+  form,
+}): Element => {
+  const Content = (
+    <React.Fragment>
+      <DialogHeader>
+        <DialogTitle>{title}</DialogTitle>
+        {description && <DialogDescription>{description}</DialogDescription>}
+      </DialogHeader>
+
+      {children}
+
+      {(onOkProps || onCancelProps) && (
+        <DialogFooter>
+          {onCancelProps && (
+            <DialogClose asChild>
+              <Button variant="outline" {...onCancelProps}>
+                {onCancelProps?.label || "Cancel"}
+              </Button>
+            </DialogClose>
+          )}
+          {onOkProps && (
+            <Button {...onOkProps}>{onOkProps.label || "Save changes"}</Button>
+          )}
+        </DialogFooter>
+      )}
+    </React.Fragment>
+  );
+
+  return (
+    <UiDialog open={isOpen} onOpenChange={toggle}>
+      <DialogContent
+        className={cn(
+          "sm:max-w-[590px] bg-card px-3 py-6 border-none",
+          className
+        )}
+      >
+        {/* form={form} onSubmit={onSubmit} */}
+        {type === "form" && form ? <form>{Content}</form> : Content}
+      </DialogContent>
+    </UiDialog>
+  );
+};
+
+export default Dialog;

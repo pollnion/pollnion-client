@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { Menu } from "lucide-react";
 
 import LogoImg from "../images/logo-img";
@@ -66,4 +66,4 @@ const NavbarLayout = () => {
   );
 };
 
-export default NavbarLayout;
+export default React.memo(NavbarLayout);

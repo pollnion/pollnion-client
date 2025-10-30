@@ -4,9 +4,9 @@ import { VariantProps } from "class-variance-authority";
 
 import Link from "next/link";
 import { Spinner } from "@/components/ui/spinner";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button as UIButton, buttonVariants } from "@/components/ui/button";
 
-const BaseButton = React.forwardRef<
+const Button = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<"button"> &
     VariantProps<typeof buttonVariants> & {
@@ -47,7 +47,7 @@ const BaseButton = React.forwardRef<
   }
 
   return (
-    <Button
+    <UIButton
       ref={ref}
       size={size}
       asChild={asChild}
@@ -65,10 +65,10 @@ const BaseButton = React.forwardRef<
           {children}
         </>
       )}
-    </Button>
+    </UIButton>
   );
 });
 
-BaseButton.displayName = "BaseButton";
+Button.displayName = "Button";
 
-export default BaseButton;
+export default Button;

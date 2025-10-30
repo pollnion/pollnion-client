@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import { useRef } from "react";
 import { create } from "zustand";
+import throttle from "lodash/throttle";
 
 type ScrollPositionState = {
   lastScrollY: number;
@@ -20,24 +22,29 @@ const store = create<ScrollPositionState>((set) => ({
  * @returns
  */
 const useScrollPosition = () => {
-  const { lastScrollY, setLastScrollY, show, setShow } = store();
+  const { show, setShow } = store();
+  const lastScrollYRef = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
+    const handleScroll = throttle(() => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollYRef.current && currentScrollY > 50) {
         // scrolling down
         setShow(false);
       } else {
         // scrolling up
         setShow(true);
       }
-      setLastScrollY(window.scrollY);
-    };
+      lastScrollYRef.current = currentScrollY;
+    }, 100);
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      handleScroll.cancel();
+      window.removeEventListener("scroll", handleScroll);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastScrollY, setShow]);
+  }, []);
 
   return { show };
 };

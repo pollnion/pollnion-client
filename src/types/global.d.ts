@@ -8,14 +8,9 @@ export type Children = React.ReactNode;
 export type Element = JSX.Element;
 
 export type OpenProps = {
-  open: boolean;
+  isOpen: boolean;
   setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 };
-
-/** Common dialog/modal props */
-export interface DialogProps extends OpenProps {
-  toggle: (key?: string) => void;
-}
 
 /** Generic list state wrapper */
 export interface ListState<T> {
