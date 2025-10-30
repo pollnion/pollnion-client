@@ -1,8 +1,13 @@
+import useAuth from "@/store/auth/use-auth";
 import Avatar from "@/components/custom/avatar";
 import Dropdown from "@/components/custom/dropdown";
 
 const NavbarLayoutAvatar = () => {
-  const avatar_url = "";
+  const { isAuth } = useAuth();
+
+  if (!isAuth) {
+    return null;
+  }
 
   const handleSignOut = () => {
     console.log("Signing out...");
@@ -15,7 +20,7 @@ const NavbarLayoutAvatar = () => {
 
   return (
     <Dropdown label="My Account" items={items}>
-      <Avatar src={avatar_url} alt="av" />
+      <Avatar src={"avatar_url"} alt="av" />
     </Dropdown>
   );
 };

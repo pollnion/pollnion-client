@@ -9,14 +9,12 @@ import {
   DialogDescription,
   Dialog as UiDialog,
 } from "@/components/ui/dialog";
-import { FieldValues } from "react-hook-form";
 
 import Button from "../button";
 import { Element } from "@/types/global";
-import { DialogProps } from "@/types/ui";
+import { BaseDialogProps } from "@/types/ui";
 
-const Dialog: React.FC<DialogProps<FieldValues>> = ({
-  type,
+const Dialog: React.FC<BaseDialogProps> = ({
   isOpen,
   toggle,
   title,
@@ -25,7 +23,6 @@ const Dialog: React.FC<DialogProps<FieldValues>> = ({
   onCancelProps,
   className,
   children,
-  form,
 }): Element => {
   const Content = (
     <React.Fragment>
@@ -61,8 +58,7 @@ const Dialog: React.FC<DialogProps<FieldValues>> = ({
           className
         )}
       >
-        {/* form={form} onSubmit={onSubmit} */}
-        {type === "form" && form ? <form>{Content}</form> : Content}
+        {Content}
       </DialogContent>
     </UiDialog>
   );
