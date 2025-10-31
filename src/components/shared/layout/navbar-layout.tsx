@@ -20,7 +20,7 @@ import { navbarVariants } from "./navbar-layout.variants";
 
 const CommonSeparator = () => (
   <div className="hidden md:block">
-    <Separator orientation="vertical" className="!h-4 w-px bg-muted" />
+    <Separator orientation="vertical" className="h-4 w-px bg-muted" />
   </div>
 );
 
@@ -43,18 +43,15 @@ const NavbarLayout = () => {
         })
       )}
     >
-      <Box display="flex" flow="center" size="sm">
-        <Button variant="ghost" className="block sm:hidden">
+      <Box display="flex" flow="center" size="xs" className="gap-2">
+        <Button variant="outline">
           <Menu />
         </Button>
 
-        <Box display="flex" flow="center" className="gap-2">
-          <LogoImg onClick={handleImgClick} />
-          <LogoTxtBtn onClick={handleImgClick} />
-        </Box>
+        <LogoTxtBtn onClick={handleImgClick} />
       </Box>
 
-      <Box display="flex" flow="center" className="space-x-2" size="sm">
+      <Box display="flex" flow="center" className="space-x-2" size="xs">
         {!isSearchPath && <SearchBtn />}
         <CommonSeparator />
         <GithubBtn className="hidden md:flex" />

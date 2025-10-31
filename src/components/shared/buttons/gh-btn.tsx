@@ -11,7 +11,7 @@ const GITHUB_STARS = 3400;
 
 const GithubBtn = ({ className }: { className: ClassNameValue }) => {
   return (
-    <Button variant="ghost" className={cn(className)}>
+    <Button variant="outline" className={cn(className)}>
       <Image src={GithubIcon} alt="GitHub" width={24} height={24} />
       <Typography variant="muted-xs">{formatNum(GITHUB_STARS)}</Typography>
     </Button>

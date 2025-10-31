@@ -10,11 +10,7 @@ const NavbarLayoutCTA = () => {
     return null;
   }
 
-  return (
-    <Button onClick={() => toggleAuthGuard()}>
-      <Typography>Sign up</Typography>
-    </Button>
-  );
+  return <Button onClick={() => toggleAuthGuard()}>Sign up</Button>;
 };
 
 export default NavbarLayoutCTA;

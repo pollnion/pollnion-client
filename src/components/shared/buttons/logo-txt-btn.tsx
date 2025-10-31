@@ -3,12 +3,7 @@ import LogoTxtImg from "../images/logo-text-img";
 
 const LogoTxtBtn = ({ onClick }: { onClick: () => void }) => {
   return (
-    <Button
-      href="/"
-      variant="ghost"
-      className="p-0 hidden md:flex items-center"
-      onClick={onClick}
-    >
+    <Button href="/" variant="ghost" className="p-1" onClick={onClick}>
       <div className="relative w-24 h-8 flex">
         <LogoTxtImg />
       </div>

@@ -1,0 +1,112 @@
+{
+  "data": [
+    {
+      "id": "p1",
+      "author": {
+        "id": "u1",
+        "name": "Alice",
+        "status": "normal"
+      },
+      "createdAt": 1758757903,
+      "content": {
+        "space": "general",
+        "title": "What should we build next?",
+        "description": "Thinking of adding a new feature to our app. Curious what y’all think."
+      },
+      "poll": {
+        "status": "open",
+        "totalVotes": 194,
+        "question": "Pick your favorite feature idea:",
+        "options": [
+          { "id": "opt1", "label": "Dark mode", "votes": 87 },
+          { "id": "opt2", "label": "Offline support", "votes": 42 },
+          { "id": "opt3", "label": "AI integration", "votes": 65 }
+        ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
+      }
+    },
+    {
+      "id": "p2",
+      "author": {
+        "id": "u2",
+        "name": "Bob",
+        "status": "normal"
+      },
+      "createdAt": 1758758000,
+      "content": {
+        "space": "general",
+        "title": "Best snack during coding?",
+        "description": "I keep debating between chips or gummy bears… help me decide."
+      },
+      "poll": {
+        "question": "What’s your go-to coding snack?",
+        "status": "open",
+        "totalVotes": 87,
+        "options": [
+          { "id": "opt1", "label": "Chips", "votes": 23 },
+          { "id": "opt2", "label": "Chocolate", "votes": 45 },
+          { "id": "opt3", "label": "Energy drink", "votes": 19 }
+        ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
+      }
+    },
+    {
+      "id": "p3",
+      "author": {
+        "id": "u3",
+        "name": "Charlie",
+        "status": "admin"
+      },
+      "createdAt": 1758758200,
+      "content": {
+        "space": "general",
+        "title": "Weekend plans?",
+        "description": "Need inspiration—should I go hiking or binge another Netflix series?"
+      },
+      "poll": {
+        "status": "closed",
+        "totalVotes": 110,
+        "question": "What should I do this weekend?",
+        "options": [
+          { "id": "opt1", "label": "Hiking", "votes": 31 },
+          { "id": "opt2", "label": "Netflix", "votes": 52 },
+          { "id": "opt3", "label": "Gaming", "votes": 27 }
+        ]
+      }
+    },
+    {
+      "id": "p4",
+      "author": {
+        "id": "u4",
+        "name": "Dana",
+        "status": "normal"
+      },
+      "createdAt": 1758758300,
+      "content": {
+        "space": "general",
+        "title": "New framework alert 🚀",
+        "description": "Just tried out a new frontend framework. Curious if others have tested it."
+      },
+      "poll": {
+        "status": "open",
+        "totalVotes": 81,
+        "question": "Would you try a new frontend framework this year?",
+        "options": [
+          { "id": "opt1", "label": "Heck yes", "votes": 14 },
+          { "id": "opt2", "label": "Only if stable", "votes": 38 },
+          { "id": "opt3", "label": "Nope, sticking with React", "votes": 29 }
+        ]
+      },
+      "engagements_count": {
+        "likes": 0,
+        "comments": 3
+      }
+    }
+  ]
+}

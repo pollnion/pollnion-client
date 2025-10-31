@@ -5,7 +5,7 @@ export const navbarVariants = cva(
   cn(
     "transition-transform duration-300",
     "items-center sticky top-0 h-fit bg-background z-50 space-x-2",
-    "px-2 lg:container lg:mx-auto lg:px-1 flex justify-between py-1"
+    "lg:container lg:mx-auto flex justify-between py-3"
   ),
   {
     variants: {
