@@ -1,0 +1,30 @@
+import { FieldValues } from "react-hook-form";
+import { Toggle } from "@/types/ui";
+import { OpenProps } from "@/types/global";
+import SignUpDialog from "./sign-up-dialog";
+import SignInDialog from "./sign-in-dialog";
+import { FormHookResult } from "@/types/form";
+
+type AuthGuardDialogProps<T extends FieldValues = FieldValues> = {
+  type?: "sign_in" | "sign_up";
+  signInProps: FormHookResult<T>;
+  signUpProps: FormHookResult<T>;
+  toggle: Toggle;
+  isOpen: OpenProps["isOpen"];
+};
+
+const AuthGuardDialog = <T extends FieldValues = FieldValues>({
+  type = "sign_in",
+  isOpen,
+  toggle,
+  signInProps,
+  signUpProps,
+}: AuthGuardDialogProps<T>) => {
+  if (type === "sign_up") {
+    return <SignUpDialog isOpen={isOpen} toggle={toggle} {...signUpProps} />;
+  }
+
+  return <SignInDialog isOpen={isOpen} toggle={toggle} {...signInProps} />;
+};
+
+export default AuthGuardDialog;
