@@ -1,4 +1,3 @@
-import React from "react";
 import { map } from "lodash";
 import { FeedItem } from "@/models/feed";
 import { Typography } from "@/components/custom/typography";

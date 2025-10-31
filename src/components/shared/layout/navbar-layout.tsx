@@ -2,7 +2,6 @@
 import React from "react";
 import { Menu } from "lucide-react";
 
-import LogoImg from "../images/logo-img";
 import GithubBtn from "../buttons/gh-btn";
 import SearchBtn from "../buttons/search-btn";
 import Button from "@/components/custom/button";

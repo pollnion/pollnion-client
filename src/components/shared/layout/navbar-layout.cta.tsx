@@ -1,5 +1,4 @@
 import Button from "@/components/custom/button";
-import { Typography } from "@/components/custom/typography";
 import useAuth from "@/store/auth/use-auth";
 
 const NavbarLayoutCTA = () => {
