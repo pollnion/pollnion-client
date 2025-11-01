@@ -19,7 +19,7 @@ import { navbarVariants } from "./navbar-layout.variants";
 
 const CommonSeparator = () => (
   <div className="hidden md:block">
-    <Separator orientation="vertical" className="h-4 w-px bg-muted" />
+    <Separator orientation="vertical" className="h-4! w-px bg-muted" />
   </div>
 );
 

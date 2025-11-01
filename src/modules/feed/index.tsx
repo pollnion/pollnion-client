@@ -3,10 +3,12 @@
 import React from "react";
 import FeedCard from "./feed-card";
 import FeedLoader from "./feed-loader";
-import Virtuoso from "@/components/custom/virtusio";
-import { useInfiniteQuery } from "@/store/utils/use-infinite-query";
-import { TABLE_FEED } from "@/constants/tables";
+
+import FeedPost from "./feed-post";
 import { FeedItem } from "@/models";
+import { useInfiniteQuery } from "@/store";
+import { TABLE_FEED } from "@/constants/tables";
+import Virtuoso from "@/components/custom/virtusio";
 
 const Index = () => {
   const { data, fetchNextPage, isLoading } = useInfiniteQuery<FeedItem>({
@@ -19,6 +21,7 @@ const Index = () => {
   return (
     <React.Fragment>
       <FeedLoader isLoading={isLoading} />
+      <FeedPost />
       <Virtuoso data={data} isLoading={isLoading} loadMore={fetchNextPage}>
         {(idx, item) => <FeedCard key={idx} item={item} />}
       </Virtuoso>
