@@ -26,7 +26,8 @@ type Database =
 // Change this to the database schema you want to use
 type DatabaseSchema = Database extends never
   ? {
-      Tables: Record<string, { Row: Record<string, unknown> }>;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      Tables: Record<string, { Row: any }>;
     }
   : Database["public"];
 
@@ -38,11 +39,8 @@ type SupabaseTableData<T extends SupabaseTableName> =
   DatabaseSchema["Tables"][T]["Row"];
 
 // A function that modifies the query. Can be used to sort, filter, etc. If .range is used, it will be overwritten.
-type SupabaseQueryHandler = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  query: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-) => any;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SupabaseQueryHandler = (query: any) => any;
 
 interface UseInfiniteQueryProps<T extends SupabaseTableName> {
   // The table name to query
@@ -167,8 +165,14 @@ function useInfiniteQuery<
   TData extends SupabaseTableData<T>,
   T extends SupabaseTableName = SupabaseTableName,
 >(props: UseInfiniteQueryProps<T>) {
-  // Create store once and memoize it based on props
-  const store = useMemo(() => createStore<TData, T>(props), [props]);
+  const { tableName, columns, pageSize } = props;
+
+  // Create store once and memoize it based on actual values, not the props object
+  const store = useMemo(
+    () => createStore<TData, T>(props),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [tableName, columns, pageSize]
+  );
 
   const storeRef = useRef(store);
 
