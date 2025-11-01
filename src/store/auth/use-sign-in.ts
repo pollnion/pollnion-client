@@ -1,36 +1,24 @@
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  authFormSchema,
+  authFormDefaultValues,
+  type AuthFormValues,
+} from "./schemas";
 
-export const schema = z.object({
-  email: z
-    .string()
-    .min(1, "Email is required")
-    .email("Invalid email address.")
-    .min(2, "Email must be at least 2 characters")
-    .max(50, "Email must be at most 50 characters"),
-  password: z
-    .string()
-    .min(1, "Password is required")
-    .min(8, "Password must be at least 8 characters.")
-    .max(50, "Password must be at most 50 characters."),
-});
-
-type FormValues = z.infer<typeof schema>;
-
-const defaultValues: FormValues = { email: "", password: "" };
-
-const fields = {
-  defaultValues,
-  resolver: zodResolver(schema),
-  shouldFocusError: false,
-};
-
+/**
+ * Hook for managing sign-in form state and submission
+ * @returns Form instance and submit handler
+ */
 const useSignIn = () => {
-  const form = useForm<FormValues>(fields);
+  const form = useForm<AuthFormValues>({
+    defaultValues: authFormDefaultValues,
+    resolver: zodResolver(authFormSchema),
+    shouldFocusError: false,
+  });
 
-  function onSubmit(values: FormValues) {
-    console.log(values);
+  function onSubmit(values: AuthFormValues) {
+    console.log("Sign in:", values);
   }
 
   return { onSubmit, form };
