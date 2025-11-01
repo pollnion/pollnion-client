@@ -2,13 +2,19 @@
  * Returns a short, human-readable string showing how much time has passed
  * since a given timestamp (e.g. "5m ago", "2h ago", "3d ago").
  *
+ * This function calculates the time difference between now and the provided
+ * timestamp, then formats it in a concise, relative format. It automatically
+ * selects the most appropriate time unit.
+ *
  * @param timestamp - A valid date input (string, number, or Date object)
  * @returns A formatted relative time string like "10s ago", "3h ago", or "2w ago"
  *
- * Example:
- * timeDiff("2025-10-28T10:00:00Z") → "5m ago"
+ * @example
+ * timeDiff("2025-10-28T10:00:00Z") // "5m ago"
+ * timeDiff(Date.now() - 3600000)   // "1h ago"
+ * timeDiff(new Date(2024, 0, 1))   // "10mo ago"
  */
-export const timeDiff = (timestamp: string | number | Date) => {
+export const timeDiff = (timestamp: string | number | Date): string => {
   const date = new Date(timestamp);
   const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
 

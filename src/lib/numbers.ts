@@ -1,22 +1,27 @@
 import numeral from "numeral";
 
 /**
- * Format number into abbreviated string
- * @param number
- * @returns
+ * Format number into abbreviated string with smart decimal handling.
+ *
+ * This function converts large numbers into a more readable format by
+ * abbreviating them with suffixes (k, m, b, t) and intelligently removes
+ * unnecessary decimal points.
+ *
+ * @param number - The number to format (defaults to 0)
+ * @returns A formatted string representation of the number
+ *
+ * @example
+ * formatNum(1000)     // "1k"
+ * formatNum(1200)     // "1.2k"
+ * formatNum(200000)   // "200k"
+ * formatNum(1000000)  // "1m"
+ * formatNum(1200000)  // "1.2m"
  */
-export const formatNum = (number = 0) => {
-  // sample formatting
-  // 1000 // "1k"
-  // 1200 // "1.2k"
-  // 200_000 // "200k"
-  // 1_000_000 // "1m"
-  // 1_200_000 // "1.2m"
-
+export const formatNum = (number = 0): string => {
   if (number < 1000) {
-    return number.toString(); // no abbreviation, no decimal
+    return number.toString();
   }
 
   const val = numeral(number).format("0.0a");
-  return val.replace(/\.0([kmbt])$/, "$1"); // strip trailing ".0"
+  return val.replace(/\.0([kmbt])$/, "$1");
 };
