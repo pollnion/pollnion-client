@@ -5,4 +5,4 @@ export {
   authFormSchema,
   authFormDefaultValues,
   type AuthFormValues,
-} from "./schemas";
+} from "../../schemas/auth/auth-schemas";

@@ -1,3 +1,5 @@
+"use client";
+
 import PublicLayout from "@/components/shared/layout/public-layout";
 import SideBarLayout from "@/components/shared/layout/sidebar-layout";
 
