@@ -4,7 +4,7 @@ import {
   authFormSchema,
   authFormDefaultValues,
   type AuthFormValues,
-} from "./schemas";
+} from "@/schemas/auth/auth-schemas";
 
 /**
  * Hook for managing sign-up form state and submission
