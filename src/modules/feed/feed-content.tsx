@@ -10,10 +10,12 @@ const FeedContent = ({ item }: { item: FeedItem }) => {
   return (
     <div className="space-y-3">
       <div>
-        <Typography variant="small" className="font-semibold mb-1">
+        <Typography variant="small" className="font-semibold text-lg">
           {content.title}
         </Typography>
-        <Typography variant="muted">{content.description}</Typography>
+        <Typography variant="muted" className="text-md">
+          {content.description}
+        </Typography>
       </div>
 
       {poll && (
