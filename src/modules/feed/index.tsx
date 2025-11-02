@@ -20,8 +20,8 @@ const Index = () => {
 
   return (
     <React.Fragment>
-      <FeedLoader isLoading={isLoading} />
       <FeedPost />
+      <FeedLoader isLoading={isLoading} />
       <Virtuoso data={data} isLoading={isLoading} loadMore={fetchNextPage}>
         {(idx, item) => <FeedCard key={idx} item={item} />}
       </Virtuoso>

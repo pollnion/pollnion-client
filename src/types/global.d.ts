@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // types/global.d.ts (or similar)
 
 import React from "react";
@@ -27,7 +28,7 @@ export interface ViewState<T> {
 }
 
 /** Object with unknown structure */
-export type AnyObject = Record<string, unknown>;
+export type AnyObject = Record<string, any>;
 
 /** Query string object (e.g., URLSearchParams style) */
 export type Query = Record<string, string | number | string[] | number[]>;

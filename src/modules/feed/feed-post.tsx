@@ -1,5 +1,4 @@
 import React from "react";
-import { map } from "lodash";
 import { Plus } from "lucide-react";
 import { Vote } from "lucide-react";
 import { MessageCircleQuestionMark } from "lucide-react";
@@ -49,24 +48,21 @@ const FeedPost = () => {
         <Separator className="my-2" />
 
         <div className="flex justify-around items-center">
-          {map(
-            btns,
-            (props: React.ComponentProps<typeof Button>, i: number) => {
-              return (
-                <React.Fragment key={i}>
-                  {React.createElement(Button, {
-                    variant: "secondary",
-                    className: "flex-1 min-w-0",
-                    ...props,
-                  })}
-                  <Separator
-                    orientation="vertical"
-                    className="!h-6 mx-2 block last:hidden"
-                  />
-                </React.Fragment>
-              );
-            }
-          )}
+          {btns.map((props: React.ComponentProps<typeof Button>, i: number) => {
+            return (
+              <React.Fragment key={i}>
+                {React.createElement(Button, {
+                  variant: "secondary",
+                  className: "flex-1 min-w-0",
+                  ...props,
+                })}
+                <Separator
+                  orientation="vertical"
+                  className="!h-6 mx-2 block last:hidden"
+                />
+              </React.Fragment>
+            );
+          })}
         </div>
       </div>
     </React.Fragment>

@@ -12,7 +12,7 @@ type ReadStore<T = AnyObject> = {
   read: () => Promise<void>;
 };
 
-const createReadStore = <T extends AnyObject = AnyObject>(
+const createReadStore = <T extends AnyObject>(
   table: string,
   filters?: Partial<T>
 ) =>

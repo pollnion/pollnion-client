@@ -1,4 +1,3 @@
-import { map } from "lodash";
 import { FeedItem } from "@/models/feed";
 import { Typography } from "@/components/custom/typography";
 import { cn } from "@/lib/utils";
@@ -33,7 +32,7 @@ const FeedContent = ({ item }: { item: FeedItem }) => {
           </div>
 
           <div className="space-y-2">
-            {map(poll.options, (option) => {
+            {poll.options.map((option) => {
               const percentage =
                 poll.totalVotes > 0
                   ? Math.round((option.votes / poll.totalVotes) * 100)

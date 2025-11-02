@@ -10,10 +10,9 @@ import NavbarLayoutCTA from "./navbar-layout.cta";
 import NavbarLayoutAvatar from "./navbar-layout.avatar";
 import useScrollPosition from "@/store/utils/use-scroll-position";
 
-import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { cn, usePathChecker } from "@/lib";
 import LogoTxtBtn from "../buttons/logo-txt-btn";
-import { usePathChecker } from "@/lib/path-checker";
 import { Separator } from "@/components/ui/separator";
 import { navbarVariants } from "./navbar-layout.variants";
 

@@ -32,7 +32,7 @@ interface PublicColLayoutProps {
 const PublicColLayout = ({ left, right, children }: PublicColLayoutProps) => (
   <div className="flex items-start justify-between md:space-x-2">
     {left && (
-      <SideColumn className="hidden sm:block sm:w-[200px] md:w-[320px]">
+      <SideColumn className="hidden sm:block sm:w-[200px] md:w-[280px]">
         {left}
       </SideColumn>
     )}
@@ -40,7 +40,7 @@ const PublicColLayout = ({ left, right, children }: PublicColLayoutProps) => (
     <div className="w-full md:w-[560px] space-y-4">{children}</div>
 
     {right && (
-      <SideColumn className="hidden md:block sm:w-[200px] md:w-[320px]">
+      <SideColumn className="hidden md:block sm:w-[200px] md:w-[280px]">
         {right}
       </SideColumn>
     )}

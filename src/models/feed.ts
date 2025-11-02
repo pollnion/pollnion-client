@@ -66,6 +66,8 @@ interface EngagementCount {
   likes: number;
   /** Number of comments */
   comments: number;
+  /** Number of reposts */
+  repost: number;
 }
 
 /**

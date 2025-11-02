@@ -1,5 +1,4 @@
 import React from "react";
-import { map } from "lodash";
 import { ArrowUp } from "lucide-react";
 import { Forward } from "lucide-react";
 import { Repeat2 } from "lucide-react";
@@ -12,23 +11,23 @@ import Button from "@/components/custom/button";
 
 const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
   const { engagementCount } = item || {};
-  const { likes, comments } = engagementCount || {};
+  const { likes, comments, repost } = engagementCount || {};
 
   const buttons = [
     {
       // likes
       icon: ArrowUp,
-      label: formatNum(likes),
+      children: formatNum(likes),
     },
     {
-      // likes
+      // repost
       icon: Repeat2,
-      label: formatNum(likes),
+      children: formatNum(repost),
     },
     {
       // likes
       icon: MessageCircle,
-      label: formatNum(comments),
+      children: formatNum(comments),
     },
   ];
 
@@ -46,7 +45,7 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
   return (
     <div className="flex justify-between sm:justify-start mt-3">
       <div className="flex space-x-1">
-        {map(buttons, (item, idx) => {
+        {buttons.map((item, idx) => {
           return React.createElement(Button, {
             ...item,
             key: idx,
@@ -58,7 +57,7 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
       </div>
 
       <div className="flex">
-        {map(buttons_v2, (item, idx) => {
+        {buttons_v2.map((item, idx) => {
           return React.createElement(Button, {
             ...item,
             key: idx,
