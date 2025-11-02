@@ -2,6 +2,7 @@ import { FormProps } from "@/types/form";
 import { Children } from "@/types/global";
 import { Field } from "@/components/ui/field";
 import Button from "@/components/custom/button";
+import { FormProvider } from "react-hook-form";
 
 export const Form: React.FC<{ children: Children } & FormProps> = ({
   children,
@@ -9,14 +10,16 @@ export const Form: React.FC<{ children: Children } & FormProps> = ({
   onSubmit,
 }) => {
   return (
-    <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
-      {children}
+    <FormProvider {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        {children}
 
-      <Field orientation="horizontal">
-        <Button type="submit" form="form-rhf">
-          Submit
-        </Button>
-      </Field>
-    </form>
+        <Field orientation="horizontal" className="mt-4">
+          <Button type="submit" className="w-full">
+            Submit
+          </Button>
+        </Field>
+      </form>
+    </FormProvider>
   );
 };

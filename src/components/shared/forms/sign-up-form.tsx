@@ -23,7 +23,7 @@ const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
     <Form form={form} onSubmit={onSubmit}>
       <FieldGroup>
         <Controller
-          name="title"
+          name="email"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
@@ -40,7 +40,7 @@ const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
           )}
         />
         <Controller
-          name="description"
+          name="password"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
