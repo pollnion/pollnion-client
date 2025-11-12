@@ -17,6 +17,10 @@ export const DEFAULT_PROPS = {
 
 export const UIContext = React.createContext(DEFAULT_PROPS as DefaultProps);
 
+const MSG =
+  '"[UIProvider] UIProvider will temporarily used instead of individual providers for Share, Discover, and Spaces modules. This is a temporary solution and will be replaced with a more robust state management approach in the future."';
+console.warn(MSG);
+
 const UIProvider = ({ children }: { children: Children }) => {
   const toggleProps = useToggle();
 
