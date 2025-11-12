@@ -58,7 +58,7 @@ export interface SheetProps extends OpenProps {
   children?: Children;
 
   /** Child elements to be rendered inside the dialog */
-  footer?: React.ReactNode;
+  footer?: JSX.Element;
 
   /** Side from which the sheet will appear */
   side?: "top" | "right" | "bottom" | "left";
