@@ -15,6 +15,7 @@ import { cn, usePathChecker } from "@/lib";
 import LogoTxtBtn from "../buttons/logo-txt-btn";
 import { Separator } from "@/components/ui/separator";
 import { navbarVariants } from "./navbar-layout.variants";
+import { useUI } from "@/components/providers/ui-provider";
 
 const CommonSeparator = () => (
   <div className="hidden md:block">
@@ -26,6 +27,7 @@ const NavbarLayout = () => {
   const { push } = useRouter();
   const { show } = useScrollPosition();
   const isSearchPath = usePathChecker("/search");
+  const uiProps = useUI();
 
   // Handle logo image click
   const handleImgClick = () => {
@@ -34,15 +36,9 @@ const NavbarLayout = () => {
   };
 
   return (
-    <nav
-      className={cn(
-        navbarVariants({
-          isVisible: !!show,
-        })
-      )}
-    >
+    <nav className={cn(navbarVariants({ isVisible: !!show }))}>
       <Box display="flex" flow="center" size="xs" className="gap-2">
-        <Button variant="outline">
+        <Button variant="outline" onClick={uiProps.toggle} size="icon">
           <Menu />
         </Button>
 

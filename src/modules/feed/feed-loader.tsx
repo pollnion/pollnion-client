@@ -7,7 +7,7 @@ const FeedLoader = ({ isLoading }: { isLoading: boolean }) => {
   }
 
   return (
-    <div className="flex flex-col items-center space-y-4">
+    <div className="flex flex-col items-center space-y-4 h-100 justify-center text-center">
       <LottieLoadingPlayer />
       <Typography variant="muted">Please wait for a moment...</Typography>
     </div>

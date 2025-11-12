@@ -40,3 +40,26 @@ export interface DialogProps<T extends FieldValues = FieldValues>
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface BaseDialogProps<T extends FieldValues = FieldValues>
   extends Omit<DialogProps<T>, "form" | "onSubmit"> {}
+
+export interface SheetProps extends OpenProps {
+  /** Function to toggle the sheet open/close state */
+  toggle: () => void;
+
+  /** Additional className for the dialog container */
+  className?: ClassNameValue;
+
+  /** Title text for the dialog */
+  title?: string;
+
+  /** Optional description text for the dialog */
+  description?: string;
+
+  /** Child elements to be rendered inside the dialog */
+  children?: Children;
+
+  /** Child elements to be rendered inside the dialog */
+  footer?: React.ReactNode;
+
+  /** Side from which the sheet will appear */
+  side?: "top" | "right" | "bottom" | "left";
+}
