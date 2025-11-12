@@ -1,5 +1,6 @@
 "use client";
 
+import UIProvider from "./ui-provider";
 import AuthProvider from "./auth-provider";
 import { ThemeProvider } from "./theme-provider";
 import { Children, Element } from "@/types/global";
@@ -15,7 +16,7 @@ export const AppProviders: React.FC<{ children: Children }> = ({
         defaultTheme="dark"
         disableTransitionOnChange
       >
-        {children}
+        <UIProvider>{children}</UIProvider>
       </ThemeProvider>
     </AuthProvider>
   );

@@ -25,7 +25,7 @@ interface Author {
  */
 interface FeedContent {
   /** The space/category this content belongs to */
-  space: string;
+  space: { label: string; value: string }[];
   /** Title of the feed item */
   title: string;
   /** Detailed description of the feed item */
@@ -66,6 +66,8 @@ interface EngagementCount {
   likes: number;
   /** Number of comments */
   comments: number;
+  /** Number of reposts */
+  repost: number;
 }
 
 /**
@@ -81,7 +83,7 @@ export interface FeedItem {
   /** Information about the author of this feed item */
   author: Author;
   /** Timestamp when the feed item was created (Unix timestamp in milliseconds) */
-  createdAt: number;
+  created_at: number;
   /** The main content of the feed item */
   content: FeedContent;
   /** Poll associated with this feed item */

@@ -11,7 +11,7 @@ const DEFAULT_LINK = "https://github.com/shadcn.png";
 
 const Avatar: React.FC<{
   src?: string;
-  alt: string;
+  alt?: string;
   className?: ClassNameValue;
 }> = ({ src = DEFAULT_LINK, alt = "sample", className }) => {
   return (

@@ -17,6 +17,7 @@ export const boxVariants = cva("inline-block p-0 m-0 box-border", {
       primary: "bg-blue-600 text-white dark:bg-blue-500",
       secondary: "bg-rose-600 text-white dark:bg-rose-500",
       subtle: "bg-gray-50 dark:bg-gray-800",
+      background: "bg-card text-current",
     },
     radius: {
       none: "rounded-none",

@@ -5,7 +5,6 @@ import { VariantProps } from "class-variance-authority";
 import Link from "next/link";
 import { Spinner } from "@/components/ui/spinner";
 import { Button as UIButton, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 const Button = React.forwardRef<
   HTMLButtonElement,
@@ -24,8 +23,6 @@ const Button = React.forwardRef<
     isLoading,
     icon: Icon,
     asChild = false,
-    size = "sm",
-    className,
     ...restProps
   } = props;
 
@@ -33,10 +30,8 @@ const Button = React.forwardRef<
     return (
       <UIButton
         ref={ref}
-        size={size}
         asChild={asChild}
         variant={variant}
-        className={cn("text-xs", className)}
         disabled
         {...restProps}
       >
@@ -46,14 +41,7 @@ const Button = React.forwardRef<
   }
 
   return (
-    <UIButton
-      ref={ref}
-      size={size}
-      asChild={asChild}
-      variant={variant}
-      className={cn("text-xs", className)}
-      {...restProps}
-    >
+    <UIButton ref={ref} asChild={asChild} variant={variant} {...restProps}>
       {href ? (
         <Link href={href} className="flex items-center">
           {Icon && <Icon className="mr-1" />}

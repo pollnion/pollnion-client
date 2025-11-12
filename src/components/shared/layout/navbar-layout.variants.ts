@@ -3,9 +3,10 @@ import { cva } from "class-variance-authority";
 
 export const navbarVariants = cva(
   cn(
-    "transition-transform duration-300",
-    "items-center sticky top-0 h-fit bg-background z-50 space-x-2",
-    "lg:container lg:mx-auto flex justify-between py-3"
+    "sticky top-0 z-50 flex items-center justify-between",
+    "h-fit bg-background py-3 px-2 sm:px-0",
+    "lg:container lg:mx-auto space-x-2",
+    "transition-transform duration-300"
   ),
   {
     variants: {

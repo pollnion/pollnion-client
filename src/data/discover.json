@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "value": "1",
+      "label": "for_you"
+    },
+    {
+      "value": "2",
+      "label": "bookmark"
+    },
+    {
+      "value": "3",
+      "label": "search"
+    },
+    {
+      "value": "4",
+      "label": "spaces"
+    },
+    {
+      "value": "5",
+      "label": "plan"
+    }
+  ]
+}

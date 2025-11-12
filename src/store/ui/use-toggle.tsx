@@ -1,9 +1,8 @@
-import { create } from "zustand";
-
+import React from "react";
 /**
  * State interface for toggle functionality
  */
-type ToggleState = {
+export type ToggleState = {
   /** Current open/closed state */
   isOpen: boolean;
   /** Open the toggle */
@@ -33,9 +32,12 @@ type ToggleState = {
  * // Use state
  * {isOpen && <Modal />}
  */
-export const useToggle = create<ToggleState>((set) => ({
-  isOpen: false,
-  open: () => set({ isOpen: true }),
-  close: () => set({ isOpen: false }),
-  toggle: () => set((state) => ({ isOpen: !state.isOpen })),
-}));
+export const useToggle = (initial = false) => {
+  const [isOpen, setIsOpen] = React.useState(initial);
+
+  const open = React.useCallback(() => setIsOpen(true), []);
+  const close = React.useCallback(() => setIsOpen(false), []);
+  const toggle = React.useCallback(() => setIsOpen((prev) => !prev), []);
+
+  return { isOpen, open, close, toggle };
+};
