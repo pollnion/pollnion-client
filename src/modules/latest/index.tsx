@@ -19,7 +19,7 @@ const Index = () => {
   if (isLoading) return <LatestSkeleton />;
 
   return (
-    <section className="bg-neutral-900 rounded-sm p-3">
+    <section className="bg-neutral-900 rounded-sm p-2">
       <Typography weight="semibold">Latest polls</Typography>
 
       <div className="my-2 space-y-2">
