@@ -1,10 +1,10 @@
-import { Form } from ".";
+import { Form } from "..";
 import { FieldGroup } from "@/components/ui/field";
 import { FormField } from "@/components/ui/form";
 import { FormProps } from "@/types/form";
-import FormItem from "./form-item";
+import FormItem from "../form-item";
 import Input from "@/components/custom/inputs";
-import GoogleBtn from "../buttons/google-btn";
+import GoogleBtn from "../../buttons/google-btn";
 import { Separator } from "@/components/ui/separator";
 import { Typography } from "@/components/custom/typography";
 

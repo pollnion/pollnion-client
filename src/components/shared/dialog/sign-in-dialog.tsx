@@ -3,7 +3,7 @@ import { FieldValues } from "react-hook-form";
 
 import { DialogProps } from "@/types/ui";
 import Dialog from "@/components/custom/dialog";
-import SignInForm from "../forms/sign-in-form";
+import SignInForm from "../forms/auth/sign-in-form";
 
 const SignInDialog: React.FC<DialogProps<FieldValues>> = ({
   form,
