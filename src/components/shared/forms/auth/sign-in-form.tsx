@@ -44,7 +44,7 @@ const SignInForm: React.FC<FormProps> = ({ form, onSubmit }) => {
           )}
         />
 
-        <div className="flex space-x-2 text-muted-foreground">
+        <div className="flex space-x-2 text-muted-foreground justify-between">
           <Typography>New to Pollnion?</Typography>
           <Typography className="hover:underline hover:cursor-pointer">
             Sign up here

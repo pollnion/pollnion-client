@@ -135,6 +135,7 @@ function createStore<
 
   const initialize = async () => {
     setState({ isLoading: true, isSuccess: false, data: [] });
+    await new Promise((res) => setTimeout(res, 500));
     await fetchNextPage();
     setState({ isLoading: false, hasInitialFetch: true });
   };

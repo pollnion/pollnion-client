@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/input-group";
 import { FormProps } from "@/types/form";
 import { FormField } from "@/components/ui/form";
+import { Typography } from "@/components/custom/typography";
 
 const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
   return (
@@ -70,6 +71,13 @@ const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
             </Field>
           )}
         />
+
+        <div className="flex space-x-2 text-muted-foreground justify-between">
+          <Typography>Already in Pollnion?</Typography>
+          <Typography className="hover:underline hover:cursor-pointer">
+            Sign in here
+          </Typography>
+        </div>
       </FieldGroup>
     </Form>
   );

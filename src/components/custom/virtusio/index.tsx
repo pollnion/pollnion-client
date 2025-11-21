@@ -17,12 +17,15 @@ function Virtuoso<T>({
   data,
   children,
   loadMore,
+  isLoading,
   viewPort = 200,
   style = { height: "100vh" },
 }: BaseVirtuosoProps<T>) {
   const handleLoadMore = useCallback(() => {
     loadMore?.();
   }, [loadMore]);
+
+  if (isLoading) return null;
 
   return (
     <BaseVirtuoso
