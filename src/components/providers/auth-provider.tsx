@@ -146,14 +146,15 @@ const AuthProvider = ({ children }: { children: Children }) => {
         handleGoogleLogin,
       }}
     >
-      {initialize && (
+      {/* {initialize && (
         <div className="dark flex min-h-screen flex-col items-center justify-center bg-background">
           <LottieLoadingPlayer />
           <Typography variant="muted">Please wait for a moment...</Typography>
         </div>
-      )}
+      )} */}
 
-      {!initialize && children}
+      {/* {!initialize && children} */}
+      {children}
 
       <AuthGuardDialog
         signInProps={signInProps}

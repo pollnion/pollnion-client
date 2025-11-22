@@ -1,3 +1,4 @@
+import React from "react";
 import { FieldValues } from "react-hook-form";
 
 import { DialogProps } from "@/types";
@@ -9,10 +10,18 @@ const FeedPostDialog: React.FC<DialogProps<FieldValues>> = ({
   onSubmit,
   isOpen,
   toggle,
+  isLoading,
 }) => {
+  // Reset forms when dialog is closed
+  React.useEffect(() => {
+    if (!isOpen) {
+      form.reset();
+    }
+  }, [isOpen, form]);
+
   return (
     <Dialog isOpen={isOpen} toggle={toggle} title="Create Post">
-      <FeedPostForm form={form} onSubmit={onSubmit} />
+      <FeedPostForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
     </Dialog>
   );
 };

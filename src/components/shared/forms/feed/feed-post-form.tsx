@@ -12,13 +12,13 @@ import FeedPostFormPoll from "./feed-post-form-poll";
 import { useReadStore } from "@/store/actions";
 
 const FeedPostForm: React.FC<FormProps> = ({ form, onSubmit }) => {
-  const tagsProps = useReadStore<{ label: string; value: string }>("tags");
+  const tagsProps = useReadStore<{ label: string; value: string }>("spaces");
 
   return (
     <Form form={form} onSubmit={onSubmit}>
       <FieldGroup>
         <FormField
-          name="email"
+          name="title"
           control={form.control}
           render={({ field }) => (
             <FormItem label="Title *">

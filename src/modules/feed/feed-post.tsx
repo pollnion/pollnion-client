@@ -3,14 +3,16 @@ import { Plus } from "lucide-react";
 import { Vote } from "lucide-react";
 import { MessageCircleQuestionMark } from "lucide-react";
 
-import { useAuth, useToggle } from "@/store";
+import { useAuth, useToggle, usePostFeed } from "@/store";
 import Button from "@/components/custom/button";
 import Avatar from "@/components/custom/avatar";
 import { Separator } from "@/components/ui/separator";
+import FeedPostDialog from "@/components/shared/dialog/feed-post-dialog";
 
 const FeedPost = () => {
   const authProps = useAuth();
   const toggleProps = useToggle();
+  const postFeedProps = usePostFeed();
 
   const btn = {
     variant: "secondary",
@@ -66,6 +68,8 @@ const FeedPost = () => {
           })}
         </div>
       </div>
+
+      <FeedPostDialog {...toggleProps} {...postFeedProps} />
     </React.Fragment>
   );
 };
