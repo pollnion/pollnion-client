@@ -71,7 +71,7 @@ const Combobox = ({
     : data;
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover open={open} onOpenChange={setOpen} modal={true}>
       <PopoverTrigger asChild>
         <Button
           disabled={isLoading}
@@ -84,8 +84,12 @@ const Combobox = ({
           <ChevronsUpDown className="opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
+      <PopoverContent
+        className="w-[400px]! z-100! p-0"
+        align="start"
+        side="bottom"
+      >
+        <Command className="w-[400px]!">
           <CommandInput
             placeholder="Search item..."
             className="h-9"
@@ -93,7 +97,7 @@ const Combobox = ({
             onValueChange={searchable ? setSearchValue : undefined}
           />
 
-          <CommandList>
+          <CommandList className="max-h-48">
             <CommandEmpty>No item found.</CommandEmpty>
             <CommandGroup>
               {filteredData.map((item) => {

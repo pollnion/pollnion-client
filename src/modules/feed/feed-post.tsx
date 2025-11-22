@@ -3,22 +3,23 @@ import { Plus } from "lucide-react";
 import { Vote } from "lucide-react";
 import { MessageCircleQuestionMark } from "lucide-react";
 
-import { useAuth, useToggle, usePostFeed } from "@/store";
+import { useAuth } from "@/store";
 import Button from "@/components/custom/button";
 import Avatar from "@/components/custom/avatar";
 import { Separator } from "@/components/ui/separator";
-import FeedPostDialog from "@/components/shared/dialog/feed-post-dialog";
+import { useRouter } from "next/navigation";
 
 const FeedPost = () => {
   const authProps = useAuth();
-  const toggleProps = useToggle();
-  const postFeedProps = usePostFeed();
+  const { push } = useRouter();
+
+  const redirect = () => push("/post");
 
   const btn = {
     variant: "secondary",
     className: "flex-1 min-w-0",
     children: "💡 Got a question? Turn it into a poll!",
-    onClick: () => authProps.toggleAuthGuard(toggleProps.toggle),
+    onClick: () => authProps.toggleAuthGuard(() => redirect()),
   };
 
   const btns = [
@@ -33,7 +34,7 @@ const FeedPost = () => {
     {
       icon: Plus,
       children: "Create",
-      onClick: () => authProps.toggleAuthGuard(toggleProps.toggle),
+      onClick: () => authProps.toggleAuthGuard(() => redirect()),
     },
   ].filter(Boolean);
 
@@ -68,8 +69,6 @@ const FeedPost = () => {
           })}
         </div>
       </div>
-
-      <FeedPostDialog {...toggleProps} {...postFeedProps} />
     </React.Fragment>
   );
 };

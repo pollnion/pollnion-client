@@ -8,6 +8,7 @@ import { User } from "@supabase/supabase-js";
 import { notify, uuidGenerator } from "@/lib";
 import { postFeedSchema } from "@/schemas/feed/feed-schemas";
 import { useCreateStore } from "@/store/actions/use-create-store";
+import { get } from "lodash";
 
 // Function to parse form data into the required post format
 const parse = (data: AnyObject, user: User | null) => {
@@ -68,6 +69,9 @@ const usePostFeed = () => {
   const form = useForm<FormValues>(fields);
 
   const onSubmit = async (values: FormValues) => {
+    const getId = get(parse(values, user), "id", "");
+    console.log("Submitting feed post with ID:", getId);
+
     try {
       const response = await store.onSubmit(parse(values, user));
       console.log(response);

@@ -17,9 +17,7 @@ import useSignUp from "@/store/auth/use-sign-up";
 import { useToggle } from "@/store/ui/use-toggle";
 
 // comps
-import { Typography } from "../custom/typography";
 import AuthGuardDialog from "../shared/dialog/auth-guard-dialog";
-import { LottieLoadingPlayer } from "../shared/lottie/lottie-loading-player";
 
 interface AuthContextProps {
   user: User | null;
@@ -60,7 +58,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
   const signUpProps = useSignUp();
   const toggleProps = useToggle();
 
-  const [initialize, setInitialized] = React.useState(true);
+  // const [initialize, setInitialized] = React.useState(true);
 
   // auth actions loading state
   const loadingProps = useLoading();
@@ -114,7 +112,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
       if (error) console.error("Session fetch error:", error);
       setUser(data.session?.user ?? null);
     } finally {
-      setInitialized(false);
+      // setInitialized(false);
     }
   };
 
@@ -127,7 +125,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event: string, session: { user: User | null } | null) => {
         setUser(session?.user ?? null);
-        setInitialized(true);
+        // setInitialized(true);
       }
     );
 

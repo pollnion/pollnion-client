@@ -12,7 +12,7 @@ export const Form: React.FC<{ children: Children } & FormProps> = ({
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        {children}
+        <div className="space-y-4">{children}</div>
 
         <Field orientation="horizontal" className="mt-4">
           <Button type="submit" className="w-full">

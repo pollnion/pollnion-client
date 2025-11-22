@@ -11,7 +11,7 @@ import { Typography } from "@/components/custom/typography";
 const SignInForm: React.FC<FormProps> = ({ form, onSubmit }) => {
   return (
     <Form form={form} onSubmit={onSubmit}>
-      <FieldGroup className="p-6">
+      <FieldGroup>
         <GoogleBtn />
 
         <div className="flex items-center justify-center space-x-4">
