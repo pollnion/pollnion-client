@@ -8,6 +8,7 @@ import { useReadStore } from "@/store";
 import LatestSkeleton from "./latest.skeleton";
 import { TABLE_FEED } from "@/constants/tables";
 import { Typography } from "@/components/custom/typography";
+import Button from "@/components/custom/button";
 
 const Index = () => {
   const { data, isLoading } = useReadStore<FeedItem>(TABLE_FEED);
@@ -18,8 +19,10 @@ const Index = () => {
   if (isLoading) return <LatestSkeleton />;
 
   return (
-    <section className="bg-neutral-900 rounded-sm p-2">
-      <Typography weight="semibold">Latest polls</Typography>
+    <section className="bg-neutral-900 rounded-sm p-2 py-3">
+      <Typography weight="semibold" className="px-2 mb-4">
+        Latest polls
+      </Typography>
 
       <div className="my-2 space-y-2">
         {latestPolls.length > 0 ? (
@@ -30,7 +33,7 @@ const Index = () => {
             return (
               <div
                 key={idx}
-                className="hover:bg-neutral-800/50 p-1 rounded-sm cursor-pointer transition-colors"
+                className="hover:bg-neutral-800/50 rounded-sm cursor-pointer transition-colors px-2"
               >
                 {title && <Typography className="mb-2">{title}</Typography>}
 
@@ -59,9 +62,9 @@ const Index = () => {
         )}
       </div>
 
-      <Typography className="text-sm text-primary cursor-pointer hover:underline">
+      <Button size="sm" variant="ghost" className="w-full justify-start">
         See more
-      </Typography>
+      </Button>
     </section>
   );
 };
