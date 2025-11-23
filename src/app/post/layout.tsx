@@ -35,7 +35,6 @@ const RightLayout = () => {
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
   const { user, isAuth } = useAuth();
   const [isChecking, setIsChecking] = React.useState(true);
 
@@ -43,14 +42,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     // Wait a bit for auth to initialize
     const timer = setTimeout(() => {
       if (!user && !isAuth) {
-        router.replace("/");
+        window.location.href = "/";
       } else {
         setIsChecking(false);
       }
     }, 100);
 
     return () => clearTimeout(timer);
-  }, [user, isAuth, router]);
+  }, [user, isAuth]);
 
   // Show nothing while checking auth
   if (isChecking || (!user && !isAuth)) {
