@@ -4,10 +4,15 @@ import { FeedItem } from "@/models/feed";
 import FeedHeader from "./feed-header";
 import FeedContent from "./feed-content";
 import Box from "@/components/custom/layout/box";
+import { useRouter } from "next/navigation";
 
 const FeedCard = ({ item }: { item: FeedItem }) => {
+  const router = useRouter();
+  const redirect = `${item?.author.name}/posts/${item?.id}`;
+
   return (
     <Box
+      onClick={() => router.push(redirect)}
       className={cn(
         "py-3 mb-1 sm:mb-4 bg-card p-2 rounded-none sm:rounded hover:cursor-pointer hover:bg-card/90"
       )}

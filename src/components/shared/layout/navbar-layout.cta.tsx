@@ -4,7 +4,7 @@ import useAuth from "@/store/auth/use-auth";
 const NavbarLayoutCTA = () => {
   const { isAuth, toggleAuthGuard } = useAuth();
 
-  // If the user is authenticated, do not show the CTA button
+  // If the user is authenticated or loading, do not show the CTA button
   if (isAuth) {
     return null;
   }

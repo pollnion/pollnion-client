@@ -9,7 +9,7 @@ const SearchBtn = () => {
       href="/search"
       variant="outline"
       icon={SearchIcon}
-      className="sm:w-[200px] md:w-[280px] justify-start"
+      className="w-full justify-start"
     >
       <Typography variant="muted" className="hidden sm:block">
         Search...

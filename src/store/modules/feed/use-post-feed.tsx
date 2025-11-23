@@ -12,11 +12,13 @@ import { get } from "lodash";
 
 // Function to parse form data into the required post format
 const parse = (data: AnyObject, user: User | null) => {
+  console.log(user?.user_metadata?.username);
+
   return {
     id: uuidGenerator(),
     author: {
       id: user?.id || "",
-      name: user?.identities?.[0]?.identity_data?.name || "",
+      name: user?.user_metadata?.username || user?.user_metadata?.display_name,
       status: "normal",
     },
     created_at: new Date().toISOString(),

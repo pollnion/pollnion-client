@@ -6,6 +6,7 @@ import { isEmpty } from "lodash";
 import { notify } from "@/lib";
 import { useLoading } from "@/store";
 import { Children } from "@/types/global";
+import { generateUsername } from "@/lib/username-generator";
 
 // supabase
 import { supabase } from "@/supabase/client";
@@ -58,7 +59,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
   const signUpProps = useSignUp();
   const toggleProps = useToggle();
 
-  // const [initialize, setInitialized] = React.useState(true);
+  const [isInitializing, setIsInitializing] = React.useState(true);
 
   // auth actions loading state
   const loadingProps = useLoading();
@@ -103,16 +104,71 @@ const AuthProvider = ({ children }: { children: Children }) => {
   };
 
   /**
+   * Updates user metadata with generated username if not exists
+   */
+  const ensureUsername = async (user: User) => {
+    // Check if user already has a username in metadata
+    if (user.user_metadata?.username) return;
+
+    try {
+      const username = generateUsername(user.email);
+
+      // Update user metadata with generated username
+      await supabase.auth.updateUser({
+        data: {
+          username,
+          display_name: user.user_metadata?.full_name || username,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to set username:", error);
+    }
+  };
+
+  /**
    * Fetches the current user session from Supabase
    */
   const fetchSession = async () => {
     try {
-      await new Promise((res) => setTimeout(res, 200));
       const { data, error } = await supabase.auth.getSession();
       if (error) console.error("Session fetch error:", error);
-      setUser(data.session?.user ?? null);
+
+      const currentUser = data.session?.user ?? null;
+      setUser(currentUser);
+
+      // Generate and set username if user exists but doesn't have one
+      if (currentUser) {
+        await ensureUsername(currentUser);
+      }
     } finally {
-      // setInitialized(false);
+      setIsInitializing(false);
+    }
+  };
+
+  /**
+   * Clean up URL hash/query params containing auth tokens
+   */
+  const cleanupAuthParams = () => {
+    if (typeof window === "undefined") return;
+
+    const url = new URL(window.location.href);
+
+    // Remove hash fragments with access_token
+    if (url.hash.includes("access_token")) {
+      url.hash = "";
+    }
+
+    // Remove query params with access_token
+    if (url.searchParams.has("access_token")) {
+      url.searchParams.delete("access_token");
+      url.searchParams.delete("refresh_token");
+      url.searchParams.delete("expires_in");
+      url.searchParams.delete("token_type");
+    }
+
+    // Update URL without reload if there were changes
+    if (url.toString() !== window.location.href) {
+      window.history.replaceState({}, document.title, url.toString());
     }
   };
 
@@ -123,35 +179,42 @@ const AuthProvider = ({ children }: { children: Children }) => {
     fetchSession();
 
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (_event: string, session: { user: User | null } | null) => {
-        setUser(session?.user ?? null);
-        // setInitialized(true);
+      async (event: string, session: { user: User | null } | null) => {
+        const currentUser = session?.user ?? null;
+        setUser(currentUser);
+
+        // Generate and set username for new sign-ins
+        if (currentUser) {
+          await ensureUsername(currentUser);
+        }
+
+        // Clean up auth params from URL after sign in
+        if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+          cleanupAuthParams();
+        }
       }
     );
+
+    // Also clean up on initial load if there are auth params
+    cleanupAuthParams();
 
     return () => authListener.subscription.unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const isLoading = !!isInitializing || loadingProps?.isLoading;
+
   return (
     <AuthContext.Provider
       value={{
         user,
+        isLoading: isLoading,
         isAuth: !isEmpty(user),
-        isLoading: loadingProps?.isLoading,
         handleSignOut,
         toggleAuthGuard,
         handleGoogleLogin,
       }}
     >
-      {/* {initialize && (
-        <div className="dark flex min-h-screen flex-col items-center justify-center bg-background">
-          <LottieLoadingPlayer />
-          <Typography variant="muted">Please wait for a moment...</Typography>
-        </div>
-      )} */}
-
-      {/* {!initialize && children} */}
       {children}
 
       <AuthGuardDialog

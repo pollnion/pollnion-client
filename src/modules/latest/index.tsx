@@ -6,7 +6,6 @@ import { formatNum } from "@/lib";
 import { FeedItem } from "@/models";
 import { useReadStore } from "@/store";
 import LatestSkeleton from "./latest.skeleton";
-import { Badge } from "@/components/ui/badge";
 import { TABLE_FEED } from "@/constants/tables";
 import { Typography } from "@/components/custom/typography";
 
@@ -26,7 +25,6 @@ const Index = () => {
         {latestPolls.length > 0 ? (
           latestPolls.map((item, idx) => {
             const title = item?.content?.title;
-            const spaces = item?.content?.space ?? [];
             const totalVotes = item?.poll?.totalVotes ?? 0;
 
             return (
@@ -37,7 +35,7 @@ const Index = () => {
                 {title && <Typography className="mb-2">{title}</Typography>}
 
                 <div className="flex flex-wrap gap-1 mt-1 items-center">
-                  {spaces.length === 1 && (
+                  {/* {spaces.length === 1 && (
                     <Badge variant="secondary">{spaces[0].label}</Badge>
                   )}
 
@@ -45,7 +43,7 @@ const Index = () => {
                     <Badge variant="secondary">
                       {spaces[0].label} +{spaces.length - 1} more
                     </Badge>
-                  )}
+                  )} */}
 
                   <Typography className="text-xs">
                     {formatNum(totalVotes)} total votes

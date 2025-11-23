@@ -1,4 +1,6 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { X } from "lucide-react";
+import { Plus } from "lucide-react";
 
 import FormItem from "../form-item";
 import Input from "@/components/custom/inputs";
@@ -37,7 +39,7 @@ const FeedPostFormPoll = () => {
                         disabled:
                           (fields.length === 5 && idx === 4) ||
                           (idx === 0 && fields.length > 1),
-                        label: idx === fields.length - 1 ? "Add" : "Remove",
+                        label: idx === fields.length - 1 ? <Plus /> : <X />,
                         onClick:
                           idx === fields.length - 1
                             ? () =>
