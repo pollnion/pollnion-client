@@ -11,11 +11,9 @@ import { useRouter } from "next/navigation";
 
 const FeedPost = () => {
   const authProps = useAuth();
-  const router = useRouter();
+  const { push } = useRouter();
 
-  const redirect = () => {
-    window.location.href = "/post";
-  };
+  const redirect = () => push("/post");
 
   const btn = {
     variant: "secondary",
