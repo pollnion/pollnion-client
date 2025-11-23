@@ -18,6 +18,8 @@ interface Author {
   name: string;
   /** User's account status/role */
   status: UserStatus;
+  /** Username/handle of the user */
+  username: string;
 }
 
 /**

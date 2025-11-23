@@ -1,4 +1,6 @@
+import React from "react";
 import { FieldValues } from "react-hook-form";
+
 import { Toggle } from "@/types/ui";
 import { OpenProps } from "@/types/global";
 import SignUpDialog from "./sign-up-dialog";
@@ -20,6 +22,14 @@ const AuthGuardDialog = <T extends FieldValues = FieldValues>({
   signInProps,
   signUpProps,
 }: AuthGuardDialogProps<T>) => {
+  // Reset forms when dialog is closed
+  React.useEffect(() => {
+    if (!isOpen) {
+      signInProps.form.reset();
+      signUpProps.form.reset();
+    }
+  }, [isOpen, signInProps.form, signUpProps.form]);
+
   if (type === "sign_up") {
     return <SignUpDialog isOpen={isOpen} toggle={toggle} {...signUpProps} />;
   }

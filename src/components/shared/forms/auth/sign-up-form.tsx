@@ -1,7 +1,6 @@
 import React from "react";
 
-import { Controller } from "react-hook-form";
-import { Form } from ".";
+import { Form } from "..";
 import { Input } from "@/components/ui/input";
 import {
   Field,
@@ -17,17 +16,19 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { FormProps } from "@/types/form";
+import { FormField } from "@/components/ui/form";
+import { Typography } from "@/components/custom/typography";
 
 const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
   return (
     <Form form={form} onSubmit={onSubmit}>
       <FieldGroup>
-        <Controller
+        <FormField
           name="email"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-demo-title">Bug Title</FieldLabel>
+              <FieldLabel htmlFor="form-rhf-demo-title">Email</FieldLabel>
               <Input
                 {...field}
                 id="form-rhf-demo-title"
@@ -39,13 +40,13 @@ const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
             </Field>
           )}
         />
-        <Controller
+        <FormField
           name="password"
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="form-rhf-demo-description">
-                Description
+                Password
               </FieldLabel>
               <InputGroup>
                 <InputGroupTextarea
@@ -70,6 +71,13 @@ const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
             </Field>
           )}
         />
+
+        <div className="flex space-x-2 text-muted-foreground justify-between">
+          <Typography>Already in Pollnion?</Typography>
+          <Typography className="hover:underline hover:cursor-pointer">
+            Sign in here
+          </Typography>
+        </div>
       </FieldGroup>
     </Form>
   );

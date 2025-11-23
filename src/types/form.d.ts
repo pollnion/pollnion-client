@@ -5,6 +5,11 @@ export type FormProps<T extends FieldValues = FieldValues> = {
 
   /** Function to handle form submission */
   onSubmit: SubmitHandler<T>;
+
+  /**
+   * Loading state of the form
+   */
+  isLoading?: boolean;
 };
 
 /**

@@ -17,9 +17,10 @@ export const DEFAULT_PROPS = {
 
 export const UIContext = React.createContext(DEFAULT_PROPS as DefaultProps);
 
-const MSG =
-  '"[UIProvider] UIProvider will temporarily used instead of individual providers for Share, Discover, and Spaces modules. This is a temporary solution and will be replaced with a more robust state management approach in the future."';
-console.warn(MSG);
+const SHEET_CONTENTS = {
+  title: "Tags & Spaces",
+  description: `Categorize your content with tags or spaces. Perfect for filtering and staying organized.`,
+};
 
 const UIProvider = ({ children }: { children: Children }) => {
   const toggleProps = useToggle();
@@ -28,7 +29,7 @@ const UIProvider = ({ children }: { children: Children }) => {
     <UIContext.Provider value={toggleProps}>
       {children}
 
-      <Sheet {...toggleProps}>
+      <Sheet {...SHEET_CONTENTS} {...toggleProps}>
         <Share />
         <Discover />
         <Spaces />

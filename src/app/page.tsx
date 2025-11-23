@@ -14,7 +14,7 @@ import Box from "@/components/custom/layout/box";
 
 const LeftLayout = () => {
   return (
-    <Box display="flex" flow="col" className="gap-3">
+    <Box display="flex" flow="col" className="gap-2">
       <Discover />
       <Spaces />
     </Box>
@@ -23,7 +23,7 @@ const LeftLayout = () => {
 
 const RightLayout = () => {
   return (
-    <Box display="flex" flow="col" className="gap-3">
+    <Box display="flex" flow="col" className="gap-2">
       <Share />
       <News />
       <Latest />

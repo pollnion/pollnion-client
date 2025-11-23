@@ -55,7 +55,9 @@ export const boxVariants = cva("inline-block p-0 m-0 box-border", {
 
 export type BoxVariantProps = VariantProps<typeof boxVariants>;
 
-export interface BoxProps extends BoxVariantProps {
+export interface BoxProps
+  extends BoxVariantProps,
+    Omit<React.HTMLAttributes<HTMLElement>, "color"> {
   as?: React.ElementType;
   className?: string;
   children?: React.ReactNode;

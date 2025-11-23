@@ -1,17 +1,13 @@
-import useAuth from "@/store/auth/use-auth";
-import Avatar from "@/components/custom/avatar";
+import { useAuth } from "@/store";
 import Dropdown from "@/components/custom/dropdown";
+import { CurrentUserAvatar } from "../avatars/current-user-avatar";
 
 const NavbarLayoutAvatar = () => {
-  const { isAuth } = useAuth();
+  const { isAuth, handleSignOut } = useAuth();
 
   if (!isAuth) {
     return null;
   }
-
-  const handleSignOut = () => {
-    console.log("Signing out...");
-  };
 
   const items = [
     { label: "Profile", onClick: () => console.log("Go to profile") },
@@ -20,7 +16,9 @@ const NavbarLayoutAvatar = () => {
 
   return (
     <Dropdown label="My Account" items={items}>
-      <Avatar src={"avatar_url"} alt="av" />
+      <button type="button" className="cursor-pointer">
+        <CurrentUserAvatar />
+      </button>
     </Dropdown>
   );
 };

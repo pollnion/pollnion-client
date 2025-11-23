@@ -1,17 +1,17 @@
-import { Form } from ".";
+import { Form } from "..";
 import { FieldGroup } from "@/components/ui/field";
 import { FormField } from "@/components/ui/form";
 import { FormProps } from "@/types/form";
-import FormItem from "./form-item";
+import FormItem from "../form-item";
 import Input from "@/components/custom/inputs";
-import GoogleBtn from "../buttons/google-btn";
+import GoogleBtn from "../../buttons/google-btn";
 import { Separator } from "@/components/ui/separator";
 import { Typography } from "@/components/custom/typography";
 
 const SignInForm: React.FC<FormProps> = ({ form, onSubmit }) => {
   return (
     <Form form={form} onSubmit={onSubmit}>
-      <FieldGroup className="p-6">
+      <FieldGroup>
         <GoogleBtn />
 
         <div className="flex items-center justify-center space-x-4">
@@ -44,7 +44,7 @@ const SignInForm: React.FC<FormProps> = ({ form, onSubmit }) => {
           )}
         />
 
-        <div className="flex space-x-2 text-muted-foreground">
+        <div className="flex space-x-2 text-muted-foreground justify-between">
           <Typography>New to Pollnion?</Typography>
           <Typography className="hover:underline hover:cursor-pointer">
             Sign up here

@@ -13,7 +13,7 @@ const timeline: TimelineItem[] = [
 
 export function Index() {
   return (
-    <Box className="p-3 space-y-2" color="background">
+    <Box className="p-2 space-y-2" color="background">
       <Typography className="font-extrabold">What&apos;s new?</Typography>
 
       {map(timeline, (item, idx) => {
