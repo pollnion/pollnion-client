@@ -11,9 +11,11 @@ import { useRouter } from "next/navigation";
 
 const FeedPost = () => {
   const authProps = useAuth();
-  const { push } = useRouter();
+  const router = useRouter();
 
-  const redirect = () => push("/post");
+  const redirect = () => {
+    window.location.href = "/post";
+  };
 
   const btn = {
     variant: "secondary",
@@ -62,7 +64,7 @@ const FeedPost = () => {
                 })}
                 <Separator
                   orientation="vertical"
-                  className="!h-6 mx-2 block last:hidden"
+                  className="h-6! mx-2 block last:hidden"
                 />
               </React.Fragment>
             );
