@@ -12,7 +12,7 @@ import Spaces from "@/modules/spaces";
 import Latest from "@/modules/latest";
 import Discover from "@/modules/discover";
 import Box from "@/components/custom/layout/box";
-import { useAuth } from "@/store/auth";
+import { AuthContext } from "@/components/providers/auth-provider";
 
 const LeftLayout = () => {
   return (
@@ -35,24 +35,17 @@ const RightLayout = () => {
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const { user, isAuth } = useAuth();
-  const [isChecking, setIsChecking] = React.useState(true);
+  const router = useRouter();
+  const { isAuth, isLoading } = React.useContext(AuthContext);
 
   React.useEffect(() => {
-    // Wait a bit for auth to initialize
-    const timer = setTimeout(() => {
-      if (!user && !isAuth) {
-        window.location.href = "/";
-      } else {
-        setIsChecking(false);
-      }
-    }, 100);
+    if (!isLoading && !isAuth) {
+      router.push("/");
+    }
+  }, [isAuth, isLoading, router]);
 
-    return () => clearTimeout(timer);
-  }, [user, isAuth]);
-
-  // Show nothing while checking auth
-  if (isChecking || (!user && !isAuth)) {
+  // Show nothing while checking auth or if not authenticated
+  if (isLoading || !isAuth) {
     return null;
   }
 
