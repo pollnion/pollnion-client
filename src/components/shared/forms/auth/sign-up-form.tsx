@@ -21,6 +21,8 @@ import { Typography } from "@/components/custom/typography";
 import { FormField, FormMessage } from "@/components/ui/form";
 
 const SignUpForm: React.FC<FormProps> = ({ form, onSubmit, isLoading }) => {
+  const serverError = form.formState.errors.root?.serverError?.message;
+
   return (
     <Form form={form} onSubmit={onSubmit} isLoading={isLoading}>
       <FieldGroup>
@@ -73,8 +75,8 @@ const SignUpForm: React.FC<FormProps> = ({ form, onSubmit, isLoading }) => {
           )}
         />
 
-        {form.error_code && (
-          <FormMessage>{ERROR_MESSAGES[form.error_code]}</FormMessage>
+        {serverError && (
+          <FormMessage>{ERROR_MESSAGES[serverError]}</FormMessage>
         )}
 
         <div className="flex space-x-2 text-muted-foreground justify-between">

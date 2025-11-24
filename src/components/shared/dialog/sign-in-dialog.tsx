@@ -9,10 +9,10 @@ import SignInForm from "../forms/auth/sign-in-form";
 
 const SignInDialog: React.FC<DialogProps<FieldValues>> = ({
   form,
-  onSubmit,
   isOpen,
-  toggle,
+  onSubmit,
   isLoading,
+  toggle,
 }) => {
   return (
     <Dialog isOpen={isOpen} toggle={toggle} type="sign-in" title="Sign In">

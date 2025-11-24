@@ -29,8 +29,6 @@ const AuthGuardDialog = <T extends FieldValues = FieldValues>({
     if (!isOpen) {
       signInProps.form.reset();
       signUpProps.form.reset();
-      signInProps.form.error_code = null;
-      signUpProps.form.error_code = null;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
