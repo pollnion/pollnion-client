@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FieldValues } from "react-hook-form";
 
@@ -27,8 +29,11 @@ const AuthGuardDialog = <T extends FieldValues = FieldValues>({
     if (!isOpen) {
       signInProps.form.reset();
       signUpProps.form.reset();
+      signInProps.form.error_code = null;
+      signUpProps.form.error_code = null;
     }
-  }, [isOpen, signInProps.form, signUpProps.form]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen]);
 
   if (type === "sign_up") {
     return <SignUpDialog isOpen={isOpen} toggle={toggle} {...signUpProps} />;

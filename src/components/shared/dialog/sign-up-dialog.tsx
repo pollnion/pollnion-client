@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { FieldValues } from "react-hook-form";
 
@@ -10,10 +12,11 @@ const SignUpDialog: React.FC<DialogProps<FieldValues>> = ({
   onSubmit,
   isOpen,
   toggle,
+  isLoading,
 }) => {
   return (
     <Dialog isOpen={isOpen} toggle={toggle} type="sign-up" title="Sign Up">
-      <SignUpForm form={form} onSubmit={onSubmit} />
+      <SignUpForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
     </Dialog>
   );
 };

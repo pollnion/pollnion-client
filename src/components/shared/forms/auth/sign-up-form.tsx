@@ -16,12 +16,13 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group";
 import { FormProps } from "@/types/form";
-import { FormField } from "@/components/ui/form";
+import { ERROR_MESSAGES } from "@/constants/errors";
 import { Typography } from "@/components/custom/typography";
+import { FormField, FormMessage } from "@/components/ui/form";
 
-const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
+const SignUpForm: React.FC<FormProps> = ({ form, onSubmit, isLoading }) => {
   return (
-    <Form form={form} onSubmit={onSubmit}>
+    <Form form={form} onSubmit={onSubmit} isLoading={isLoading}>
       <FieldGroup>
         <FormField
           name="email"
@@ -71,6 +72,10 @@ const SignUpForm: React.FC<FormProps> = ({ form, onSubmit }) => {
             </Field>
           )}
         />
+
+        {form.error_code && (
+          <FormMessage>{ERROR_MESSAGES[form.error_code]}</FormMessage>
+        )}
 
         <div className="flex space-x-2 text-muted-foreground justify-between">
           <Typography>Already in Pollnion?</Typography>

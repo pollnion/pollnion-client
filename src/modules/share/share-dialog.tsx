@@ -10,18 +10,12 @@ import { BASE_URL } from "@/constants/links";
 import Input from "@/components/custom/inputs";
 import Dialog from "@/components/custom/dialog";
 import { Typography } from "@/components/custom/typography";
+import Button from "@/components/custom/button";
+import Box from "@/components/custom/layout/box";
 
 const shareButtons = [
-  {
-    Component: FacebookShareButton,
-    Icon: FacebookIcon,
-    props: {},
-  },
-  {
-    Component: TwitterShareButton,
-    Icon: TwitterIcon,
-    props: {},
-  },
+  { Component: FacebookShareButton, Icon: FacebookIcon, props: {} },
+  { Component: TwitterShareButton, Icon: TwitterIcon, props: {} },
 ];
 
 const SocialShare = ({
@@ -71,8 +65,16 @@ const ShareComp = () => {
 
 const AdsComp = () => {
   return (
-    <div className="space-y-4">
-      <Typography>This section is for ads</Typography>
+    <div className="my-2">
+      <div className="grid grid-cols-12 gap-4 h-64">
+        <Box className="col-span-12 sm:col-span-6 h-full flex flex-col">
+          <Button className="w-full mt-auto">Like</Button>
+        </Box>
+
+        <Box className="col-span-12 sm:col-span-6 h-full flex flex-col">
+          <Button className="w-full mt-auto">Follow</Button>
+        </Box>
+      </div>
     </div>
   );
 };
@@ -81,7 +83,7 @@ const ShareDialog = ({ isOpen, toggle }: BaseDialogProps) => {
   return (
     <Dialog toggle={toggle} isOpen={isOpen} title="Share Pollnion">
       <Tabs
-        defaultValue="account"
+        defaultValue="share"
         items={[
           {
             value: "share",

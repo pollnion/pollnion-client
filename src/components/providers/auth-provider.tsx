@@ -1,6 +1,5 @@
 import React from "react";
 import { create } from "zustand";
-import { isEmpty } from "lodash";
 
 // misc
 import { notify } from "@/lib";
@@ -209,7 +208,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
       value={{
         user,
         isLoading: isLoading,
-        isAuth: !isEmpty(user),
+        isAuth: Boolean(user),
         handleSignOut,
         toggleAuthGuard,
         handleGoogleLogin,
