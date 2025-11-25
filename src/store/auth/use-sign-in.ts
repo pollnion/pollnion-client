@@ -7,7 +7,6 @@ import {
   authFormDefaultValues,
   type AuthFormValues,
 } from "@/schemas/auth/auth-schemas";
-import { notify } from "@/lib";
 import { useLoading } from "../ui";
 import { supabase } from "@/supabase/client";
 import { PostgrestError } from "@supabase/supabase-js";
@@ -43,11 +42,7 @@ const useSignIn = () => {
       }
     } catch (error) {
       const message = (error as PostgrestError)?.message ?? "Unknown error";
-      notify.error(message);
-
-      form.setError("root.serverError", {
-        message,
-      });
+      form.setError("root.serverError", { message });
     } finally {
       loadingProps?.stop();
     }

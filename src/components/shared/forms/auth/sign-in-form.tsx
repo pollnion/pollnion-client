@@ -9,7 +9,12 @@ import { Separator } from "@/components/ui/separator";
 import { Typography } from "@/components/custom/typography";
 import { FormField, FormMessage } from "@/components/ui/form";
 
-const SignInForm: React.FC<FormProps> = ({ form, onSubmit, isLoading }) => {
+const SignInForm: React.FC<FormProps & { onSwitchMode?: () => void }> = ({
+  form,
+  onSubmit,
+  isLoading,
+  onSwitchMode,
+}) => {
   const serverError = form.formState.errors.root?.serverError?.message;
 
   return (
@@ -53,7 +58,10 @@ const SignInForm: React.FC<FormProps> = ({ form, onSubmit, isLoading }) => {
 
         <div className="flex space-x-2 text-muted-foreground">
           <Typography>New to Pollnion?</Typography>
-          <Typography className="hover:underline hover:cursor-pointer">
+          <Typography
+            className="hover:underline hover:cursor-pointer"
+            onClick={onSwitchMode}
+          >
             Sign up here
           </Typography>
         </div>

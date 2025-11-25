@@ -14,6 +14,9 @@ import { supabase } from "@/supabase/client";
 import { PostgrestError } from "@supabase/supabase-js";
 import { useGetResponse } from "../utils/use-get-response";
 
+const SUCCESS_SIGNUP_MESSAGE =
+  "Sign-up successful! Please check your email to verify your account.";
+
 /**
  * Hook for managing sign-up form state and submission
  * @returns Form instance and submit handler
@@ -33,7 +36,7 @@ const useSignUp = () => {
 
     try {
       const response = await supabase.auth.signUp({
-        email: values.email,
+        email: values.email.trim().toLowerCase(),
         password: values.password,
       });
 
@@ -43,17 +46,14 @@ const useSignUp = () => {
       // inject into react-hook-form
       if (response.error?.code) {
         form.setError("root.serverError", {
-          message: response.error.code, // will show up under formState.errors.root.serverError
+          message: response.error.code,
         });
       }
     } catch (error) {
       const message = (error as PostgrestError)?.message ?? "Unknown error";
-      notify.error(message);
-
-      form.setError("root.serverError", {
-        message,
-      });
+      form.setError("root.serverError", { message });
     } finally {
+      notify.success(SUCCESS_SIGNUP_MESSAGE);
       loadingProps?.stop();
     }
   }
@@ -61,6 +61,7 @@ const useSignUp = () => {
   return {
     form,
     onSubmit,
+    data: getResponse.data,
     isLoading: loadingProps?.isLoading,
   };
 };

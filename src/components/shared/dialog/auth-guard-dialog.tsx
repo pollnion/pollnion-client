@@ -24,20 +24,42 @@ const AuthGuardDialog = <T extends FieldValues = FieldValues>({
   signInProps,
   signUpProps,
 }: AuthGuardDialogProps<T>) => {
+  const [currentType, setCurrentType] = React.useState<"sign_in" | "sign_up">(
+    type
+  );
+
   // Reset forms when dialog is closed
   React.useEffect(() => {
     if (!isOpen) {
       signInProps.form.reset();
       signUpProps.form.reset();
+      setCurrentType(type);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen]);
+  }, [isOpen, currentType, type]);
 
-  if (type === "sign_up") {
-    return <SignUpDialog isOpen={isOpen} toggle={toggle} {...signUpProps} />;
+  const switchToSignUp = () => setCurrentType("sign_up");
+  const switchToSignIn = () => setCurrentType("sign_in");
+
+  if (currentType === "sign_up") {
+    return (
+      <SignUpDialog
+        isOpen={isOpen}
+        toggle={toggle}
+        onSwitchMode={switchToSignIn}
+        {...signUpProps}
+      />
+    );
   }
 
-  return <SignInDialog isOpen={isOpen} toggle={toggle} {...signInProps} />;
+  return (
+    <SignInDialog
+      isOpen={isOpen}
+      toggle={toggle}
+      onSwitchMode={switchToSignUp}
+      {...signInProps}
+    />
+  );
 };
 
 export default AuthGuardDialog;

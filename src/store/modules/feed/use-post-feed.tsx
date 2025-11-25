@@ -12,8 +12,6 @@ import { get } from "lodash";
 
 // Function to parse form data into the required post format
 const parse = (data: AnyObject, user: User | null) => {
-  console.log(user?.user_metadata?.username);
-
   return {
     id: uuidGenerator(),
     author: {
@@ -72,7 +70,9 @@ const usePostFeed = () => {
 
   const onSubmit = async (values: FormValues) => {
     const getId = get(parse(values, user), "id", "");
+    const getName = get(parse(values, user), "author.name", "");
     console.log("Submitting feed post with ID:", getId);
+    console.log("Submitting feed post with Name:", getName);
 
     try {
       const response = await store.onSubmit(parse(values, user));
