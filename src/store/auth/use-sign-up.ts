@@ -38,6 +38,9 @@ const useSignUp = () => {
       const response = await supabase.auth.signUp({
         email: values.email.trim().toLowerCase(),
         password: values.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
+        },
       });
 
       // store for external usage
