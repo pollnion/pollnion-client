@@ -1,9 +1,12 @@
 import { Suspense } from "react";
-import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
+import { Toaster } from "sonner";
 import { Inter, Geist_Mono } from "next/font/google";
+
+import type { Metadata } from "next";
 import { PROJECT_URL } from "@/constants/keys";
+import { Analytics } from "@vercel/analytics/next";
 import { AppProviders as Providers } from "@/components/providers/app-providers";
+
 import "./globals.css";
 
 // Inter for all UI text
@@ -42,6 +45,7 @@ export default function RootLayout({
       >
         <Analytics />
         <Suspense>
+          <Toaster />
           <Providers>{children}</Providers>
         </Suspense>
       </body>

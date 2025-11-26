@@ -3,19 +3,20 @@ import React from "react";
 import { Form } from "..";
 import FormItem from "../form-item";
 import { FormProps } from "@/types/form";
-import { Input } from "@/components/ui/input";
+import { useReadStore } from "@/store/actions";
+import Input from "@/components/custom/inputs";
 import { FormField } from "@/components/ui/form";
 import Combobox from "@/components/custom/combobox";
 import { Textarea } from "@/components/ui/textarea";
 import FeedPostFormPoll from "./feed-post-form-poll";
-import { useReadStore } from "@/store/actions";
 
 const FeedPostForm: React.FC<FormProps> = ({ form, onSubmit }) => {
   const tagsProps = useReadStore<{ label: string; value: string }>("spaces");
   const tagsData = Array.isArray(tagsProps.data) ? tagsProps.data : [];
+  const isLoading = form.formState.isSubmitting;
 
   return (
-    <Form form={form} onSubmit={onSubmit}>
+    <Form form={form} onSubmit={onSubmit} isLoading={isLoading}>
       <FormField
         name="title"
         control={form.control}

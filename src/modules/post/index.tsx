@@ -15,14 +15,14 @@ const PostForm = ({ children }: { children: Children }) => (
 
 const Index = () => {
   const postFeedProps = usePostFeed();
-  const { form, onSubmit, isLoading } = postFeedProps || {};
+  const { form, onSubmit } = postFeedProps || {};
 
   return (
     <React.Fragment>
       <Breadcrumb data={[{ href: "/", label: "Feed" }, { label: "Create" }]} />
       <PostHeader />
       <PostForm>
-        <FeedPostForm form={form} onSubmit={onSubmit} isLoading={isLoading} />
+        <FeedPostForm form={form} onSubmit={onSubmit} />
       </PostForm>
     </React.Fragment>
   );

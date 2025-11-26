@@ -25,7 +25,9 @@ export const generateUsername = (email?: string): string => {
   });
 
   // Append a number to make collisions less likely
-  const number = seed ? (seed * 997) % 1000 : Math.floor(Math.random() * 1000);
+  const number = seed
+    ? (seed * 997) % 10000
+    : Math.floor(Math.random() * 10000);
 
   return `${username}_${number}`;
 };

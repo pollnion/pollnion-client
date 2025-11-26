@@ -14,7 +14,7 @@ const FeedHeader = ({ item }: { item: FeedItem }) => {
   return (
     <div className="flex items-center justify-between mb-2">
       <div className="flex items-center space-x-2">
-        <Avatar alt={author?.name} />
+        <Avatar src={author?.avatar} alt={author?.name} />
         <div className="flex items-center space-x-2">
           <Typography variant="small" className="font-medium break-all">
             {authorName}
