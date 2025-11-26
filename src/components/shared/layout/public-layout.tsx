@@ -4,8 +4,8 @@ import NavbarLayout from "./navbar-layout";
 
 const PublicLayout = ({
   children,
-  showFooter,
-  showNavbar,
+  showFooter = false,
+  showNavbar = true,
 }: {
   children: React.ReactNode;
   showFooter?: boolean;

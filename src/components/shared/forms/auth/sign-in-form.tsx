@@ -1,16 +1,24 @@
 import { Form } from "..";
-import { FieldGroup } from "@/components/ui/field";
-import { FormField } from "@/components/ui/form";
-import { FormProps } from "@/types/form";
 import FormItem from "../form-item";
+import { FormProps } from "@/types/form";
 import Input from "@/components/custom/inputs";
 import GoogleBtn from "../../buttons/google-btn";
+import { FieldGroup } from "@/components/ui/field";
+import { ERROR_MESSAGES } from "@/constants/errors";
 import { Separator } from "@/components/ui/separator";
 import { Typography } from "@/components/custom/typography";
+import { FormField, FormMessage } from "@/components/ui/form";
 
-const SignInForm: React.FC<FormProps> = ({ form, onSubmit }) => {
+const SignInForm: React.FC<FormProps & { onSwitchMode?: () => void }> = ({
+  form,
+  onSubmit,
+  isLoading,
+  onSwitchMode,
+}) => {
+  const serverError = form.formState.errors.root?.serverError?.message;
+
   return (
-    <Form form={form} onSubmit={onSubmit}>
+    <Form form={form} onSubmit={onSubmit} isLoading={isLoading}>
       <FieldGroup>
         <GoogleBtn />
 
@@ -44,9 +52,16 @@ const SignInForm: React.FC<FormProps> = ({ form, onSubmit }) => {
           )}
         />
 
-        <div className="flex space-x-2 text-muted-foreground justify-between">
+        {serverError && (
+          <FormMessage>{ERROR_MESSAGES[serverError]}</FormMessage>
+        )}
+
+        <div className="flex space-x-2 text-muted-foreground">
           <Typography>New to Pollnion?</Typography>
-          <Typography className="hover:underline hover:cursor-pointer">
+          <Typography
+            className="hover:underline hover:cursor-pointer"
+            onClick={onSwitchMode}
+          >
             Sign up here
           </Typography>
         </div>

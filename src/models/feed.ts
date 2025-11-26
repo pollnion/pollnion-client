@@ -20,6 +20,8 @@ interface Author {
   status: UserStatus;
   /** Username/handle of the user */
   username: string;
+  /** URL to the user's avatar image */
+  avatar?: string;
 }
 
 /**

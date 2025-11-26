@@ -43,14 +43,24 @@ const createReadStore = <T extends AnyObject>(
     },
   }));
 
+/**
+ * This hook reads data from the store with optional filters
+ * @param table
+ * @param filters
+ * @returns
+ */
 export const useReadStore = <T extends AnyObject = AnyObject>(
   table: string,
   filters?: Partial<T> & { ascending?: boolean; orderBy?: string }
 ) => {
+  // Create stable filter key for memoization
+  const filterKey = useMemo(() => JSON.stringify(filters || {}), [filters]);
+
   // Create stable store instance
   const useStore = useMemo(
     () => createReadStore<T>(table, filters),
-    [table, filters]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [table, filterKey] // Use filterKey instead of filters
   );
 
   const { data, isLoading, error, read } = useStore();
@@ -65,4 +75,38 @@ export const useReadStore = <T extends AnyObject = AnyObject>(
   }, [stableRead]);
 
   return { data, isLoading, error, read: stableRead };
+};
+
+/**
+ * This returns a single item when an 'id' filter is provided
+ * @param table
+ * @param filters
+ * @returns
+ */
+export const useReadStoreById = <T extends AnyObject = AnyObject>(
+  table: string,
+  filters?: Partial<T> & { ascending?: boolean; orderBy?: string }
+) => {
+  // Create stable filter key for memoization
+  const filterKey = useMemo(() => JSON.stringify(filters || {}), [filters]);
+
+  // Create stable store instance
+  const useStore = useMemo(
+    () => createReadStore<T>(table, filters),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [table, filterKey] // Use filterKey instead of filters
+  );
+
+  const { data, isLoading, error, read } = useStore();
+
+  // Stable read function
+  const stableRead = useCallback(() => {
+    read();
+  }, [read]);
+
+  useEffect(() => {
+    stableRead();
+  }, [stableRead]);
+
+  return { data: data[0], isLoading, error, read: stableRead };
 };

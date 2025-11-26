@@ -7,10 +7,12 @@ import { z } from "zod";
 export const authFormSchema = z.object({
   email: z
     .string()
+    .trim()
     .min(1, "Email is required")
     .email("Invalid email address.")
     .min(2, "Email must be at least 2 characters")
-    .max(50, "Email must be at most 50 characters"),
+    .max(50, "Email must be at most 50 characters")
+    .transform((v) => v.toLowerCase()),
   password: z
     .string()
     .min(1, "Password is required")
