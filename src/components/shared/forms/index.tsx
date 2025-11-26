@@ -8,6 +8,7 @@ export const Form: React.FC<{ children: Children } & FormProps> = ({
   children,
   form,
   onSubmit,
+  isLoading,
 }) => {
   return (
     <FormProvider {...form}>
@@ -15,7 +16,12 @@ export const Form: React.FC<{ children: Children } & FormProps> = ({
         <div className="space-y-4">{children}</div>
 
         <Field orientation="horizontal" className="mt-4">
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isLoading}
+            isLoading={isLoading}
+          >
             Submit
           </Button>
         </Field>

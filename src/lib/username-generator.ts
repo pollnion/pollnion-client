@@ -1,73 +1,35 @@
-/**
- * Generates a random username based on user's email
- * Format: adjective_noun_number (e.g., happy_dolphin_42)
- */
-
-const adjectives = [
-  "happy",
-  "clever",
-  "bright",
-  "swift",
-  "brave",
-  "calm",
-  "cool",
-  "eager",
-  "gentle",
-  "kind",
-  "lively",
-  "proud",
-  "quick",
-  "witty",
-  "bold",
-  "wise",
-  "vivid",
-  "zealous",
-  "noble",
-  "serene",
-];
-
-const nouns = [
-  "panda",
-  "tiger",
-  "eagle",
-  "dolphin",
-  "phoenix",
-  "dragon",
-  "falcon",
-  "wolf",
-  "fox",
-  "bear",
-  "hawk",
-  "lion",
-  "owl",
-  "raven",
-  "shark",
-  "whale",
-  "lynx",
-  "leopard",
-  "jaguar",
-  "cobra",
-];
+import {
+  colors,
+  animals,
+  adjectives,
+  uniqueNamesGenerator,
+} from "unique-names-generator";
 
 /**
  * Generate a random username
- * @param email - User's email address (optional, for seeding)
+ * @param email - User's email address (optional, used for deterministic seed)
  * @returns Generated username in format: adjective_noun_number
  */
 export const generateUsername = (email?: string): string => {
-  // Use email for some determinism if provided, otherwise random
+  // Use a deterministic seed if email is provided
   const seed = email
     ? email.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0)
-    : Math.random() * 10000;
+    : undefined;
 
-  const adjIndex = Math.floor((seed * 7) % adjectives.length);
-  const nounIndex = Math.floor((seed * 13) % nouns.length);
-  const number = Math.floor((seed * 997) % 100);
+  // Generate username with unique-names-generator
+  const username = uniqueNamesGenerator({
+    dictionaries: [adjectives, colors, animals],
+    separator: "_",
+    style: "lowerCase",
+    seed,
+  });
 
-  const adjective = adjectives[adjIndex];
-  const noun = nouns[nounIndex];
+  // Append a number to make collisions less likely
+  const number = seed
+    ? (seed * 997) % 10000
+    : Math.floor(Math.random() * 10000);
 
-  return `${adjective}_${noun}_${number}`;
+  return `${username}_${number}`;
 };
 
 /**
@@ -87,7 +49,6 @@ export const extractUsernameFromEmail = (email: string): string => {
 export const generateDisplayName = (email?: string): string => {
   if (!email) return generateUsername();
 
-  // Try to extract a meaningful name from email
   const namePart = email.split("@")[0];
   const cleanName = namePart
     .replace(/[._-]/g, " ")

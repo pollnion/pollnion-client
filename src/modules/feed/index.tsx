@@ -11,18 +11,15 @@ import { TABLE_FEED } from "@/constants/tables";
 import Virtuoso from "@/components/custom/virtusio";
 
 const Index = () => {
-  const { data, fetchNextPage, isLoading } = useInfiniteQuery<FeedItem>({
-    columns: "*",
-    pageSize: 10,
-    tableName: TABLE_FEED,
-    trailingQuery: (query) => query.order("created_at", { ascending: false }),
-  });
+  const listProps = useInfiniteQuery<FeedItem>({ tableName: TABLE_FEED });
+
+  const isLoading = listProps?.isLoading;
 
   return (
     <React.Fragment>
       <FeedPost />
       <FeedLoader isLoading={isLoading} />
-      <Virtuoso data={data} isLoading={isLoading} loadMore={fetchNextPage}>
+      <Virtuoso listProps={listProps}>
         {(idx, item) => <FeedCard key={idx} item={item} />}
       </Virtuoso>
     </React.Fragment>
