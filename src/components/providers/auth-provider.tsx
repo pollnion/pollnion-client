@@ -133,6 +133,47 @@ const AuthProvider = ({ children }: { children: Children }) => {
       if (error) console.error("Session fetch error:", error);
 
       const currentUser = data.session?.user ?? null;
+
+      // Ensure user profile exists in 'profiles' table
+      if (currentUser) {
+        const { data: existingProfile } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", currentUser.id)
+          .single();
+
+        // * Create user profile if not existing
+        if (!existingProfile) {
+          const profileData = {
+            id: currentUser.id,
+            email: currentUser.email,
+            username: currentUser.user_metadata?.username || null,
+            display_name:
+              currentUser.user_metadata?.display_name ||
+              currentUser.user_metadata?.full_name ||
+              null,
+            avatar_url: currentUser.user_metadata?.avatar_url || null,
+          };
+
+          const { data: insertedProfile, error: insertError } = await supabase
+            .from("profiles")
+            .insert(profileData)
+            .select();
+
+          if (insertError) {
+            console.error("Failed to create profile:", {
+              error: insertError,
+              message: insertError.message,
+              details: insertError.details,
+              hint: insertError.hint,
+              code: insertError.code,
+            });
+          } else {
+            console.log("Profile created successfully:", insertedProfile);
+          }
+        }
+      }
+
       setUser(currentUser);
 
       // Generate and set username if user exists but doesn't have one

@@ -14,7 +14,10 @@ const Index = () => {
   const { data, isLoading } = useReadStore<FeedItem>(TABLE_FEED);
 
   // grab top 3 once, only when data changes
-  const latestPolls = useMemo(() => take(data, 3), [data]);
+  const latestPolls = useMemo(() => {
+    const dataArray = Array.isArray(data) ? data : [];
+    return take(dataArray, 3);
+  }, [data]);
 
   if (isLoading) return <LatestSkeleton />;
 

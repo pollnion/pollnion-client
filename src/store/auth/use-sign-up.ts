@@ -43,6 +43,11 @@ const useSignUp = () => {
         },
       });
 
+      // * create user profile after successful sign-up
+      if (response.data.user) {
+        await supabase.from("profiles").insert({ ...response.data.user });
+      }
+
       // store for external usage
       getResponse.setData({ ...response.data });
 

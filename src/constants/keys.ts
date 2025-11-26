@@ -19,3 +19,6 @@ export const SUPABASE_PROJECT_URL = process.env
 // Supabase API Key
 export const SUPABASE_API_KEY = process.env
   .NEXT_PUBLIC_SUPABASE_API_KEY as string;
+
+// Resend API Key
+export const RESEND_API_KEY = process.env.NEXT_PUBLIC_RESEND_API_KEY as string;

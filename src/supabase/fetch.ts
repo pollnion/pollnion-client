@@ -3,6 +3,7 @@ import type {
   PostgrestResponse,
   PostgrestSingleResponse,
 } from "@supabase/supabase-js";
+import { ParamValue } from "next/dist/server/request/params";
 
 type DBMethod = "read" | "create" | "update" | "delete";
 
@@ -11,7 +12,7 @@ type BaseOptions = {
 };
 
 type ReadOptions<T> = BaseOptions & {
-  id?: string | number;
+  id?: ParamValue | string | number;
   from?: number;
   to?: number;
   limit?: number;

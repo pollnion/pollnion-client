@@ -12,6 +12,7 @@ import { useReadStore } from "@/store/actions";
 
 const FeedPostForm: React.FC<FormProps> = ({ form, onSubmit }) => {
   const tagsProps = useReadStore<{ label: string; value: string }>("spaces");
+  const tagsData = Array.isArray(tagsProps.data) ? tagsProps.data : [];
 
   return (
     <Form form={form} onSubmit={onSubmit}>
@@ -50,7 +51,11 @@ const FeedPostForm: React.FC<FormProps> = ({ form, onSubmit }) => {
         control={form.control}
         render={({ field }) => (
           <FormItem label="Tags" description="You can only select up to 3 tags">
-            <Combobox {...field} {...tagsProps} />
+            <Combobox
+              {...field}
+              data={tagsData}
+              isLoading={tagsProps.isLoading}
+            />
           </FormItem>
         )}
       />

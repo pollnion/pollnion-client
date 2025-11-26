@@ -6,15 +6,15 @@ import Button from "@/components/custom/button";
 import Avatar from "@/components/custom/avatar";
 
 const FeedHeader = ({ item }: { item: FeedItem }) => {
-  const { author, created_at } = item;
+  const { author, created_at } = item || {};
 
   return (
     <div className="flex items-center justify-between mb-2">
       <div className="flex items-center space-x-2">
-        <Avatar alt={author.name} />
+        <Avatar alt={author?.name} />
         <div className="flex items-center space-x-2">
           <Typography variant="small" className="font-medium">
-            {author.name}
+            {author?.name}
           </Typography>
           <Typography variant="muted-xs">{timeDiff(created_at)}</Typography>
         </div>
@@ -22,7 +22,7 @@ const FeedHeader = ({ item }: { item: FeedItem }) => {
       <Button variant="ghost" className="rounded-full" size="sm">
         <Ellipsis size="18" />
       </Button>
-      {author.status === "admin" && (
+      {author?.status === "admin" && (
         <Typography variant="muted-xs" className="text-primary">
           Admin
         </Typography>
