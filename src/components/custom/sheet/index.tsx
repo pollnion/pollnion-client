@@ -37,7 +37,7 @@ const Sheet = ({
         <Box
           flow="col"
           display="flex"
-          className="gap-6 px-4 flex-1 overflow-y-auto"
+          className="gap-3 px-4 flex-1 overflow-y-auto"
         >
           {children}
         </Box>

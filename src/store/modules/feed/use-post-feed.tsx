@@ -9,16 +9,16 @@ import { notify, uuidGenerator } from "@/lib";
 import { postFeedSchema } from "@/schemas/feed/feed-schemas";
 import { useCreateStore } from "@/store/actions/use-create-store";
 import { get } from "lodash";
+import { useRouter } from "next/navigation";
 
 // Function to parse form data into the required post format
 const parse = (data: AnyObject, user: User | null) => {
-  console.log(user?.user_metadata?.username);
-
   return {
     id: uuidGenerator(),
     author: {
       id: user?.id || "",
       name: user?.user_metadata?.username || user?.user_metadata?.display_name,
+      avatar: user?.user_metadata?.avatar_url || "",
       status: "normal",
     },
     created_at: new Date().toISOString(),
@@ -67,19 +67,20 @@ const fields = {
 
 const usePostFeed = () => {
   const { user } = useAuth();
+  const router = useRouter();
   const store = useCreateStore("feed");
   const form = useForm<FormValues>(fields);
 
   const onSubmit = async (values: FormValues) => {
-    const getId = get(parse(values, user), "id", "");
-    console.log("Submitting feed post with ID:", getId);
+    const payload = parse(values, user);
 
-    try {
-      const response = await store.onSubmit(parse(values, user));
-      console.log(response);
-    } finally {
-      notify.success("Created successfully!");
-    }
+    const getId = get(payload, "id", "");
+    const getName = get(payload, "author.name", "");
+
+    await store.onSubmit(payload);
+
+    router.push(`/${getName}/posts/${getId}`);
+    notify.success("Created successfully!");
   };
 
   return { form, onSubmit, isLoading: store.isLoading };

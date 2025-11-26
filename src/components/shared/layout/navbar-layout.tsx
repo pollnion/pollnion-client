@@ -2,7 +2,6 @@
 import React from "react";
 import { Menu } from "lucide-react";
 
-import GithubBtn from "../buttons/gh-btn";
 import SearchBtn from "../buttons/search-btn";
 import Button from "@/components/custom/button";
 import Box from "@/components/custom/layout/box";
@@ -10,22 +9,15 @@ import NavbarLayoutCTA from "./navbar-layout.cta";
 import NavbarLayoutAvatar from "./navbar-layout.avatar";
 import useScrollPosition from "@/store/utils/use-scroll-position";
 
-import { useRouter } from "next/navigation";
+import { Children } from "@/types/global";
 import { cn, usePathChecker } from "@/lib";
+import { useRouter } from "next/navigation";
 import LogoTxtBtn from "../buttons/logo-txt-btn";
-import { Separator } from "@/components/ui/separator";
 import { navbarVariants } from "./navbar-layout.variants";
 import { useUI } from "@/components/providers/ui-provider";
-import { Children } from "@/types/global";
 
 const commonStyles =
   "space-y-4 sticky top-20 self-start max-h-[calc(100vh-5rem)] overflow-y-auto scroll-invisible";
-
-const CommonSeparator = () => (
-  <div className="hidden md:block">
-    <Separator orientation="vertical" className="h-4! w-px bg-muted" />
-  </div>
-);
 
 interface SideColumnProps {
   children: Children;
@@ -82,8 +74,6 @@ const NavbarLayout = () => {
           <div className="block md:hidden">
             <SearchBtn />
           </div>
-          <GithubBtn className="hidden md:flex" />
-          <CommonSeparator />
           <NavbarLayoutCTA />
           <NavbarLayoutAvatar />
         </Box>

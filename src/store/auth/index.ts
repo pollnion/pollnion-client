@@ -6,3 +6,4 @@ export {
   authFormDefaultValues,
   type AuthFormValues,
 } from "../../schemas/auth/auth-schemas";
+export { useProtectedRoute } from "./use-protected-routes";

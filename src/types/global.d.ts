@@ -22,9 +22,12 @@ export interface ListState<T> {
 
 /** Generic single-item view state wrapper */
 export interface ViewState<T> {
-  data: T;
-  error?: Error;
-  loading: boolean;
+  viewProps: {
+    data: T;
+    isLoading: boolean;
+    error: string | null;
+    read: () => void;
+  };
 }
 
 /** Object with unknown structure */

@@ -4,10 +4,10 @@ import { Vote } from "lucide-react";
 import { MessageCircleQuestionMark } from "lucide-react";
 
 import { useAuth } from "@/store";
-import Button from "@/components/custom/button";
-import Avatar from "@/components/custom/avatar";
-import { Separator } from "@/components/ui/separator";
 import { useRouter } from "next/navigation";
+import Button from "@/components/custom/button";
+import { Separator } from "@/components/ui/separator";
+import { CurrentUserAvatar } from "@/components/shared/avatars/current-user-avatar";
 
 const FeedPost = () => {
   const authProps = useAuth();
@@ -42,7 +42,7 @@ const FeedPost = () => {
     <React.Fragment>
       <div className="bg-card p-2 rounded-none sm:rounded-sm">
         <div className="flex items-center space-x-2">
-          <Avatar />
+          <CurrentUserAvatar />
           {React.createElement(
             Button,
             btn as React.ComponentProps<typeof Button>
@@ -62,7 +62,7 @@ const FeedPost = () => {
                 })}
                 <Separator
                   orientation="vertical"
-                  className="!h-6 mx-2 block last:hidden"
+                  className="h-6! mx-2 block last:hidden"
                 />
               </React.Fragment>
             );

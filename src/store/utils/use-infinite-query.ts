@@ -69,7 +69,12 @@ function createStore<
   TData extends SupabaseTableData<T>,
   T extends SupabaseTableName,
 >(props: UseInfiniteQueryProps<T>) {
-  const { tableName, columns = "*", pageSize = 20, trailingQuery } = props;
+  const {
+    tableName,
+    columns = "*",
+    pageSize = 20,
+    trailingQuery = (query) => query.order("created_at", { ascending: false }),
+  } = props;
 
   let state: StoreState<TData> = {
     data: [],
@@ -165,7 +170,7 @@ function useInfiniteQuery<
   TData extends SupabaseTableData<T>,
   T extends SupabaseTableName = SupabaseTableName,
 >(props: UseInfiniteQueryProps<T>) {
-  const { tableName, columns, pageSize } = props;
+  const { tableName, columns = "*", pageSize = 10 } = props;
 
   // Create store once and memoize it based on actual values, not the props object
   const store = useMemo(
