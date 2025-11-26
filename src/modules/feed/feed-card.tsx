@@ -15,7 +15,8 @@ const FeedCard = ({ item }: { item: FeedItem }) => {
     <Box
       onClick={() => (params.postId ? {} : router.push(redirect))}
       className={cn(
-        "py-3 mb-1 sm:mb-4 bg-card p-2 rounded-none sm:rounded hover:cursor-pointer hover:bg-card/90"
+        "py-3 mb-1 sm:mb-4 bg-card p-2 rounded-none sm:rounded",
+        "hover:cursor-pointer hover:bg-card/90"
       )}
     >
       <FeedHeader item={item} />

@@ -38,7 +38,10 @@ const Breadcrumb: React.FC<BreadcrumbProps> = (props) => {
                     <ShadcnBreadcrumbPage>{_label}</ShadcnBreadcrumbPage>
                   )}
                   {href && !isActive(href) && (
-                    <Link href={href} className="flex items-center space-x-2">
+                    <Link
+                      href={href}
+                      className="flex items-center space-x-2 hover:underline"
+                    >
                       <span>{_label}</span>
                     </Link>
                   )}

@@ -24,7 +24,7 @@ const Page = () => {
       label: `${feedData?.author?.name}`,
     },
     {
-      label: "Posts",
+      label: "Post",
     },
     {
       href: `/${feedData?.author?.name}/posts/${feedData?.id}`,

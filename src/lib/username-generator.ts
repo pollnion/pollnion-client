@@ -1,5 +1,4 @@
 import {
-  names,
   colors,
   animals,
   adjectives,
@@ -19,7 +18,7 @@ export const generateUsername = (email?: string): string => {
 
   // Generate username with unique-names-generator
   const username = uniqueNamesGenerator({
-    dictionaries: [adjectives, colors, animals, names],
+    dictionaries: [adjectives, colors, animals],
     separator: "_",
     style: "lowerCase",
     seed,

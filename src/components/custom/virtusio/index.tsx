@@ -4,26 +4,29 @@ import { Virtuoso as BaseVirtuoso } from "react-virtuoso";
 import React, { ComponentType, ReactNode, useCallback } from "react";
 
 type BaseVirtuosoProps<T> = {
-  data: T[];
-  loadMore?: () => void;
-  isLoading?: boolean;
-  viewPort?: number;
-  style?: React.CSSProperties;
-  LoadComp?: ComponentType;
+  listProps: {
+    data: T[];
+    fetchNextPage?: () => void;
+    isLoading?: boolean;
+    viewPort?: number;
+    style?: React.CSSProperties;
+    LoadComp?: ComponentType;
+  };
   children: (idx: number, item: T) => ReactNode;
 };
 
-function Virtuoso<T>({
-  data,
-  children,
-  loadMore,
-  isLoading,
-  viewPort = 200,
-  style = { height: "100vh" },
-}: BaseVirtuosoProps<T>) {
+function Virtuoso<T>({ listProps, children }: BaseVirtuosoProps<T>) {
+  const {
+    data,
+    isLoading,
+    viewPort = 200,
+    style = { height: "100vh" },
+    fetchNextPage,
+  } = listProps || {};
+
   const handleLoadMore = useCallback(() => {
-    loadMore?.();
-  }, [loadMore]);
+    fetchNextPage?.();
+  }, [fetchNextPage]);
 
   if (isLoading) return null;
 

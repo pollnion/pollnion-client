@@ -99,8 +99,6 @@ export const useReadStoreById = <T extends AnyObject = AnyObject>(
 
   const { data, isLoading, error, read } = useStore();
 
-  const _data = filters?.id ? data[0] : data;
-
   // Stable read function
   const stableRead = useCallback(() => {
     read();
@@ -110,5 +108,5 @@ export const useReadStoreById = <T extends AnyObject = AnyObject>(
     stableRead();
   }, [stableRead]);
 
-  return { data: _data, isLoading, error, read: stableRead };
+  return { data: data[0], isLoading, error, read: stableRead };
 };
