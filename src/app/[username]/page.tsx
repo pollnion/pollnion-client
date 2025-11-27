@@ -23,7 +23,6 @@ const Page = () => {
     tableName: TABLE_FEED,
     trailingQuery: (query) =>
       query
-        .eq("author->>name", username)
         .eq("author->>name", username.toLowerCase())
         .order("created_at", { ascending: false }),
   });
@@ -37,13 +36,8 @@ const Page = () => {
   const listDataLength = listProps?.data?.length || 0;
 
   const BREADCRUMBS_ITEMS = [
-    {
-      href: `/${data?.username}`,
-      label: `${data?.username}`,
-    },
-    {
-      label: `Post`,
-    },
+    { href: `/`, label: `Feed` },
+    { href: `/${data?.username}`, label: `${data?.username}` },
   ];
 
   if (isLoading) return <ProfileLoader isLoading />;
