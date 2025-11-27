@@ -13,21 +13,16 @@ import Breadcrumb from "@/components/custom/breadcrumbs";
 const Page = () => {
   const params = useParams();
   const postId = params.postId as string;
-  const viewProps = useReadStoreById<FeedItem>(TABLE_FEED, {
-    filters: { id: postId },
-  } as Partial<FeedItem>);
+  const filters = { filters: { id: postId } } as Partial<FeedItem>;
+  const viewProps = useReadStoreById<FeedItem>(TABLE_FEED, filters);
 
   const isLoading = viewProps?.isLoading;
   const feedData = viewProps?.data as FeedItem;
 
   const BREADCRUMBS_ITEMS = [
-    {
-      href: `/${feedData?.author?.name}`,
-      label: `${feedData?.author?.name}`,
-    },
-    {
-      label: "Post",
-    },
+    { href: `/`, label: `Feed` },
+    { href: `/${feedData?.author?.name}`, label: `${feedData?.author?.name}` },
+    { label: "Post" },
     {
       href: `/${feedData?.author?.name}/posts/${feedData?.id}`,
       label: `${feedData?.content?.title}`,
