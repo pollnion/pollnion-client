@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import isEmpty from "lodash/isEmpty";
 
 import { FeedItem } from "@/models";
 import Profile from "@/modules/profile";
@@ -13,9 +13,11 @@ import Breadcrumb from "@/components/custom/breadcrumbs";
 import ProfileVirtuoso from "@/components/custom/virtusio";
 import { useInfiniteQuery, useReadStoreById } from "@/store";
 import { Typography } from "@/components/custom/typography";
+import { useRouter } from "next/router";
 
 const Page = () => {
   const params = useParams();
+  const router = useRouter();
   const username = params.username as string;
   const listProps = useInfiniteQuery<FeedItem>({ tableName: TABLE_FEED });
   const viewProps = useReadStoreById<ProfileItem>("profiles", { username });
@@ -35,6 +37,11 @@ const Page = () => {
   ];
 
   if (isLoading) return <ProfileLoader isLoading />;
+
+  if (isEmpty(viewProps)) {
+    router.push("/404");
+    return;
+  }
 
   return (
     <Box display="flex" flow="col" className="gap-2">
