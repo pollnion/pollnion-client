@@ -13,7 +13,9 @@ import Breadcrumb from "@/components/custom/breadcrumbs";
 const Page = () => {
   const params = useParams();
   const postId = params.postId as string;
-  const viewProps = useReadStoreById<FeedItem>(TABLE_FEED, { id: postId });
+  const viewProps = useReadStoreById<FeedItem>(TABLE_FEED, {
+    filters: { id: postId },
+  } as Partial<FeedItem>);
 
   const isLoading = viewProps?.isLoading;
   const feedData = viewProps?.data as FeedItem;
