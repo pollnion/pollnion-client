@@ -1,9 +1,10 @@
 "use client";
-import React from "react";
+import isEmpty from "lodash/isEmpty";
 
 import { FeedItem } from "@/models";
 import Profile from "@/modules/profile";
 import { useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ProfileItem } from "@/models/profiles";
 import { TABLE_FEED } from "@/constants/tables";
 import FeedCard from "@/modules/feed/feed-card";
@@ -16,9 +17,20 @@ import { Typography } from "@/components/custom/typography";
 
 const Page = () => {
   const params = useParams();
+  const router = useRouter();
   const username = params.username as string;
-  const listProps = useInfiniteQuery<FeedItem>({ tableName: TABLE_FEED });
-  const viewProps = useReadStoreById<ProfileItem>("profiles", { username });
+  const listProps = useInfiniteQuery<FeedItem>({
+    tableName: TABLE_FEED,
+    trailingQuery: (query) =>
+      query
+        .eq("author->>name", username)
+        .eq("author->>name", username.toLowerCase())
+        .order("created_at", { ascending: false }),
+  });
+
+  const viewProps = useReadStoreById<ProfileItem>("profiles", {
+    filters: { username },
+  } as Partial<ProfileItem>);
 
   const data = viewProps?.data as ProfileItem;
   const isLoading = viewProps?.isLoading || listProps?.isLoading;
@@ -35,6 +47,11 @@ const Page = () => {
   ];
 
   if (isLoading) return <ProfileLoader isLoading />;
+
+  if (isEmpty(viewProps)) {
+    router.push("/404");
+    return;
+  }
 
   return (
     <Box display="flex" flow="col" className="gap-2">
