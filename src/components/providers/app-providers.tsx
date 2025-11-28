@@ -6,6 +6,7 @@ import UIProvider from "./ui-provider";
 import AuthProvider from "./auth-provider";
 import ShareProvider from "./share-provider";
 import { ThemeProvider } from "./theme-provider";
+import SearchProvider from "./search-provider";
 
 // Type for any provider that accepts children
 type ProviderComponent = FC<{ children: Children }>;
@@ -23,6 +24,7 @@ const providers: ProviderComponent[] = [
       {children}
     </ThemeProvider>
   ),
+  SearchProvider,
   ShareProvider,
   UIProvider,
 ];
