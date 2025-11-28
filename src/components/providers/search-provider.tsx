@@ -6,7 +6,12 @@ import { Children } from "@/types";
 import { useToggle } from "@/store";
 import SearchDialog from "../shared/dialog/search-dialog";
 
-const schema = z.object({ s: z.string().min(0).max(40) });
+const schema = z.object({
+  s: z
+    .string()
+    .min(1, "Search required")
+    .max(40, "Search must be 40 characters or less"),
+});
 const defaultValues = { s: "" };
 
 type AuthFormValues = z.infer<typeof schema>;

@@ -24,5 +24,5 @@ export const useForm = <T extends FieldValues = any>(
 
   const isLoading = form.formState.isSubmitting;
 
-  return { form, isLoading } as unknown as UseFormReturnWithLoading<T>;
+  return { ...form, isLoading } as unknown as UseFormReturnWithLoading<T>;
 };
