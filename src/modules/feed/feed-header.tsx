@@ -21,16 +21,16 @@ const FeedHeader = ({ item }: { item: FeedItem }) => {
       <div className="flex items-center space-x-2">
         <Avatar src={author?.avatar} alt={author?.name} />
         <div className="flex items-center space-x-2">
-          <Typography
-            variant="small"
-            className="font-medium break-all hover:underline"
+          <Button
+            variant="link"
+            className="font-medium break-all hover:underline p-0"
             onClick={(e) => {
               e.stopPropagation();
               redirect();
             }}
           >
             {authorName}
-          </Typography>
+          </Button>
           <Typography variant="muted-xs">{timeDiff(created_at)}</Typography>
         </div>
       </div>

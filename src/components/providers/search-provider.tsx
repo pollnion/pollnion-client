@@ -31,6 +31,24 @@ const SearchProvider = ({ children }: { children: Children }) => {
     console.log("Search submitted:", values);
   };
 
+  // Watch form state changes
+  const searchValue = form.watch("s");
+  // temp
+  console.log(searchValue);
+
+  // const { data, error } = await supabase
+  //   .from("posts")
+  //   .select("*")
+  //   .textSearch("fts", q, {
+  //     type: searchValue,
+  //   });
+
+  // const { data } = await supabase
+  //   .from("users")
+  //   .select("id, username, email")
+  //   .or(`username.ilike.${q}%,email.ilike.${q}%`)
+  //   .limit(8);
+
   return (
     <SearchContext.Provider value={{ isOpen, toggle, form }}>
       {children}
