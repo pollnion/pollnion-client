@@ -3,6 +3,7 @@
 import React from "react";
 import { FieldValues } from "react-hook-form";
 
+import { useAuth } from "@/store";
 import { Toggle } from "@/types/ui";
 import { OpenProps } from "@/types/global";
 import SignUpDialog from "./sign-up-dialog";
@@ -25,6 +26,7 @@ const AuthGuardDialog = <T extends FieldValues = FieldValues>({
   signInProps,
   signUpProps,
 }: AuthGuardDialogProps<T>) => {
+  const authProps = useAuth();
   const pathname = usePathname();
   const [currentType, setCurrentType] = React.useState<"sign_in" | "sign_up">(
     type
@@ -35,7 +37,7 @@ const AuthGuardDialog = <T extends FieldValues = FieldValues>({
       toggle();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, authProps?.isAuth]);
 
   // Reset forms when dialog is closed
   React.useEffect(() => {
