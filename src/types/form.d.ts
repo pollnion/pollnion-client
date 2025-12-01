@@ -10,6 +10,11 @@ export type FormProps<T extends FieldValues = FieldValues> = {
    * Loading state of the form
    */
   isLoading?: boolean;
+
+  /**
+   * If true, the form will not render the submit button
+   */
+  noBtn?: boolean;
 };
 
 /**

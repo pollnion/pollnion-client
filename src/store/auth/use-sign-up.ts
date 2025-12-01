@@ -13,6 +13,7 @@ import { useLoading } from "../ui";
 import { supabase } from "@/supabase/client";
 import { PostgrestError } from "@supabase/supabase-js";
 import { useGetResponse } from "../utils/use-get-response";
+import { omit } from "lodash";
 
 const SUCCESS_SIGNUP_MESSAGE =
   "Sign-up successful! Please check your email to verify your account.";
@@ -35,33 +36,66 @@ const useSignUp = () => {
     loadingProps?.start();
 
     try {
+      const email = values.email.trim().toLowerCase();
+
+      // Check if email already exists in profiles
+      const { data: existingProfiles, error: fetchError } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("email", email)
+        .maybeSingle(); // returns null if no row
+
+      if (fetchError) {
+        throw fetchError;
+      }
+
+      if (existingProfiles) {
+        // Email already exists
+        form.setError("email", {
+          type: "manual",
+          message: "Email already registered. Please log in instead.",
+        });
+        return; // stop the signup flow
+      }
+
+      // Proceed with Supabase Auth signup
       const response = await supabase.auth.signUp({
-        email: values.email.trim().toLowerCase(),
+        email,
         password: values.password,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback`,
         },
       });
 
-      // * create user profile after successful sign-up
+      // Create profile after successful sign-up
       if (response.data.user) {
-        await supabase.from("profiles").insert({ ...response.data.user });
+        await supabase.from("profiles").insert(
+          omit(
+            {
+              id: response.data.user.id,
+              email: response.data.user.email,
+              // Optional: include metadata fields you want
+            },
+            "app_metadata"
+          )
+        );
       }
 
-      // store for external usage
-      getResponse.setData({ ...response.data });
-
-      // inject into react-hook-form
+      // inject server-side error
       if (response.error?.code) {
         form.setError("root.serverError", {
           message: response.error.code,
         });
       }
+
+      // store for external usage
+      getResponse.setData({ ...response.data });
+      notify.success(SUCCESS_SIGNUP_MESSAGE);
+      return;
     } catch (error) {
       const message = (error as PostgrestError)?.message ?? "Unknown error";
       form.setError("root.serverError", { message });
     } finally {
-      notify.success(SUCCESS_SIGNUP_MESSAGE);
       loadingProps?.stop();
     }
   }

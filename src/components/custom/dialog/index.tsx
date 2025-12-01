@@ -37,7 +37,13 @@ const Dialog: React.FC<BaseDialogProps> = ({
         <DialogFooter>
           {onCancelProps && (
             <DialogClose asChild>
-              <Button variant="outline" {...onCancelProps}>
+              <Button
+                variant="outline"
+                onClick={(e) => {
+                  onCancelProps.onClick?.(e);
+                  toggle();
+                }}
+              >
                 {onCancelProps?.label || "Cancel"}
               </Button>
             </DialogClose>

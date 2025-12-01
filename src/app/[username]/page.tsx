@@ -1,11 +1,10 @@
 "use client";
-import isEmpty from "lodash/isEmpty";
+import { notFound } from "next/navigation";
 
 import { FeedItem } from "@/models";
+import { ProfileItem } from "@/models";
 import Profile from "@/modules/profile";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
-import { ProfileItem } from "@/models/profiles";
 import { TABLE_FEED } from "@/constants/tables";
 import FeedCard from "@/modules/feed/feed-card";
 import Box from "@/components/custom/layout/box";
@@ -17,7 +16,6 @@ import { Typography } from "@/components/custom/typography";
 
 const Page = () => {
   const params = useParams();
-  const router = useRouter();
   const username = params.username as string;
   const listProps = useInfiniteQuery<FeedItem>({
     tableName: TABLE_FEED,
@@ -32,7 +30,6 @@ const Page = () => {
   } as Partial<ProfileItem>);
 
   const data = viewProps?.data as ProfileItem;
-  const isLoading = viewProps?.isLoading || listProps?.isLoading;
   const listDataLength = listProps?.data?.length || 0;
 
   const BREADCRUMBS_ITEMS = [
@@ -40,12 +37,14 @@ const Page = () => {
     { href: `/${data?.username}`, label: `${data?.username}` },
   ];
 
+  // Determine loading state
+  const isLoading = viewProps?.isLoading || listProps?.isLoading;
+
+  // Show loader while fetching data
   if (isLoading) return <ProfileLoader isLoading />;
 
-  if (isEmpty(viewProps)) {
-    router.push("/404");
-    return;
-  }
+  // Show 404 if no profile data found
+  if (!viewProps?.data) notFound();
 
   return (
     <Box display="flex" flow="col" className="gap-2">

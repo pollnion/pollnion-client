@@ -8,6 +8,7 @@ import { ERROR_MESSAGES } from "@/constants/errors";
 import { Separator } from "@/components/ui/separator";
 import { Typography } from "@/components/custom/typography";
 import { FormField, FormMessage } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
 
 const SignInForm: React.FC<FormProps & { onSwitchMode?: () => void }> = ({
   form,
@@ -15,6 +16,7 @@ const SignInForm: React.FC<FormProps & { onSwitchMode?: () => void }> = ({
   isLoading,
   onSwitchMode,
 }) => {
+  const router = useRouter();
   const serverError = form.formState.errors.root?.serverError?.message;
 
   return (
@@ -56,13 +58,20 @@ const SignInForm: React.FC<FormProps & { onSwitchMode?: () => void }> = ({
           <FormMessage>{ERROR_MESSAGES[serverError]}</FormMessage>
         )}
 
-        <div className="flex space-x-2 text-muted-foreground">
-          <Typography>New to Pollnion?</Typography>
+        <div className="flex justify-between text-muted-foreground">
+          <div className="flex space-x-2">
+            <Typography
+              className="hover:underline hover:cursor-pointer"
+              onClick={onSwitchMode}
+            >
+              Sign up here
+            </Typography>
+          </div>
           <Typography
             className="hover:underline hover:cursor-pointer"
-            onClick={onSwitchMode}
+            onClick={() => router.push("/auth/forgot-password")}
           >
-            Sign up here
+            Forgot password?
           </Typography>
         </div>
       </FieldGroup>
