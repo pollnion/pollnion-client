@@ -18,10 +18,10 @@ const SignUpDialog: React.FC<
 
     // Wait a bit for the form state to update
     setTimeout(() => {
-      // Check if submission was successful (no errors)
-      if (!form.formState.errors.root) {
+      // Stop if any errors exist
+      if (Object.keys(form.formState.errors).length === 0) {
         toggle(); // Close dialog
-        router.push("/email-verification"); // Redirect to verification page
+        router.push("/email-verification");
       }
     }, 100);
   };

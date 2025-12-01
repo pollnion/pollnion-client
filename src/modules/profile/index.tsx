@@ -1,5 +1,5 @@
 import { ViewState } from "@/types";
-import { ProfileItem } from "@/models/profiles";
+import { ProfileItem } from "@/models";
 import Box from "@/components/custom/layout/box";
 import Avatar from "@/components/custom/avatar";
 import { Typography } from "@/components/custom/typography";

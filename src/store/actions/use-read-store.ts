@@ -18,11 +18,10 @@ const createReadStore = <T extends AnyObject>(
 ) =>
   create<ReadStore<T>>((set) => ({
     data: [],
-    isLoading: false,
+    isLoading: true,
     error: null,
 
     read: async () => {
-      set({ isLoading: true, error: null });
       try {
         const response = await fetch<T>("read", table, filters);
         const { data, error } = response;
