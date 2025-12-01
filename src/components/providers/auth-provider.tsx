@@ -149,7 +149,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
           .from("profiles")
           .select("*")
           .eq("id", updatedUser.id)
-          .single();
+          .maybeSingle();
 
         // * Create user profile if not existing
         if (!existingProfile) {
@@ -164,21 +164,21 @@ const AuthProvider = ({ children }: { children: Children }) => {
             avatar_url: updatedUser.user_metadata?.avatar_url || null,
           };
 
-          const { data: insertedProfile, error: insertError } = await supabase
+          const { data: upsertedProfile, error: upsertError } = await supabase
             .from("profiles")
-            .insert(profileData)
+            .upsert(profileData)
             .select();
 
-          if (insertError) {
+          if (upsertError) {
             console.error("Failed to create profile:", {
-              error: insertError,
-              message: insertError.message,
-              details: insertError.details,
-              hint: insertError.hint,
-              code: insertError.code,
+              error: upsertError,
+              message: upsertError.message,
+              details: upsertError.details,
+              hint: upsertError.hint,
+              code: upsertError.code,
             });
           } else {
-            console.log("Profile created successfully:", insertedProfile);
+            console.log("Profile created successfully:", upsertedProfile);
           }
         }
 

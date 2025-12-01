@@ -9,22 +9,25 @@ export const Form: React.FC<{ children: Children } & FormProps> = ({
   form,
   onSubmit,
   isLoading,
+  noBtn = false,
 }) => {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-4">{children}</div>
 
-        <Field orientation="horizontal" className="mt-4">
-          <Button
-            type="submit"
-            className="w-full"
-            disabled={isLoading}
-            isLoading={isLoading}
-          >
-            Submit
-          </Button>
-        </Field>
+        {!noBtn && (
+          <Field orientation="horizontal" className="mt-4">
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isLoading}
+              isLoading={isLoading}
+            >
+              Submit
+            </Button>
+          </Field>
+        )}
       </form>
     </FormProvider>
   );

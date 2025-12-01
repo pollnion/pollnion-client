@@ -56,8 +56,7 @@ const SignUpForm: React.FC<FormProps & { onSwitchMode?: () => void }> = ({
           <FormMessage>{ERROR_MESSAGES[serverError]}</FormMessage>
         )}
 
-        <div className="flex space-x-2 text-muted-foreground justify-between">
-          <Typography>Already in Pollnion?</Typography>
+        <div className="text-muted-foreground">
           <Typography
             className="hover:underline hover:cursor-pointer"
             onClick={onSwitchMode}

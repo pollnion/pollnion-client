@@ -62,7 +62,7 @@ const Index = ({
       </div>
       {withButton && (
         <Button type="submit" variant="outline" {...withButton}>
-          {withButton.label || "Subscribe"}
+          {withButton.label || ""}
         </Button>
       )}
     </div>
