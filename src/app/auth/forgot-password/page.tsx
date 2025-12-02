@@ -16,6 +16,8 @@ import { Typography } from "@/components/custom/typography";
 // const ACCESS_TOKEN = uuidGenerator();
 // const REFRESH_TOKEN = uuidGenerator();
 
+const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/auth/reset-password`;
+
 export default function ForgotPasswordPage() {
   const loadingProps = useLoading();
   const [success, setSuccess] = React.useState(false);
@@ -23,9 +25,8 @@ export default function ForgotPasswordPage() {
   const handleSubmit = async (values: Record<string, string>) => {
     const { email } = values;
     loadingProps.start();
-
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/auth/reset-password`,
+      redirectTo: redirectUrl,
     });
 
     if (error) console.log("Error sending reset email:", error.message);
