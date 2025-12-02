@@ -1,3 +1,5 @@
+"use client";
+
 import { isEmpty } from "lodash";
 import { Tag } from "lucide-react";
 import { Search } from "lucide-react";
@@ -12,6 +14,7 @@ import { Typography } from "@/components/custom/typography";
 import SearchSuggestionsEmpty from "./SearchSuggestionsEmpty";
 import SearchSuggestionsDefault from "./SearchSuggestionsDefault";
 import SearchSuggestionsLoading from "./SearchSuggestionsLoading";
+import SearchSuggestionsHistory from "./SearchSuggestionsHistory";
 
 const Btn = ({
   children,
@@ -36,7 +39,7 @@ const Btn = ({
 
 const SearchSuggestions = () => {
   const router = useRouter();
-  const { results, isLoading, searchValue } = useSearch();
+  const { results, isLoading, searchValue, onAddSearchHistory } = useSearch();
 
   const { feeds, users, labels } = results || {};
 
@@ -45,7 +48,12 @@ const SearchSuggestions = () => {
 
   // Default suggestions (no search typed yet)
   if (!searchValue) {
-    return <SearchSuggestionsDefault />;
+    return (
+      <div>
+        <SearchSuggestionsHistory />
+        <SearchSuggestionsDefault />
+      </div>
+    );
   }
 
   // While typing or waiting for results - prioritize loading state
@@ -71,8 +79,14 @@ const SearchSuggestions = () => {
               router.push(
                 `/search?s=${encodeURIComponent(item?.content.title)}`
               );
+
+            const handleClick = () => {
+              redirect();
+              onAddSearchHistory(item?.content.title);
+            };
+
             return (
-              <Btn key={idx} onClick={redirect}>
+              <Btn key={idx} onClick={handleClick}>
                 <Search /> {item?.content.title}
               </Btn>
             );
@@ -113,6 +127,8 @@ const SearchSuggestions = () => {
           ))}
         </div>
       )}
+
+      <SearchSuggestionsDefault />
     </div>
   );
 };

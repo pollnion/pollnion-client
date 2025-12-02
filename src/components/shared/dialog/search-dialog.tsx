@@ -2,6 +2,7 @@ import React from "react";
 import { Search } from "lucide-react";
 
 import { Form } from "../forms";
+import { useQuery } from "@/store";
 import { DialogProps } from "@/types";
 import FormItem from "../forms/form-item";
 import { usePathname } from "next/navigation";
@@ -18,6 +19,7 @@ const SearchDialog = ({
   onSubmit,
   isLoading,
 }: DialogProps) => {
+  const { query } = useQuery();
   const pathname = usePathname();
 
   React.useEffect(() => {
@@ -25,7 +27,7 @@ const SearchDialog = ({
       toggle();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, query?.s]);
 
   // Reset forms when dialog is closed
   React.useEffect(() => {

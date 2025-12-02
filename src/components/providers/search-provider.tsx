@@ -4,12 +4,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/supabase/client";
 
 import { z } from "zod";
-import { useForm, useLoading, useToggle } from "@/store";
 import { AnyObject, Children } from "@/types";
+import { useForm, useLoading, useToggle } from "@/store";
 
-import SearchDialog from "../shared/dialog/search-dialog";
 import debounce from "lodash/debounce";
 import { useRouter } from "next/navigation";
+import { useLocalStorage } from "@/lib/localStorage";
+import SearchDialog from "../shared/dialog/search-dialog";
 
 const schema = z.object({
   s: z
@@ -33,12 +34,15 @@ export const SearchContext = React.createContext({
   },
   isLoading: false,
   searchValue: "",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onAddSearchHistory: (item?: string) => {},
 });
 
 const SearchProvider = ({ children }: { children: Children }) => {
   const router = useRouter();
   const loadingProps = useLoading();
   const { isOpen, toggle } = useToggle();
+  const localStorageProps = useLocalStorage();
   const form = useForm<AuthFormValues>(defaultValues, schema);
   const [results, setResults] = useState({
     feeds: [] as AnyObject[],
@@ -47,6 +51,8 @@ const SearchProvider = ({ children }: { children: Children }) => {
   });
 
   const searchValue = form.watch("s");
+  const stored = localStorageProps.getItem("lastSearch");
+  const history = stored ? JSON.parse(stored) : [];
 
   const getData = async (query: string) => {
     loadingProps.start();
@@ -76,8 +82,14 @@ const SearchProvider = ({ children }: { children: Children }) => {
     return () => debouncedSearch.cancel();
   }, [searchValue, debouncedSearch]);
 
+  const onAddSearchHistory = (item?: string) => {
+    const updated = [...history, item || searchValue];
+    localStorageProps.setItem("lastSearch", JSON.stringify(updated));
+  };
+
   const onSubmit = (values: AuthFormValues) => {
     router.push(`/search?s=${encodeURIComponent(values.s)}`);
+    onAddSearchHistory();
   };
 
   return (
@@ -89,6 +101,7 @@ const SearchProvider = ({ children }: { children: Children }) => {
         results,
         isLoading: loadingProps.isLoading,
         searchValue: searchValue?.trim() || "",
+        onAddSearchHistory,
       }}
     >
       {children}
