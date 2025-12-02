@@ -16,7 +16,7 @@ const Avatar: React.FC<{
 }> = ({ src = DEFAULT_LINK, alt = "sample", className }) => {
   return (
     <ShadCNAvatar className={cn("h-8 w-8", className)}>
-      <AvatarImage src={src} />
+      <AvatarImage src={src || DEFAULT_LINK} />
       <AvatarFallback>{alt}</AvatarFallback>
     </ShadCNAvatar>
   );
