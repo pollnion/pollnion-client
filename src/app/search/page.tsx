@@ -1,5 +1,7 @@
+import SearchResults from "@/modules/search/results/SearchResults";
+
 const Page = () => {
-  return <div>page</div>;
+  return <SearchResults />;
 };
 
 export default Page;

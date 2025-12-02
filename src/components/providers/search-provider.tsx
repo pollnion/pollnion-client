@@ -4,11 +4,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/supabase/client";
 
 import { z } from "zod";
-import { useForm, useToggle } from "@/store";
+import { useForm, useLoading, useToggle } from "@/store";
 import { AnyObject, Children } from "@/types";
 
 import SearchDialog from "../shared/dialog/search-dialog";
 import debounce from "lodash/debounce";
+import { useRouter } from "next/navigation";
 
 const schema = z.object({
   s: z
@@ -30,9 +31,13 @@ export const SearchContext = React.createContext({
     users: [] as AnyObject[],
     labels: [] as AnyObject[],
   },
+  isLoading: false,
+  searchValue: "",
 });
 
 const SearchProvider = ({ children }: { children: Children }) => {
+  const router = useRouter();
+  const loadingProps = useLoading();
   const { isOpen, toggle } = useToggle();
   const form = useForm<AuthFormValues>(defaultValues, schema);
   const [results, setResults] = useState({
@@ -44,18 +49,26 @@ const SearchProvider = ({ children }: { children: Children }) => {
   const searchValue = form.watch("s");
 
   const getData = async (query: string) => {
-    if (!query?.trim()) return setResults({ feeds: [], users: [], labels: [] });
+    loadingProps.start();
+
+    if (!query?.trim()) {
+      loadingProps.stop();
+      return setResults({ feeds: [], users: [], labels: [] });
+    }
 
     const { data, error } = await supabase.rpc("search_all", { query });
 
     if (error) {
       console.error("Search failed:", error);
+      loadingProps.stop();
       return setResults({ feeds: [], users: [], labels: [] });
     }
 
     setResults(data || { feeds: [], users: [], labels: [] });
+    loadingProps.stop();
   };
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization, react-hooks/exhaustive-deps
   const debouncedSearch = useMemo(() => debounce(getData, 500), []);
 
   useEffect(() => {
@@ -64,13 +77,20 @@ const SearchProvider = ({ children }: { children: Children }) => {
   }, [searchValue, debouncedSearch]);
 
   const onSubmit = (values: AuthFormValues) => {
-    console.log("Search submitted:", values);
+    router.push(`/search?s=${encodeURIComponent(values.s)}`);
   };
 
-  console.log(results);
-
   return (
-    <SearchContext.Provider value={{ isOpen, toggle, form, results }}>
+    <SearchContext.Provider
+      value={{
+        isOpen,
+        toggle,
+        form,
+        results,
+        isLoading: loadingProps.isLoading,
+        searchValue: searchValue?.trim() || "",
+      }}
+    >
       {children}
 
       <SearchDialog
