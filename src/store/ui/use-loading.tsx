@@ -8,7 +8,7 @@ export type LoadingState = {
 };
 
 export const useLoading = create<LoadingState>((set) => ({
-  isLoading: false,
+  isLoading: true,
 
   start: () => set({ isLoading: true }),
   stop: () => set({ isLoading: false }),

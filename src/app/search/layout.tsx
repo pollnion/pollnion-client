@@ -1,7 +1,9 @@
+"use client";
+
 import { Children } from "@/types";
 
-const layout = ({ children }: { children: Children }) => {
+const Layout = ({ children }: { children: Children }) => {
   return children;
 };
 
-export default layout;
+export default Layout;
