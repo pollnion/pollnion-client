@@ -4,8 +4,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/supabase/client";
 
 import { z } from "zod";
-import { AnyObject, Children } from "@/types";
+import { Children } from "@/types";
 import { useForm, useLoading, useToggle } from "@/store";
+import type { SearchResultRow } from "@/types/search";
 
 import debounce from "lodash/debounce";
 import { useRouter } from "next/navigation";
@@ -23,20 +24,36 @@ const defaultValues = { s: "" };
 
 type AuthFormValues = z.infer<typeof schema>;
 
-export const SearchContext = React.createContext({
+const emptyVal: SearchResultRow[] = [
+  {
+    feeds: [],
+    users: [],
+    labels: [],
+  },
+];
+
+interface SearchContextValue {
+  isOpen: boolean;
+  toggle: () => void;
+  form: ReturnType<typeof useForm<AuthFormValues>>;
+  results: SearchResultRow[];
+  isLoading: boolean;
+  searchValue: string;
+  onAddSearchHistory: (item?: string) => void;
+}
+
+const defaultSearchContext: SearchContextValue = {
   isOpen: false,
   toggle: () => {},
   form: {} as ReturnType<typeof useForm<AuthFormValues>>,
-  results: {
-    feeds: [] as AnyObject[],
-    users: [] as AnyObject[],
-    labels: [] as AnyObject[],
-  },
+  results: emptyVal,
   isLoading: false,
   searchValue: "",
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onAddSearchHistory: (item?: string) => {},
-});
+  onAddSearchHistory: () => {},
+};
+
+export const SearchContext =
+  React.createContext<SearchContextValue>(defaultSearchContext);
 
 const SearchProvider = ({ children }: { children: Children }) => {
   const router = useRouter();
@@ -44,11 +61,7 @@ const SearchProvider = ({ children }: { children: Children }) => {
   const { isOpen, toggle } = useToggle();
   const localStorageProps = useLocalStorage();
   const form = useForm<AuthFormValues>(defaultValues, schema);
-  const [results, setResults] = useState({
-    feeds: [] as AnyObject[],
-    users: [] as AnyObject[],
-    labels: [] as AnyObject[],
-  });
+  const [results, setResults] = useState<SearchResultRow[]>(emptyVal);
 
   const searchValue = form.watch("s");
   const stored = localStorageProps.getItem("lastSearch");
@@ -59,18 +72,21 @@ const SearchProvider = ({ children }: { children: Children }) => {
 
     if (!query?.trim()) {
       loadingProps.stop();
-      return setResults({ feeds: [], users: [], labels: [] });
+      return setResults(emptyVal);
     }
 
-    const { data, error } = await supabase.rpc("search_all", { query });
+    const { data, error } = await supabase.rpc("search_all_result", {
+      query,
+    });
 
     if (error) {
       console.error("Search failed:", error);
       loadingProps.stop();
-      return setResults({ feeds: [], users: [], labels: [] });
+      return setResults(emptyVal);
     }
 
-    setResults(data || { feeds: [], users: [], labels: [] });
+    const normalized = Array.isArray(data) && data.length ? data : emptyVal;
+    setResults(normalized);
     loadingProps.stop();
   };
 

@@ -73,8 +73,6 @@ export default function AuthCallbackPage() {
 
             // Redirect to home - you can change this to a welcome/onboarding page for first-time users
             router.push("/");
-          } else {
-            setError("Authentication failed");
           }
         } else if (code) {
           // Email verification flow

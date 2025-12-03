@@ -1,10 +1,18 @@
+"use client";
+
+import React from "react";
+
 import SearchResults from "./SearchResults";
+import SearchResultsTab from "./SearchResultsTab";
+import SearchResultsHeader from "./SearchResultsHeader";
 
 const Index = () => {
   return (
-    <div>
+    <React.Fragment>
+      <SearchResultsHeader />
+      <SearchResultsTab />
       <SearchResults />
-    </div>
+    </React.Fragment>
   );
 };
 

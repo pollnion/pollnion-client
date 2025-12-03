@@ -1,6 +1,6 @@
 "use client";
 
-import { isEmpty } from "lodash";
+import { isEmpty, uniq, uniqBy } from "lodash";
 import { Tag } from "lucide-react";
 import { Search } from "lucide-react";
 
@@ -11,10 +11,11 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/custom/button";
 import Avatar from "@/components/custom/avatar";
 import { Typography } from "@/components/custom/typography";
-import SearchSuggestionsEmpty from "./SearchSuggestionsEmpty";
+import SearchSuggestionsEmpty from "../SearchEmpty";
 import SearchSuggestionsDefault from "./SearchSuggestionsDefault";
-import SearchSuggestionsLoading from "./SearchSuggestionsLoading";
+import SearchSuggestionsLoading from "../SearchLoading";
 import SearchSuggestionsHistory from "./SearchSuggestionsHistory";
+import type { SearchResultRow } from "@/types/search";
 
 const Btn = ({
   children,
@@ -41,7 +42,14 @@ const SearchSuggestions = () => {
   const router = useRouter();
   const { results, isLoading, searchValue, onAddSearchHistory } = useSearch();
 
-  const { feeds, users, labels } = results || {};
+  const defaultResult: SearchResultRow = {
+    feeds: [],
+    users: [],
+    labels: [],
+  };
+
+  const latestResult = results[0] ?? defaultResult;
+  const { feeds, users, labels } = latestResult;
 
   // Only show empty if searchValue exists AND all results are empty
   const hasNoResults = isEmpty(feeds) && isEmpty(users) && isEmpty(labels);
@@ -74,20 +82,18 @@ const SearchSuggestions = () => {
           <Typography className="px-2 my-2" weight="medium">
             Polls
           </Typography>
-          {feeds.map((item = {}, idx) => {
+          {uniqBy(feeds, "title").map((item, idx) => {
             const redirect = () =>
-              router.push(
-                `/search?s=${encodeURIComponent(item?.content.title)}`
-              );
+              router.push(`/search?s=${encodeURIComponent(item.title)}`);
 
             const handleClick = () => {
               redirect();
-              onAddSearchHistory(item?.content.title);
+              onAddSearchHistory(item.title);
             };
 
             return (
               <Btn key={idx} onClick={handleClick}>
-                <Search /> {item?.content.title}
+                <Search /> {item?.title}
               </Btn>
             );
           })}
@@ -99,13 +105,13 @@ const SearchSuggestions = () => {
           <Typography className="px-2 my-2" weight="medium">
             Users
           </Typography>
-          {users.map((item = {}, idx) => {
+          {uniq(users).map((item, idx) => {
             const redirect = () => router.push(`/${item.username}`);
             return (
               <Btn key={idx} onClick={redirect}>
                 <Avatar
-                  src={item.avatar_url}
-                  alt={item.username}
+                  src={item.avatar_url || ""}
+                  alt={item.username || ""}
                   className="h-6 w-6"
                 />
                 <span>{item.username}</span>
@@ -120,7 +126,7 @@ const SearchSuggestions = () => {
           <Typography className="px-2 my-2" weight="medium">
             Spaces
           </Typography>
-          {labels.map((item = {}, idx) => (
+          {uniq(labels).map((item, idx) => (
             <Btn key={idx}>
               <Tag /> {item.label}
             </Btn>
