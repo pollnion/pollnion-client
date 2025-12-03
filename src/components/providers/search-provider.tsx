@@ -4,8 +4,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/supabase/client";
 
 import { z } from "zod";
-import { AnyObject, Children } from "@/types";
-import { useForm, useLoading, useToggle } from "@/store";
+import { Children } from "@/types";
+import { useForm, useToggle } from "@/store"; // ✅ REMOVE useLoading
+import type { SearchResultRow } from "@/types/search";
 
 import debounce from "lodash/debounce";
 import { useRouter } from "next/navigation";
@@ -23,58 +24,74 @@ const defaultValues = { s: "" };
 
 type AuthFormValues = z.infer<typeof schema>;
 
-export const SearchContext = React.createContext({
+const emptyVal: SearchResultRow[] = [
+  {
+    feeds: [],
+    users: [],
+    labels: [],
+  },
+];
+
+interface SearchContextValue {
+  isOpen: boolean;
+  toggle: () => void;
+  form: ReturnType<typeof useForm<AuthFormValues>>;
+  results: SearchResultRow[];
+  isLoading: boolean;
+  searchValue: string;
+  onAddSearchHistory: (item?: string) => void;
+}
+
+const defaultSearchContext: SearchContextValue = {
   isOpen: false,
   toggle: () => {},
   form: {} as ReturnType<typeof useForm<AuthFormValues>>,
-  results: {
-    feeds: [] as AnyObject[],
-    users: [] as AnyObject[],
-    labels: [] as AnyObject[],
-  },
+  results: emptyVal,
   isLoading: false,
   searchValue: "",
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onAddSearchHistory: (item?: string) => {},
-});
+  onAddSearchHistory: () => {},
+};
+
+export const SearchContext =
+  React.createContext<SearchContextValue>(defaultSearchContext);
 
 const SearchProvider = ({ children }: { children: Children }) => {
   const router = useRouter();
-  const loadingProps = useLoading();
   const { isOpen, toggle } = useToggle();
   const localStorageProps = useLocalStorage();
   const form = useForm<AuthFormValues>(defaultValues, schema);
-  const [results, setResults] = useState({
-    feeds: [] as AnyObject[],
-    users: [] as AnyObject[],
-    labels: [] as AnyObject[],
-  });
+
+  const [results, setResults] = useState<SearchResultRow[]>(emptyVal);
+  const [isLoading, setIsLoading] = useState(false);
 
   const searchValue = form.watch("s");
   const stored = localStorageProps.getItem("lastSearch");
   const history = stored ? JSON.parse(stored) : [];
 
   const getData = async (query: string) => {
-    loadingProps.start();
+    setIsLoading(true);
 
-    if (!query?.trim()) {
-      loadingProps.stop();
-      return setResults({ feeds: [], users: [], labels: [] });
-    }
+    // if (!query?.trim()) {
+    //   setResults(emptyVal);
+    //   return;
+    // }
 
-    const { data, error } = await supabase.rpc("search_all", { query });
+    const { data, error } = await supabase.rpc("search_all_result", {
+      query,
+    });
 
     if (error) {
       console.error("Search failed:", error);
-      loadingProps.stop();
-      return setResults({ feeds: [], users: [], labels: [] });
+      setResults(emptyVal);
+      setIsLoading(false);
+      return;
     }
 
-    setResults(data || { feeds: [], users: [], labels: [] });
-    loadingProps.stop();
+    const normalized = Array.isArray(data) && data.length ? data : emptyVal;
+    setResults(normalized);
+    setIsLoading(false);
   };
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization, react-hooks/exhaustive-deps
   const debouncedSearch = useMemo(() => debounce(getData, 500), []);
 
   useEffect(() => {
@@ -99,7 +116,7 @@ const SearchProvider = ({ children }: { children: Children }) => {
         toggle,
         form,
         results,
-        isLoading: loadingProps.isLoading,
+        isLoading,
         searchValue: searchValue?.trim() || "",
         onAddSearchHistory,
       }}
@@ -111,7 +128,7 @@ const SearchProvider = ({ children }: { children: Children }) => {
         isOpen={isOpen}
         toggle={toggle}
         onSubmit={onSubmit}
-        isLoading={form.isLoading}
+        isLoading={isLoading}
       />
     </SearchContext.Provider>
   );

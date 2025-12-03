@@ -1,11 +1,14 @@
-import React from "react";
+"use client";
+
+import React, { ComponentType } from "react";
 
 import Sheet from "../custom/sheet";
 import { useToggle } from "@/store";
+import { usePathname } from "next/navigation";
 import Box from "@/components/custom/layout/box";
 import PublicLayout from "../shared/layout/public-layout";
-import { AnyObject, Children, OpenProps } from "@/types/global";
 import SideBarLayout from "@/components/shared/layout/sidebar-layout";
+import { AnyObject, Children, OpenProps } from "@/types/global";
 
 import News from "@/modules/news";
 import Share from "@/modules/share";
@@ -16,12 +19,12 @@ import Discover from "@/modules/discover";
 
 export interface DefaultProps extends OpenProps {
   toggle: () => void;
-  leftItems: React.ComponentType<AnyObject>[];
-  rightItems: React.ComponentType<AnyObject>[];
-  sheetItems: React.ComponentType<AnyObject>[];
-  setLeftItems: (items: React.ComponentType<AnyObject>[]) => void;
-  setRightItems: (items: React.ComponentType<AnyObject>[]) => void;
-  setSheetItems: (items: React.ComponentType<AnyObject>[]) => void;
+  leftItems: ComponentType<AnyObject>[];
+  rightItems: ComponentType<AnyObject>[];
+  sheetItems: ComponentType<AnyObject>[];
+  setLeftItems: (items: ComponentType<AnyObject>[]) => void;
+  setRightItems: (items: ComponentType<AnyObject>[]) => void;
+  setSheetItems: (items: ComponentType<AnyObject>[]) => void;
 }
 
 export const DEFAULT_PROPS: DefaultProps = {
@@ -35,24 +38,42 @@ export const DEFAULT_PROPS: DefaultProps = {
   setSheetItems: () => {},
 };
 
+export const UIContext = React.createContext(DEFAULT_PROPS as DefaultProps);
+export const useUI = () => React.useContext(UIContext);
+
 const UIProvider = ({ children }: { children: Children }) => {
   const toggleProps = useToggle();
+  const pathname = usePathname();
 
-  const [leftItems, setLeftItems] = React.useState<React.ComponentType[]>([
+  // Map of layouts per route
+  const layoutMap: Record<
+    string,
+    { left: ComponentType[]; right: ComponentType[] }
+  > = {
+    "/": { left: [Discover, Spaces], right: [Share, News, Latest, Links] },
+    // "/search": { left: [Discover, Spaces], right: [] },
+  };
+
+  // Prevent flicker: derive initial state from pathname
+  const initialLayout = layoutMap[pathname] || layoutMap["/"];
+  const [leftItems, setLeftItems] = React.useState<ComponentType[]>(
+    initialLayout.left
+  );
+  const [rightItems, setRightItems] = React.useState<ComponentType[]>(
+    initialLayout.right
+  );
+  const [sheetItems, setSheetItems] = React.useState<ComponentType[]>([
+    Share,
     Discover,
     Spaces,
   ]);
-  const [rightItems, setRightItems] = React.useState<React.ComponentType[]>([
-    Share,
-    News,
-    Latest,
-    Links,
-  ]);
-  const [sheetItems, setSheetItems] = React.useState<React.ComponentType[]>([
-    Share,
-    Discover,
-    Spaces,
-  ]);
+
+  React.useEffect(() => {
+    const layout = layoutMap[pathname] || layoutMap["/"];
+    setLeftItems(layout.left);
+    setRightItems(layout.right);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <UIContext.Provider
@@ -70,14 +91,14 @@ const UIProvider = ({ children }: { children: Children }) => {
         <SideBarLayout
           left={
             <Box display="flex" flow="col" className="gap-2">
-              {leftItems.map((Component, i) => (
+              {leftItems.filter(Boolean).map((Component, i) => (
                 <Component key={i} />
               ))}
             </Box>
           }
           right={
             <Box display="flex" flow="col" className="gap-2">
-              {rightItems.map((Component, i) => (
+              {rightItems.filter(Boolean).map((Component, i) => (
                 <Component key={i} />
               ))}
             </Box>
@@ -87,7 +108,7 @@ const UIProvider = ({ children }: { children: Children }) => {
         </SideBarLayout>
 
         <Sheet {...toggleProps}>
-          {sheetItems.map((Component, i) => (
+          {sheetItems.filter(Boolean).map((Component, i) => (
             <Component key={i} />
           ))}
         </Sheet>
@@ -97,15 +118,3 @@ const UIProvider = ({ children }: { children: Children }) => {
 };
 
 export default UIProvider;
-
-// --- Usage example of dynamic sidebar items ---
-//  const { setLeftItems, setRightItems } = useUI();
-
-//  React.useEffect(() => {
-//    // dynamically change sidebar items
-//    setLeftItems([CustomModule]); // left column
-//    setRightItems([News, Links]); // right column
-//  }, []);
-
-export const UIContext = React.createContext(DEFAULT_PROPS as DefaultProps);
-export const useUI = () => React.useContext(UIContext);

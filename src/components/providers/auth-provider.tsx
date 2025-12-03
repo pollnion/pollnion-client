@@ -79,7 +79,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
         },
       });
       if (error) notify.error(`Login error: ${error.message || error}`);
@@ -164,7 +164,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
             avatar_url: updatedUser.user_metadata?.avatar_url || null,
           };
 
-          const { data: upsertedProfile, error: upsertError } = await supabase
+          const { error: upsertError } = await supabase
             .from("profiles")
             .upsert(profileData)
             .select();
@@ -177,8 +177,6 @@ const AuthProvider = ({ children }: { children: Children }) => {
               hint: upsertError.hint,
               code: upsertError.code,
             });
-          } else {
-            console.log("Profile created successfully:", upsertedProfile);
           }
         }
 

@@ -1,14 +1,46 @@
+/* eslint-disable react-hooks/static-components */
 "use client";
 import { useQuery } from "@/store";
+import { Typography } from "@/components/custom/typography";
+
+import SearchResultsFeeds from "./SearchResultsFeeds";
+import SearchResultsUsers from "./SearchResultsUsers";
+import SearchResultsSpaces from "./SearchResultsSpaces";
 
 const SearchResults = () => {
   const { query } = useQuery();
+  const { s, tab } = query || {};
 
-  const { s } = query || {};
+  const HeaderLabel = () => {
+    return (
+      <Typography variant="large" weight="semibold" className="px-2 sm:px-0">
+        Search results for: {s}
+      </Typography>
+    );
+  };
 
-  console.log(s);
+  return (
+    <div className="flex flex-col space-y-2">
+      <HeaderLabel />
 
-  return <div>SearchResults</div>;
+      {tab === "all" && (
+        <div className="space-y-4">
+          <div className="space-y-1">
+            <SearchResultsFeeds />
+          </div>
+          <div className="space-y-1">
+            <SearchResultsUsers />
+          </div>
+          <div className="space-y-1">
+            <SearchResultsSpaces />
+          </div>
+        </div>
+      )}
+      {tab === "feeds" && <SearchResultsFeeds />}
+      {tab === "users" && <SearchResultsUsers />}
+      {tab === "spaces" && <SearchResultsSpaces />}
+    </div>
+  );
 };
 
 export default SearchResults;
