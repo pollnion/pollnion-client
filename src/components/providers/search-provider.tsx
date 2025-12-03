@@ -71,7 +71,6 @@ const SearchProvider = ({ children }: { children: Children }) => {
     loadingProps.start();
 
     if (!query?.trim()) {
-      loadingProps.stop();
       return setResults(emptyVal);
     }
 

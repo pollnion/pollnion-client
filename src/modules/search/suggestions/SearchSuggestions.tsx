@@ -70,7 +70,7 @@ const SearchSuggestions = () => {
   }
 
   // Show empty only after loading is complete and there are no results
-  if (hasNoResults) {
+  if (!isLoading && hasNoResults) {
     return <SearchSuggestionsEmpty />;
   }
 

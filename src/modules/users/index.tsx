@@ -11,7 +11,7 @@ const Index = ({ item }: { item: User }) => {
   return (
     <Box
       color="background"
-      className="p-2 mb-2 hover:bg-card/80 rounded-md cursor-pointer"
+      className="p-2 mb-1 hover:bg-card/80 rounded-none sm:rounded cursor-pointer"
       onClick={() => router.push(`/${username}`)}
     >
       <div className="flex items-center gap-2">

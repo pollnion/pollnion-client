@@ -24,15 +24,17 @@ const SearchResultsUsers = () => {
     },
   });
 
+  const isLoading = listProps.isLoading || listProps.isFetching;
+
+  if (isLoading) {
+    return <SearchLoading />;
+  }
+
   if (tab === "all" && isEmpty(listProps?.data)) {
     return null;
   }
 
-  if (listProps.isLoading) {
-    return <SearchLoading />;
-  }
-
-  if (isEmpty(listProps?.data)) {
+  if (!isLoading && isEmpty(listProps?.data)) {
     return <SearchEmpty />;
   }
 

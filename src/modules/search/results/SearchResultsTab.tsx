@@ -39,7 +39,7 @@ const SearchResultsTab = () => {
   ];
 
   return (
-    <div className="flex flex-row space-x-2">
+    <div className="flex flex-row space-x-2 px-2 sm:px-0">
       {btns.map((btn, index) => (
         <Button
           size="sm"

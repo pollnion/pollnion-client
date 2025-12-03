@@ -11,7 +11,7 @@ export const Spaces = ({ item }: { item: Space }) => {
   const { label } = item || {};
 
   return (
-    <Box className="p-2 mb-2" color="background">
+    <Box className="p-2 mb-1 rounded-none sm:rounded" color="background">
       <div className="flex items-center gap-2">{label}</div>
     </Box>
   );
@@ -29,15 +29,17 @@ const SearchResultsSpaces = () => {
         .order("created_at", { ascending: false }),
   });
 
+  const isLoading = listProps.isLoading || listProps.isFetching;
+
+  if (isLoading) {
+    return <SearchLoading />;
+  }
+
   if (tab === "all" && isEmpty(listProps?.data)) {
     return null;
   }
 
-  if (listProps.isLoading) {
-    return <SearchLoading />;
-  }
-
-  if (isEmpty(listProps?.data)) {
+  if (!isLoading && isEmpty(listProps?.data)) {
     return <SearchEmpty />;
   }
 

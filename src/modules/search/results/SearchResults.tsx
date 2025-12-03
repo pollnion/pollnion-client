@@ -13,7 +13,7 @@ const SearchResults = () => {
 
   const HeaderLabel = () => {
     return (
-      <Typography variant="large" weight="semibold">
+      <Typography variant="large" weight="semibold" className="px-2 sm:px-0">
         Search results for: {s}
       </Typography>
     );
@@ -25,13 +25,13 @@ const SearchResults = () => {
 
       {tab === "all" && (
         <div className="space-y-4">
-          <div className="space-y-3">
+          <div className="space-y-1">
             <SearchResultsFeeds />
           </div>
-          <div className="space-y-3">
+          <div className="space-y-1">
             <SearchResultsUsers />
           </div>
-          <div className="space-y-3">
+          <div className="space-y-1">
             <SearchResultsSpaces />
           </div>
         </div>
