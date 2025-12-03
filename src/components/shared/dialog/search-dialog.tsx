@@ -42,7 +42,7 @@ const SearchDialog = ({
   const disabled = !searchValue?.trim() || isLoading;
 
   return (
-    <Dialog toggle={toggle} isOpen={isOpen}>
+    <Dialog toggle={toggle} isOpen={isOpen} className="px-1">
       <div className="h-[380px] overflow-y-auto scroll-invisible">
         <Box color="background" className="position sticky top-0 z-10 pb-2">
           <Form form={form} onSubmit={onSubmit} isLoading={isLoading} noBtn>
@@ -58,7 +58,7 @@ const SearchDialog = ({
                       icon: Search,
                       type: "submit",
                       disabled: disabled,
-                      isLoading: isLoading,
+                      // isLoading: isLoading,
                     }}
                     {...field}
                   />

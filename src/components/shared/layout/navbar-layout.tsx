@@ -9,8 +9,8 @@ import NavbarLayoutCTA from "./navbar-layout.cta";
 import NavbarLayoutAvatar from "./navbar-layout.avatar";
 import useScrollPosition from "@/store/utils/use-scroll-position";
 
+import { cn } from "@/lib";
 import { Children } from "@/types/global";
-import { cn, usePathChecker } from "@/lib";
 import { useRouter } from "next/navigation";
 import LogoTxtBtn from "../buttons/logo-txt-btn";
 import { navbarVariants } from "./navbar-layout.variants";
@@ -34,7 +34,6 @@ const SideColumn = ({ children, className }: SideColumnProps) => (
 const NavbarLayout = () => {
   const { push } = useRouter();
   const { show } = useScrollPosition();
-  const isSearchPath = usePathChecker("/search");
   const uiProps = useUI();
 
   // Handle logo image click
@@ -61,7 +60,7 @@ const NavbarLayout = () => {
       </SideColumn>
 
       <div className="hidden md:block md:w-[420px] lg:w-[560px] space-y-4">
-        {!isSearchPath && <SearchBtn />}
+        <SearchBtn />
       </div>
 
       <SideColumn className="sm:w-[200px] md:w-[280px]">

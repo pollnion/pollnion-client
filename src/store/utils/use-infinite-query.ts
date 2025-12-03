@@ -80,7 +80,7 @@ function createStore<
     data: [],
     count: 0,
     isSuccess: false,
-    isLoading: false,
+    isLoading: true,
     isFetching: false,
     error: null,
     hasInitialFetch: false,

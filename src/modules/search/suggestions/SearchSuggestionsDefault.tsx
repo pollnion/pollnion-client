@@ -1,17 +1,18 @@
 "use client";
 
 import take from "lodash/take";
+import { uniqBy } from "lodash";
 import { useMemo } from "react";
 import { Flame } from "lucide-react";
 
+import { cn } from "@/lib";
 import { FeedItem } from "@/models";
-import { useReadStore, useSearch } from "@/store";
 import { useRouter } from "next/navigation";
 import Button from "@/components/custom/button";
 import { TABLE_FEED } from "@/constants/tables";
+import { useReadStore, useSearch } from "@/store";
 import { Typography } from "@/components/custom/typography";
-import SearchSuggestionsLoading from "./SearchSuggestionsLoading";
-import { cn } from "@/lib";
+import SearchSuggestionsLoading from "../SearchLoading";
 
 const SearchSuggestionsDefault = () => {
   const router = useRouter();
@@ -33,7 +34,7 @@ const SearchSuggestionsDefault = () => {
         You may like..
       </Typography>
 
-      {latest.map((item, idx) => {
+      {uniqBy(latest, "content.title").map((item, idx) => {
         const handleClick = () => {
           router.push(`/search?s=${encodeURIComponent(item?.content.title)}`);
           searchProps.onAddSearchHistory(item?.content?.title);
