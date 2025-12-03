@@ -58,7 +58,7 @@ const SearchDialog = ({
                       icon: Search,
                       type: "submit",
                       disabled: disabled,
-                      isLoading: isLoading,
+                      // isLoading: isLoading,
                     }}
                     {...field}
                   />
