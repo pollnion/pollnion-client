@@ -51,7 +51,7 @@ const UIProvider = ({ children }: { children: Children }) => {
     { left: ComponentType[]; right: ComponentType[] }
   > = {
     "/": { left: [Discover, Spaces], right: [Share, News, Latest, Links] },
-    "/search": { left: [Discover, Spaces], right: [] },
+    // "/search": { left: [Discover, Spaces], right: [] },
   };
 
   // Prevent flicker: derive initial state from pathname
