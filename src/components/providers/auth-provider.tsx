@@ -1,5 +1,6 @@
 import React from "react";
 import { create } from "zustand";
+import { useRouter } from "next/navigation";
 
 // misc
 import { notify } from "@/lib";
@@ -53,6 +54,7 @@ const useUserStore = create<UserState>((set) => ({
 }));
 
 const AuthProvider = ({ children }: { children: Children }) => {
+  const router = useRouter();
   const { user, setUser } = useUserStore();
   const signInProps = useSignIn();
   const signUpProps = useSignUp();
@@ -79,7 +81,8 @@ const AuthProvider = ({ children }: { children: Children }) => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/callback`,
+          skipBrowserRedirect: false,
         },
       });
       if (error) notify.error(`Login error: ${error.message || error}`);
@@ -96,6 +99,7 @@ const AuthProvider = ({ children }: { children: Children }) => {
     try {
       await new Promise((res) => setTimeout(res, 500));
       await supabase.auth.signOut();
+      router.push("/");
       window.location.reload();
     } catch (error) {
       notify.error(`Sign out error: ${error}`);

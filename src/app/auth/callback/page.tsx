@@ -85,8 +85,6 @@ export default function AuthCallbackPage() {
 
           // Verification successful, redirect to home
           router.push("/");
-        } else {
-          setError("No authentication credentials found");
         }
       } catch (err) {
         setError("An unexpected error occurred");
