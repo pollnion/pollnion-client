@@ -36,9 +36,11 @@ const SearchSuggestionsDefault = () => {
 
       {uniqBy(latest, "content.title").map((item, idx) => {
         const handleClick = () => {
-          router.push(`/search?s=${encodeURIComponent(item?.content.title)}`);
+          router.push(
+            `/search/result?s=${encodeURIComponent(item?.content.title)}`
+          );
           searchProps.onAddSearchHistory(item?.content?.title);
-          searchProps.toggle();
+          // searchProps.toggle();
         };
 
         return (
