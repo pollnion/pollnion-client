@@ -1,4 +1,4 @@
-import { notify } from "@/lib/notify";
+// import { notify } from "@/lib/notify";
 import { useState, useCallback } from "react";
 
 export function useCopy(timeout = 2000) {
@@ -25,7 +25,7 @@ export function useCopy(timeout = 2000) {
         }
 
         setCopied(true);
-        notify.success("Copied!");
+        // notify.success("Copied!");
         setTimeout(() => setCopied(false), timeout);
       } catch (err) {
         console.error("Copy failed:", err);
