@@ -1,12 +1,15 @@
 import { SearchIcon } from "lucide-react";
 
-import { useSearch } from "@/store";
+// import { useSearch } from "@/store";
+import { useRouter } from "next/navigation";
 import Button from "@/components/custom/button";
 import { Typography } from "@/components/custom/typography";
 
 const SearchBtn = () => {
-  const { toggle } = useSearch();
-  const handleClick = () => toggle();
+  const router = useRouter();
+
+  // const { toggle } = useSearch();
+  const handleClick = () => router.push("/search");
 
   return (
     <Button
