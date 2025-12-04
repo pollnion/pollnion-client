@@ -13,6 +13,8 @@ import { useAuth } from "@/store";
 import { AnyObject } from "@/types";
 import { FeedItem } from "@/models";
 import Button from "@/components/custom/button";
+import { Drawer } from "@/components/custom/drawer";
+import FeedShare from "./feed-share";
 
 const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
   const { isAuth, user, toggleAuthGuard } = useAuth();
@@ -117,7 +119,6 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
     repost: () => toggleEngagement("repost"),
     comment: () => console.log("open page"),
     bookmark: toggleBookmark,
-    forward: () => console.log("open share dialog"),
   };
 
   const handleClick = (e: React.MouseEvent, type: keyof typeof actions) => {
@@ -151,11 +152,13 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
       icon: Bookmark,
       variant: (bookmarked ? "default" : "ghost") as "default" | "ghost",
       onClick: (e: React.MouseEvent) => handleClick(e, "bookmark"),
+      isForward: false,
     },
     {
       icon: Forward,
       variant: "ghost" as const,
-      onClick: (e: React.MouseEvent) => handleClick(e, "forward"),
+      // onClick: (e: React.MouseEvent) => handleClick(e, "forward"),
+      isForward: true,
     },
   ];
 
@@ -165,11 +168,38 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
         {buttons.map((item, idx) => (
           <Button key={idx} {...item} size="sm" className="rounded-full" />
         ))}
-      </div>
-      <div className="flex">
-        {buttons_v2.map((item, idx) => (
-          <Button key={idx} {...item} size="sm" className="rounded-full" />
-        ))}
+        <div className="flex">
+          {buttons_v2.map((v, idx) => {
+            const { isForward, ...buttonProps } = v || {};
+            if (isForward) {
+              return (
+                <Drawer
+                  key={idx}
+                  title="Share"
+                  triggerBtn={
+                    <Button
+                      key={idx}
+                      {...buttonProps}
+                      size="sm"
+                      className="rounded-full"
+                    />
+                  }
+                >
+                  <FeedShare item={item} />
+                </Drawer>
+              );
+            }
+
+            return (
+              <Button
+                key={idx}
+                {...buttonProps}
+                size="sm"
+                className="rounded-full"
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

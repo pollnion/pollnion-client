@@ -35,7 +35,7 @@ const NavbarLayoutAvatar = () => {
       label: "Profile",
       onClick: () =>
         router.push(
-          `/${(user?.user_metadata as AnyObject)?.display_name as string}`
+          `/${(user?.user_metadata as AnyObject)?.username as string}`
         ),
       icon: <User />,
     },
