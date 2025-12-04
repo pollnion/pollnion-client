@@ -2,6 +2,8 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/supabase/client";
+import { usePathChecker } from "@/lib";
+import { usePathname } from "next/navigation";
 
 import { z } from "zod";
 import { useForm } from "@/store";
@@ -56,6 +58,8 @@ const SearchProvider = ({ children }: { children: Children }) => {
   const router = useRouter();
   const localStorageProps = useLocalStorage();
   const form = useForm<AuthFormValues>(defaultValues, schema);
+  const pathname = usePathname();
+  const isSearchPage = usePathChecker("/search");
 
   const [results, setResults] = useState<SearchResultRow[]>(emptyVal);
   const [isLoading, setIsLoading] = useState(false);
@@ -100,8 +104,13 @@ const SearchProvider = ({ children }: { children: Children }) => {
     localStorageProps.setItem("lastSearch", JSON.stringify(updated));
   };
 
+  React.useEffect(() => {
+    if (!isSearchPage) form.reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   const onSubmit = (values: AuthFormValues) => {
-    router.push(`/search?s=${encodeURIComponent(values.s)}`);
+    router.push(`/search/result?s=${encodeURIComponent(values.s)}`);
     onAddSearchHistory();
   };
 
