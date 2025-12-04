@@ -2,16 +2,17 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/supabase/client";
+import { usePathChecker } from "@/lib";
+import { usePathname } from "next/navigation";
 
 import { z } from "zod";
+import { useForm } from "@/store";
 import { Children } from "@/types";
-import { useForm, useToggle } from "@/store"; // ✅ REMOVE useLoading
 import type { SearchResultRow } from "@/types/search";
 
 import debounce from "lodash/debounce";
 import { useRouter } from "next/navigation";
 import { useLocalStorage } from "@/lib/localStorage";
-import SearchDialog from "../shared/dialog/search-dialog";
 
 const schema = z.object({
   s: z
@@ -33,23 +34,21 @@ const emptyVal: SearchResultRow[] = [
 ];
 
 interface SearchContextValue {
-  isOpen: boolean;
-  toggle: () => void;
   form: ReturnType<typeof useForm<AuthFormValues>>;
   results: SearchResultRow[];
   isLoading: boolean;
   searchValue: string;
   onAddSearchHistory: (item?: string) => void;
+  onSubmit: (values: AuthFormValues) => void;
 }
 
 const defaultSearchContext: SearchContextValue = {
-  isOpen: false,
-  toggle: () => {},
   form: {} as ReturnType<typeof useForm<AuthFormValues>>,
   results: emptyVal,
   isLoading: false,
   searchValue: "",
   onAddSearchHistory: () => {},
+  onSubmit: () => {},
 };
 
 export const SearchContext =
@@ -57,9 +56,10 @@ export const SearchContext =
 
 const SearchProvider = ({ children }: { children: Children }) => {
   const router = useRouter();
-  const { isOpen, toggle } = useToggle();
   const localStorageProps = useLocalStorage();
   const form = useForm<AuthFormValues>(defaultValues, schema);
+  const pathname = usePathname();
+  const isSearchPage = usePathChecker("/search");
 
   const [results, setResults] = useState<SearchResultRow[]>(emptyVal);
   const [isLoading, setIsLoading] = useState(false);
@@ -104,32 +104,38 @@ const SearchProvider = ({ children }: { children: Children }) => {
     localStorageProps.setItem("lastSearch", JSON.stringify(updated));
   };
 
+  React.useEffect(() => {
+    if (!isSearchPage) form.reset();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
+
   const onSubmit = (values: AuthFormValues) => {
-    router.push(`/search?s=${encodeURIComponent(values.s)}`);
+    router.push(`/search/result?s=${encodeURIComponent(values.s)}`);
     onAddSearchHistory();
   };
 
   return (
     <SearchContext.Provider
       value={{
-        isOpen,
-        toggle,
+        // isOpen,
+        // toggle,
         form,
         results,
         isLoading,
         searchValue: searchValue?.trim() || "",
         onAddSearchHistory,
+        onSubmit,
       }}
     >
       {children}
 
-      <SearchDialog
+      {/* <SearchDialog
         form={form}
         isOpen={isOpen}
         toggle={toggle}
         onSubmit={onSubmit}
         isLoading={isLoading}
-      />
+      /> */}
     </SearchContext.Provider>
   );
 };

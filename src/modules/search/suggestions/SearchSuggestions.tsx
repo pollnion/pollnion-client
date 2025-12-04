@@ -84,7 +84,7 @@ const SearchSuggestions = () => {
           </Typography>
           {uniqBy(feeds, "title").map((item, idx) => {
             const redirect = () =>
-              router.push(`/search?s=${encodeURIComponent(item.title)}`);
+              router.push(`/search/result?s=${encodeURIComponent(item.title)}`);
 
             const handleClick = () => {
               redirect();
