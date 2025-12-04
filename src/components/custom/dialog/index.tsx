@@ -60,7 +60,7 @@ const Dialog: React.FC<BaseDialogProps> = ({
     <UiDialog open={isOpen} onOpenChange={toggle}>
       <DialogContent
         className={cn(
-          "sm:max-w-[520px] bg-card px-3 py-6 border-none",
+          "sm:max-w-[520px] bg-card px-3 py-6 border-none min-h-[100dvh]",
           className
         )}
       >

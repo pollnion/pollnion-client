@@ -45,6 +45,7 @@ const useSignIn = () => {
       form.setError("root.serverError", { message });
     } finally {
       loadingProps?.stop();
+      window.location.reload();
     }
   }
 
