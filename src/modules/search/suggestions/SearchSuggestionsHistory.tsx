@@ -3,7 +3,7 @@ import { isEmpty, uniq } from "lodash";
 import { Search } from "lucide-react";
 
 import { cn } from "@/lib";
-import { useSearch } from "@/store";
+// import { useSearch } from "@/store";
 import { useRouter } from "next/navigation";
 import Button from "@/components/custom/button";
 import { useLocalStorage } from "@/lib/localStorage";
@@ -11,7 +11,7 @@ import { Typography } from "@/components/custom/typography";
 
 const SearchSuggestionsHistory = () => {
   const router = useRouter();
-  const searchProps = useSearch();
+  // const searchProps = useSearch();
   const localStorageProps = useLocalStorage();
 
   const rawStored = localStorageProps.getItem("lastSearch");
@@ -57,7 +57,7 @@ const SearchSuggestionsHistory = () => {
             className="p-0 m-0 hover:underline cursor-pointer text-sm"
             onClick={() => {
               localStorageProps.removeItem("lastSearch");
-              searchProps.toggle();
+              // searchProps.toggle();
             }}
           >
             Clear all
@@ -67,7 +67,7 @@ const SearchSuggestionsHistory = () => {
 
       {uniq(reversed).map((item, idx) => {
         const handleClick = () => {
-          router.push(`/search?s=${encodeURIComponent(item)}`);
+          router.push(`/search/result?s=${encodeURIComponent(item)}`);
           const updated = [...reversed, item];
           localStorageProps.setItem("lastSearch", JSON.stringify(updated));
         };
