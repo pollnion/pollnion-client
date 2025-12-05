@@ -212,6 +212,11 @@ function useInfiniteQuery<
     storeRef.current.fetchNextPage();
   }, []);
 
+  // Create stable refetch callback
+  const refetch = useCallback(() => {
+    storeRef.current.initialize();
+  }, []);
+
   return {
     data: state.data,
     count: state.count,
@@ -221,6 +226,7 @@ function useInfiniteQuery<
     error: state.error,
     hasMore: state.count > state.data.length,
     fetchNextPage,
+    refetch,
   };
 }
 

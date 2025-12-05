@@ -57,6 +57,7 @@ const SearchSuggestionsHistory = () => {
             className="p-0 m-0 hover:underline cursor-pointer text-sm"
             onClick={() => {
               localStorageProps.removeItem("lastSearch");
+              window.location.reload();
               // searchProps.toggle();
             }}
           >

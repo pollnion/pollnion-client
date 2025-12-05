@@ -12,11 +12,13 @@ import { formatNum } from "@/lib";
 import { useAuth } from "@/store";
 import { AnyObject } from "@/types";
 import { FeedItem } from "@/models";
+import FeedShare from "./feed-share";
 import Button from "@/components/custom/button";
 import { Drawer } from "@/components/custom/drawer";
-import FeedShare from "./feed-share";
+import { useRouter } from "next/navigation";
 
 const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
+  const router = useRouter();
   const { isAuth, user, toggleAuthGuard } = useAuth();
   const { engagementCount } = item || {};
   const {
@@ -31,12 +33,15 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
 
   const [likes, setLikes] = useState(initialLikes || 0);
   const [reposts, setReposts] = useState(initialReposts || 0);
+  const [commentsCount, setCommentsCount] = useState(comments || 0);
 
   useEffect(() => {
     const getData = async () => {
       const { data, error } = await supabase
         .rpc("get_feed_summary", { p_feed_id: item.id, p_user_id: user?.id })
         .single();
+
+      console.log(data);
 
       if (!error && data) {
         const {
@@ -46,13 +51,14 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
           likes_count,
           reposts_count,
           // bookmarks_count,
-          // comments_count,
+          comments_count,
         } = (data || {}) as AnyObject;
         setLiked(liked ?? false);
         setLikes(likes_count ?? 0);
         setReposted(reposted ?? false);
         setReposts(reposts_count ?? 0);
         setBookmarked(bookmarked ?? false);
+        setCommentsCount(comments_count ?? 0);
       }
     };
 
@@ -117,7 +123,8 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
   const actions = {
     like: () => toggleEngagement("like"),
     repost: () => toggleEngagement("repost"),
-    comment: () => console.log("open page"),
+    comment: () =>
+      router.push(`/${item.author.name}/posts/${item.id}#comments`),
     bookmark: toggleBookmark,
   };
 
@@ -141,7 +148,7 @@ const FeedCta: React.FC<{ item: FeedItem }> = ({ item }) => {
     },
     {
       icon: MessageCircle,
-      children: formatNum(comments),
+      children: formatNum(commentsCount),
       variant: "secondary" as const,
       onClick: (e: React.MouseEvent) => handleClick(e, "comment"),
     },

@@ -39,13 +39,15 @@ const useSignIn = () => {
         form.setError("root.serverError", {
           message: response.error.code, // will show up under formState.errors.root.serverError
         });
+        return;
       }
+
+      window.location.reload();
     } catch (error) {
       const message = (error as PostgrestError)?.message ?? "Unknown error";
       form.setError("root.serverError", { message });
     } finally {
       loadingProps?.stop();
-      window.location.reload();
     }
   }
 
