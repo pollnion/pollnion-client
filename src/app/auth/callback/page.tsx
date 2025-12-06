@@ -85,6 +85,7 @@ export default function AuthCallbackPage() {
 
           // Verification successful, redirect to home
           router.push("/");
+          return;
         }
       } catch (err) {
         setError("An unexpected error occurred");
