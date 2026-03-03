@@ -1,0 +1,87 @@
+name: Deploy - Staging
+
+on:
+  push:
+    branches: [staging]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: Build & Deploy to Staging
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build web app
+        run: npx expo export --platform web
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: staging-web-build
+          path: dist/
+
+      - name: Deploy to staging
+        env:
+          STAGING_DEPLOY_KEY: ${{ secrets.STAGING_DEPLOY_KEY }}
+        run: |
+          echo "Deploying to staging environment..."
+          # Add your staging deployment script here
+          # Example: bash scripts/deploy-staging.sh
+
+      - name: Notify testers
+        uses: actions/github-script@v7
+        if: always()
+        with:
+          script: |
+            const status = context.payload.pull_request ? 'pending' : (job.status === 'success' ? 'completed' : 'failed');
+            console.log(`Staging deployment ${status}`);
+            # You can send Slack/Discord notifications here
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Staging build ready for testing! Build artifacts available.'
+            })
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push'
+        uses: ncipollo/release-action@v1
+        with:
+          tag: staging-${{ github.run_number }}
+          name: Staging Release ${{ github.run_number }}
+          body: |
+            Staging deployment from commit ${{ github.sha }}
+
+            **Branch:** staging
+            **Build Number:** ${{ github.run_number }}
+          artifacts: './dist/**'
+          draft: false
+          prerelease: true

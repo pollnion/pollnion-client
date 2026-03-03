@@ -1,0 +1,99 @@
+name: Deploy - Beta
+
+on:
+  push:
+    branches: [beta]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    name: Build & Deploy to Beta
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
+
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build EAS for beta
+        run: |
+          eas build --platform all --profile preview
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build web app
+        run: npx expo export --platform web
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: beta-web-build
+          path: dist/
+
+      - name: Deploy to beta environment
+        env:
+          BETA_DEPLOY_KEY: ${{ secrets.BETA_DEPLOY_KEY }}
+        run: |
+          echo "Deploying to beta environment..."
+          # Add your beta deployment script here
+          # Example: bash scripts/deploy-beta.sh
+
+      - name: Send Slack notification to testers
+        uses: slackapi/slack-github-action@v1
+        if: always()
+        with:
+          payload: |
+            {
+              "text": "🚀 Beta Build #${{ github.run_number }} Ready for Testing",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Beta Build Ready* 🚀\n*Build:* #${{ github.run_number }}\n*Status:* ${{ job.status }}\n*Branch:* beta"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      - name: Create GitHub Release
+        if: success()
+        uses: ncipollo/release-action@v1
+        with:
+          tag: beta-${{ github.run_number }}
+          name: Beta Release ${{ github.run_number }}
+          body: |
+            Beta deployment from commit ${{ github.sha }}
+
+            **Branch:** beta
+            **Build Number:** ${{ github.run_number }}
+            **Status:** ✅ Ready for testing
+
+            ### Testing Instructions
+            - Download the beta build from artifacts
+            - Install and test all features
+            - Report issues in #beta-testing channel
+          artifacts: './dist/**'
+          draft: false
+          prerelease: true
