@@ -5,6 +5,7 @@ This document explains the GitHub Actions CI/CD pipeline setup for Pollnion Clie
 ## Overview
 
 The project has automated CI/CD pipelines that:
+
 - Run tests and linting on all pull requests
 - Automatically build and deploy to staging on merge to `staging` branch
 - Automatically build and deploy to beta on merge to `beta` branch
@@ -15,6 +16,7 @@ The project has automated CI/CD pipelines that:
 Located in `.github/workflows/`:
 
 ### 1. `ci.yml` - Continuous Integration
+
 - **Triggers:** PR and push to main, staging, or beta
 - **Steps:**
   - Lint code with ESLint
@@ -24,6 +26,7 @@ Located in `.github/workflows/`:
 - **Test Matrix:** Node 18.x and 20.x
 
 ### 2. `deploy-staging.yml` - Staging Deployment
+
 - **Triggers:** Push to `staging` branch
 - **Steps:**
   - Install dependencies
@@ -36,6 +39,7 @@ Located in `.github/workflows/`:
 - **Artifacts:** Web build available for download
 
 ### 3. `deploy-beta.yml` - Beta Deployment
+
 - **Triggers:** Push to `beta` branch
 - **Steps:**
   - Install dependencies
@@ -49,6 +53,7 @@ Located in `.github/workflows/`:
 - **Artifacts:** Web build + EAS builds
 
 ### 4. `deploy-production.yml` - Production Deployment
+
 - **Triggers:** Push to `main` branch or version tags
 - **Steps:**
   - Install dependencies
@@ -69,24 +74,29 @@ Add the following secrets to your GitHub repository settings:
 #### Required Secrets:
 
 **`EXPO_TOKEN`**
+
 - Get from Expo account: https://expo.dev/settings/tokens
 - Used for EAS builds and deployments
 
 **Optional but Recommended:**
 
 **`SLACK_WEBHOOK_URL`**
+
 - Create in Slack: https://api.slack.com/messaging/webhooks
 - For notifications in Slack channel
 
 **`STAGING_DEPLOY_KEY`** (optional)
+
 - SSH key or deploy token for staging environment
 - Used in `scripts/deploy-staging.sh`
 
 **`BETA_DEPLOY_KEY`** (optional)
+
 - SSH key or deploy token for beta environment
 - Used in `scripts/deploy-beta.sh`
 
 **`PROD_DEPLOY_KEY`** (optional)
+
 - SSH key or deploy token for production environment
 - Used in `scripts/deploy-production.sh`
 
@@ -95,6 +105,7 @@ Add the following secrets to your GitHub repository settings:
 Create deployment scripts in `scripts/` directory:
 
 **`scripts/deploy-staging.sh`**
+
 ```bash
 #!/bin/bash
 set -e
@@ -104,6 +115,7 @@ echo "Deploying to staging..."
 ```
 
 **`scripts/deploy-beta.sh`**
+
 ```bash
 #!/bin/bash
 set -e
@@ -112,6 +124,7 @@ echo "Deploying to beta..."
 ```
 
 **`scripts/deploy-production.sh`**
+
 ```bash
 #!/bin/bash
 set -e
