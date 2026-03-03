@@ -39,11 +39,13 @@ Be respectful and professional in all interactions. We're committed to providing
 This project uses **Prettier** for code formatting and **ESLint** for linting.
 
 - **Format your code** before committing:
+
   ```bash
   npm run format
   ```
 
 - **Check for linting errors**:
+
   ```bash
   npm run lint
   ```
@@ -60,6 +62,7 @@ This project uses **Prettier** for code formatting and **ESLint** for linting.
 - Write tests for new features and bug fixes
 - Tests should cover the happy path and edge cases
 - Run tests locally before submitting:
+
   ```bash
   npm test
   ```
@@ -81,12 +84,14 @@ This project uses **Prettier** for code formatting and **ESLint** for linting.
 ### Pull Request Process
 
 1. Ensure your branch is up to date with `main`:
+
    ```bash
    git fetch origin
    git rebase origin/main
    ```
 
 2. Push your changes to your fork:
+
    ```bash
    git push origin feature/your-feature-name
    ```

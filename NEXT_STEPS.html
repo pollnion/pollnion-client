@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pollnion — What to Build Next</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #0f0f0f;
+        color: #f0f0f0;
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 52px;
+      }
+
+      .logo {
+        font-size: 36px;
+        font-weight: 800;
+        background: linear-gradient(135deg, #a78bfa, #ec4899, #f97316);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: -1px;
+      }
+
+      header p {
+        margin-top: 8px;
+        color: #888;
+        font-size: 15px;
+      }
+
+      .stack-badges {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 16px;
+      }
+
+      .badge {
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #ccc;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .phase {
+        margin-bottom: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .phase-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 20px 24px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .phase-number {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      .phase-1 .phase-number {
+        background: rgba(167, 139, 250, 0.2);
+        color: #a78bfa;
+      }
+      .phase-2 .phase-number {
+        background: rgba(236, 72, 153, 0.2);
+        color: #ec4899;
+      }
+      .phase-3 .phase-number {
+        background: rgba(249, 115, 22, 0.2);
+        color: #f97316;
+      }
+      .phase-4 .phase-number {
+        background: rgba(34, 197, 94, 0.2);
+        color: #22c55e;
+      }
+
+      .phase-title {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .phase-subtitle {
+        font-size: 13px;
+        color: #777;
+        margin-top: 2px;
+      }
+
+      .priority-tag {
+        margin-left: auto;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .priority-now {
+        background: rgba(239, 68, 68, 0.15);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+      }
+      .priority-soon {
+        background: rgba(234, 179, 8, 0.15);
+        color: #fbbf24;
+        border: 1px solid rgba(234, 179, 8, 0.3);
+      }
+      .priority-later {
+        background: rgba(99, 102, 241, 0.15);
+        color: #818cf8;
+        border: 1px solid rgba(99, 102, 241, 0.3);
+      }
+      .priority-polish {
+        background: rgba(34, 197, 94, 0.15);
+        color: #4ade80;
+        border: 1px solid rgba(34, 197, 94, 0.3);
+      }
+
+      .tasks {
+        padding: 0 24px 20px;
+      }
+
+      .task {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .task:last-child {
+        border-bottom: none;
+      }
+
+      .task-check {
+        width: 20px;
+        height: 20px;
+        border-radius: 6px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .task-content {
+        flex: 1;
+      }
+
+      .task-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e5e5e5;
+        line-height: 1.4;
+      }
+
+      .task-desc {
+        font-size: 13px;
+        color: #666;
+        margin-top: 4px;
+        line-height: 1.5;
+      }
+
+      .task-tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        margin-left: 8px;
+        vertical-align: middle;
+        background: rgba(255, 255, 255, 0.07);
+        color: #999;
+      }
+
+      .tip-box {
+        background: rgba(167, 139, 250, 0.08);
+        border: 1px solid rgba(167, 139, 250, 0.2);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-top: 40px;
+        font-size: 14px;
+        color: #c4b5fd;
+        line-height: 1.6;
+      }
+
+      .tip-box strong {
+        color: #a78bfa;
+      }
+
+      .tip-box ul {
+        margin-top: 8px;
+        padding-left: 18px;
+      }
+      .tip-box ul li {
+        margin-bottom: 4px;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 52px;
+        color: #444;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">Pollnion</div>
+        <p>TikTok-style polls · &lt;1K users · 6–12 month target</p>
+        <div class="stack-badges">
+          <span class="badge">Expo</span>
+          <span class="badge">Supabase</span>
+          <span class="badge">TanStack Query</span>
+          <span class="badge">Vercel</span>
+          <span class="badge">TypeScript</span>
+        </div>
+      </header>
+
+      <!-- Phase 1 -->
+      <div class="phase phase-1">
+        <div class="phase-header">
+          <div class="phase-number">1</div>
+          <div>
+            <div class="phase-title">Backend & Auth Foundation</div>
+            <div class="phase-subtitle">Before any UI works, you need data</div>
+          </div>
+          <span class="priority-tag priority-now">Do First</span>
+        </div>
+        <div class="tasks">
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">
+                Set up Supabase project <span class="task-tag">Supabase</span>
+              </div>
+              <div class="task-desc">
+                Create a Supabase project, grab your API keys, and add them to
+                <code>.env</code> using the <code>EXPO_PUBLIC_</code> prefix (already scaffolded in
+                <code>.env.example</code>).
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">
+                Design the database schema <span class="task-tag">Supabase</span>
+              </div>
+              <div class="task-desc">
+                Tables needed: <code>profiles</code> (extends auth.users),
+                <code>polls</code> (question, options, creator_id, created_at),
+                <code>votes</code> (user_id, poll_id, option_index),
+                <code>follows</code> (follower_id, following_id). Enable Row Level Security on all.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">
+                Implement authentication <span class="task-tag">Supabase Auth</span>
+              </div>
+              <div class="task-desc">
+                Phone number OTP is ideal for a TikTok-style app. Or start with email magic link.
+                Create <code>src/lib/supabase.ts</code> client and an <code>app/(auth)/</code> route
+                group for sign-in/sign-up screens.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">
+                Set up TanStack Query <span class="task-tag">Data fetching</span>
+              </div>
+              <div class="task-desc">
+                Install <code>@tanstack/react-query</code>, add <code>QueryClientProvider</code> to
+                the root layout, and create a base <code>src/lib/query-client.ts</code>. This is
+                your data-fetching backbone.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">
+                Auth-aware root layout + protected routes <span class="task-tag">Expo Router</span>
+              </div>
+              <div class="task-desc">
+                Update <code>app/_layout.tsx</code> to check auth state and redirect unauthenticated
+                users to <code>(auth)</code> group, authenticated users to <code>(tabs)</code>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="phase phase-2">
+        <div class="phase-header">
+          <div class="phase-number">2</div>
+          <div>
+            <div class="phase-title">Core Poll Features</div>
+            <div class="phase-subtitle">The actual reason the app exists</div>
+          </div>
+          <span class="priority-tag priority-soon">Build Second</span>
+        </div>
+        <div class="tasks">
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Replace Explore tab → TikTok-style poll feed</div>
+              <div class="task-desc">
+                Use a <code>FlatList</code> (or <code>FlashList</code> from Shopify for perf) with
+                <code>pagingEnabled</code> and vertical snapping. Each item takes the full screen.
+                Fetch paginated polls via TanStack Query + Supabase.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Poll card component</div>
+              <div class="task-desc">
+                The star of the app. A full-screen card showing: the question, 2–4 answer options as
+                tappable buttons, creator avatar + username, and a vote count. Show results as
+                animated bars after the user votes.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Voting logic</div>
+              <div class="task-desc">
+                On tap: optimistic update with TanStack Query, write vote to Supabase, disable
+                re-voting. Store voted poll IDs locally (AsyncStorage) so state persists across
+                sessions.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Create Poll screen</div>
+              <div class="task-desc">
+                A form screen (accessible from a "+" button or FAB) to write a question and 2–4
+                answer options. Validate inputs, insert into Supabase, then dismiss back to the
+                feed.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Replace Home tab → "For You" personalized feed</div>
+              <div class="task-desc">
+                Show polls from people the user follows. Fall back to trending polls for new users.
+                Use Supabase RPC or a simple view for the query.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="phase phase-3">
+        <div class="phase-header">
+          <div class="phase-number">3</div>
+          <div>
+            <div class="phase-title">Social Layer</div>
+            <div class="phase-subtitle">What makes users come back for others</div>
+          </div>
+          <span class="priority-tag priority-later">Build Third</span>
+        </div>
+        <div class="tasks">
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">User profiles</div>
+              <div class="task-desc">
+                A screen showing avatar, username, bio, follower/following counts, and a grid of
+                their polls. Edit profile should let them update display name and avatar (upload to
+                Supabase Storage).
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Follow / unfollow</div>
+              <div class="task-desc">
+                Write to the <code>follows</code> table. Update the "For You" feed query to factor
+                in follows. Show a Follow button on poll cards and profile screens.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Reactions &amp; comments (lightweight)</div>
+              <div class="task-desc">
+                Start simple: emoji reactions on polls (heart, fire, thinking face). Comments can
+                come later — they add complexity without impacting core retention in v1.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Search / Discover screen</div>
+              <div class="task-desc">
+                A dedicated screen to search polls by keyword or browse by topic/hashtag. Use
+                Supabase full-text search or a simple <code>ilike</code> query to start.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Share polls</div>
+              <div class="task-desc">
+                Use <code>expo-sharing</code> or React Native's <code>Share</code> API to share a
+                deep-link URL. Configure Supabase Edge Functions + Vercel to serve open graph
+                preview cards.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="phase phase-4">
+        <div class="phase-header">
+          <div class="phase-number">4</div>
+          <div>
+            <div class="phase-title">Retention &amp; Polish</div>
+            <div class="phase-subtitle">What makes it feel alive and addictive</div>
+          </div>
+          <span class="priority-tag priority-polish">Polish</span>
+        </div>
+        <div class="tasks">
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">
+                Push notifications <span class="task-tag">expo-notifications</span>
+              </div>
+              <div class="task-desc">
+                Notify users when: someone follows them, a poll they created gets 10/50/100 votes,
+                or a followed user posts a new poll. Store push tokens in Supabase and send via Edge
+                Functions.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Trending algorithm</div>
+              <div class="task-desc">
+                A Supabase database function or view that scores polls by: recent votes × recency
+                decay. Use as the default "Explore" feed for unauthenticated or new users.
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">Smooth animations &amp; micro-interactions</div>
+              <div class="task-desc">
+                Vote result bars animate in with <code>react-native-reanimated</code>. Add swipe-up
+                gesture between polls. Haptic feedback on vote (already have
+                <code>expo-haptics</code> installed).
+              </div>
+            </div>
+          </div>
+          <div class="task">
+            <div class="task-check"></div>
+            <div class="task-content">
+              <div class="task-title">App Store / Play Store prep</div>
+              <div class="task-desc">
+                Set up EAS Build and EAS Submit via <code>npx eas build</code>. Create proper app
+                icon and splash screen assets. Write App Store description and screenshots.
+                Configure production environment vars.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Suggested starting point for today:</strong>
+        <ul>
+          <li>
+            Create a Supabase project at <strong>supabase.com</strong> (free tier is fine for &lt;1K
+            users)
+          </li>
+          <li>
+            Copy <code>.env.example</code> → <code>.env</code> and paste in your Supabase URL + anon
+            key
+          </li>
+          <li>Run <code>npm install @supabase/supabase-js @tanstack/react-query</code></li>
+          <li>Create <code>src/lib/supabase.ts</code> — the Supabase client singleton</li>
+          <li>From there, build auth → then the poll feed → everything else follows</li>
+        </ul>
+      </div>
+
+      <footer>Generated for Pollnion · March 2026 · Charli</footer>
+    </div>
+  </body>
+</html>

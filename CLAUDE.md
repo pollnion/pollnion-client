@@ -5,6 +5,7 @@ This document contains guidelines and preferences for working with Claude Code o
 ## Project Overview
 
 **Pollnion Client** is a React Native mobile application built with Expo. The project uses:
+
 - TypeScript for type safety
 - Expo Router for file-based routing
 - React Navigation for navigation
@@ -107,16 +108,19 @@ npm run android    # Run on Android emulator
 ## Troubleshooting
 
 ### Tests failing after changes
+
 - Check if new mocks are needed in `jest.setup.js`
 - Ensure imports are correct (relative vs absolute paths)
 - Run `npm run test:watch` for faster debugging
 
 ### Build errors
+
 - Clear cache: `npm install` or `yarn install`
 - Check TypeScript errors: `npm run lint`
 - Verify all imports are correct
 
 ### Formatting issues
+
 - Run `npm run format` to auto-fix most issues
 - Check `.prettierrc` for formatting rules
 
