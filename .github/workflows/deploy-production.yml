@@ -1,15 +1,16 @@
 name: Deploy - Production
 
 on:
-  push:
+  workflow_run:
+    workflows: ['CI - Test & Build']
     branches: [main]
-    tags:
-      - 'v*'
+    types: [completed]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     name: Build & Deploy to Production
+    if: github.event.workflow_run.conclusion == 'success'
 
     steps:
       - uses: actions/checkout@v4
