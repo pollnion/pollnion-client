@@ -6,11 +6,24 @@
 -- This script uses placeholder UUIDs that need to be replaced with real user IDs.
 
 -- ========================================
+-- SAMPLE AUTH USERS (required before profiles due to FK constraint)
+-- ========================================
+-- Insert mock users directly into auth.users (requires service role / SQL editor)
+INSERT INTO auth.users (
+  id, email, encrypted_password, email_confirmed_at,
+  created_at, updated_at, aud, role
+)
+VALUES
+  ('550e8400-e29b-41d4-a716-446655440000'::uuid, 'john@example.com', '', NOW(), NOW(), NOW(), 'authenticated', 'authenticated'),
+  ('550e8400-e29b-41d4-a716-446655440001'::uuid, 'jane@example.com', '', NOW(), NOW(), NOW(), 'authenticated', 'authenticated'),
+  ('550e8400-e29b-41d4-a716-446655440002'::uuid, 'alex@example.com', '', NOW(), NOW(), NOW(), 'authenticated', 'authenticated'),
+  ('550e8400-e29b-41d4-a716-446655440003'::uuid, 'emma@example.com', '', NOW(), NOW(), NOW(), 'authenticated', 'authenticated')
+ON CONFLICT (id) DO NOTHING;
+
+-- ========================================
 -- SAMPLE PROFILES
 -- ========================================
--- Create test users via Supabase Auth first, then use their UUIDs here
-
--- Insert sample profiles (replace these UUIDs with actual users)
+-- Insert sample profiles
 INSERT INTO public.profiles (id, username, display_name, bio, avatar_url)
 VALUES
   ('550e8400-e29b-41d4-a716-446655440000'::uuid, 'john_doe', 'John Doe', 'Tech enthusiast', 'avatars/john_doe.jpg'),

@@ -86,12 +86,12 @@ FOR EACH ROW EXECUTE FUNCTION public.audit_log_changes();
 CREATE OR REPLACE FUNCTION public.update_poll_vote_count()
 RETURNS TRIGGER AS $$
 BEGIN
-  IF TG_OP = 'INSERT' THEN
+  IF TG_OP = 'INSERT' AND NEW.deleted_at IS NULL THEN
     UPDATE public.polls
     SET total_votes = total_votes + 1,
         updated_at = CURRENT_TIMESTAMP
     WHERE id = NEW.poll_id AND deleted_at IS NULL;
-  ELSIF TG_OP = 'DELETE' THEN
+  ELSIF TG_OP = 'DELETE' AND OLD.deleted_at IS NULL THEN
     UPDATE public.polls
     SET total_votes = GREATEST(total_votes - 1, 0),
         updated_at = CURRENT_TIMESTAMP
@@ -105,14 +105,13 @@ DROP TRIGGER IF EXISTS update_poll_vote_count_trigger ON public.votes;
 CREATE TRIGGER update_poll_vote_count_trigger
 AFTER INSERT OR DELETE ON public.votes
 FOR EACH ROW
-WHEN (NEW.deleted_at IS NULL OR OLD.deleted_at IS NULL)
 EXECUTE FUNCTION public.update_poll_vote_count();
 
 -- Update follower_count on profiles when follows are added/removed
 CREATE OR REPLACE FUNCTION public.update_follower_count()
 RETURNS TRIGGER AS $$
 BEGIN
-  IF TG_OP = 'INSERT' THEN
+  IF TG_OP = 'INSERT' AND NEW.deleted_at IS NULL THEN
     -- Increment follower_count for the person being followed
     UPDATE public.profiles
     SET follower_count = follower_count + 1,
@@ -124,7 +123,7 @@ BEGIN
     SET following_count = following_count + 1,
         updated_at = CURRENT_TIMESTAMP
     WHERE id = NEW.follower_id AND deleted_at IS NULL;
-  ELSIF TG_OP = 'DELETE' THEN
+  ELSIF TG_OP = 'DELETE' AND OLD.deleted_at IS NULL THEN
     -- Decrement follower_count for the person being followed
     UPDATE public.profiles
     SET follower_count = GREATEST(follower_count - 1, 0),
@@ -145,7 +144,6 @@ DROP TRIGGER IF EXISTS update_follower_count_trigger ON public.follows;
 CREATE TRIGGER update_follower_count_trigger
 AFTER INSERT OR DELETE ON public.follows
 FOR EACH ROW
-WHEN (NEW.deleted_at IS NULL OR OLD.deleted_at IS NULL)
 EXECUTE FUNCTION public.update_follower_count();
 
 -- Update profile updated_at when profile changes
