@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "pollnion-analysis": {
+      "command": "node",
+      "args": [
+        "./mcp-server/build/server.js"
+      ]
+    }
+  }
+}
