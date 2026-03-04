@@ -376,6 +376,60 @@ server.tool('list_commits', 'List recent commits to the main branch', z.object({
         ],
     };
 });
+server.tool('create_issue', 'Create a new GitHub issue in the repository', z.object({
+    title: z.string().describe('Issue title'),
+    body: z.string().optional().describe('Issue description/body'),
+    labels: z.array(z.string()).optional().describe('Labels to add to the issue'),
+}), async (args) => {
+    if (!GITHUB_TOKEN) {
+        return {
+            content: [
+                {
+                    type: 'text',
+                    text: 'GitHub token not configured. Set GITHUB_TOKEN environment variable.',
+                },
+            ],
+            isError: true,
+        };
+    }
+    const title = args.title;
+    const body = args.body;
+    const labels = args.labels;
+    try {
+        const issue = await octokit.issues.create({
+            owner: GITHUB_OWNER,
+            repo: GITHUB_REPO,
+            title,
+            body: body || '',
+            labels: labels || [],
+        });
+        return {
+            content: [
+                {
+                    type: 'text',
+                    text: JSON.stringify({
+                        number: issue.data.number,
+                        title: issue.data.title,
+                        url: issue.data.html_url,
+                        state: issue.data.state,
+                        created_at: issue.data.created_at,
+                    }, null, 2),
+                },
+            ],
+        };
+    }
+    catch (error) {
+        return {
+            content: [
+                {
+                    type: 'text',
+                    text: `Error creating issue: ${error.message}`,
+                },
+            ],
+            isError: true,
+        };
+    }
+});
 // === HELPER FUNCTIONS ===
 function getDirectoryStructure(dir, indent, maxDepth) {
     if (indent >= maxDepth)
