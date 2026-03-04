@@ -12,7 +12,7 @@ const APP_DIR = join(PROJECT_ROOT, 'app');
 // GitHub configuration
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const GITHUB_OWNER = 'pollnion';
-const GITHUB_REPO = 'client';
+const GITHUB_REPO = 'pollnion-client';
 
 const octokit = new Octokit({
   auth: GITHUB_TOKEN,
