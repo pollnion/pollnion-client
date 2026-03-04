@@ -5,7 +5,9 @@ This directory contains SQL scripts to set up the Pollnion database in Supabase.
 ## Files Overview
 
 ### 1. `01-create-tables.sql`
+
 Creates the core database tables:
+
 - `profiles` - User profiles extending auth.users
 - `polls` - Poll questions with JSONB options
 - `votes` - Individual votes with duplicate prevention
@@ -15,12 +17,15 @@ Creates the core database tables:
 - `audit_log` - Audit trail for compliance
 
 **Constraints:**
+
 - Polls must have 2-4 options (CHECK constraint)
 - Users cannot vote twice on the same poll (UNIQUE constraint)
 - Users cannot follow themselves (CHECK constraint)
 
 ### 2. `02-create-indexes.sql`
+
 Creates performance indexes on all tables:
+
 - Username and creation date indexes on profiles
 - Creator ID, status, and trending score indexes on polls
 - Composite (poll_id, user_id) index on votes for fast duplicate checking
@@ -28,13 +33,17 @@ Creates performance indexes on all tables:
 - GIN index for JSONB search (future feature)
 
 ### 3. `03-create-triggers.sql`
+
 Sets up database triggers for:
+
 - **Audit logging** - Automatically tracks all INSERT/UPDATE/DELETE operations
 - **Denormalized counts** - Keeps `follower_count`, `following_count`, and `total_votes` in sync
 - **Timestamps** - Auto-updates `updated_at` on profile and poll changes
 
 ### 4. `04-enable-rls.sql`
+
 Enables Row Level Security (RLS) policies:
+
 - Profiles: Users can only update their own profile
 - Polls: Users can only create/update/delete their own polls
 - Votes: Users can only vote and delete their own votes
@@ -44,7 +53,9 @@ Enables Row Level Security (RLS) policies:
 - Audit logs: Only service role can access
 
 ### 5. `05-mock-data.sql` (Optional)
+
 Provides sample data for development and testing:
+
 - 4 sample profiles
 - 4 sample polls
 - 9 sample votes
@@ -56,6 +67,7 @@ Provides sample data for development and testing:
 ## Setup Instructions
 
 ### Step 1: Create Supabase Project
+
 1. Go to [supabase.com](https://supabase.com)
 2. Create a new project
 3. Note your database connection string and credentials
@@ -103,17 +115,21 @@ EXPO_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 ## Key Features
 
 ### 1. Soft Deletes
+
 All tables include a `deleted_at` column. Deleted records are preserved for audit purposes.
 Always filter with `WHERE deleted_at IS NULL` in queries.
 
 ### 2. Audit Logging
+
 Every INSERT/UPDATE/DELETE is automatically logged to `audit_log` with:
+
 - Original values (old_values)
 - New values (new_values)
 - Action type (INSERT/UPDATE/DELETE)
 - Timestamp and user who made the change
 
 Query example:
+
 ```sql
 SELECT * FROM audit_log
 WHERE table_name = 'polls'
@@ -121,7 +137,9 @@ ORDER BY created_at DESC;
 ```
 
 ### 3. Denormalized Counts
+
 For performance, counts are stored directly on records:
+
 - `profiles.follower_count` - Updated via trigger on follows table
 - `profiles.following_count` - Updated via trigger on follows table
 - `polls.total_votes` - Updated via trigger on votes table
@@ -129,17 +147,21 @@ For performance, counts are stored directly on records:
 Triggers ensure counts stay in sync automatically.
 
 ### 4. JSONB Options
+
 Poll options are stored as JSONB for flexibility:
+
 ```json
 [
-  {"id": 0, "text": "Option 1"},
-  {"id": 1, "text": "Option 2"},
-  {"id": 2, "text": "Option 3"}
+  { "id": 0, "text": "Option 1" },
+  { "id": 1, "text": "Option 2" },
+  { "id": 2, "text": "Option 3" }
 ]
 ```
 
 ### 5. Row Level Security
+
 Authenticated users can only see/modify their own data according to policies:
+
 - Read public data (profiles, polls, votes, reactions)
 - Create/update/delete only their own records
 - Service role (admin) has full access
@@ -147,6 +169,7 @@ Authenticated users can only see/modify their own data according to policies:
 ## Testing
 
 ### Verify Schema Creation
+
 ```sql
 -- Check tables exist
 \dt public.*
@@ -160,6 +183,7 @@ WHERE table_name = 'votes';
 ```
 
 ### Test Duplicate Vote Prevention
+
 ```sql
 -- Try to vote twice on same poll (should fail)
 INSERT INTO votes (poll_id, user_id, option_id)
@@ -170,6 +194,7 @@ VALUES ('poll-id', 'user-id', 1); -- This should fail with UNIQUE constraint
 ```
 
 ### Test Vote Count Updates
+
 ```sql
 -- Check vote count before insert
 SELECT total_votes FROM polls WHERE id = 'poll-id';
@@ -183,6 +208,7 @@ SELECT total_votes FROM polls WHERE id = 'poll-id';
 ```
 
 ### Test Audit Log
+
 ```sql
 -- View all changes to a poll
 SELECT action, old_values, new_values, created_at
@@ -192,6 +218,7 @@ ORDER BY created_at;
 ```
 
 ### Test RLS Policies
+
 ```sql
 -- Run as authenticated user
 SET ROLE authenticated_user;
@@ -230,26 +257,32 @@ LIMIT 20 OFFSET 0;
 
 1. **Use the indexes** - Query planner will use them automatically
 2. **Filter deleted_at early** - Always include `WHERE deleted_at IS NULL`
-3. **Avoid SELECT *** - Be explicit about columns needed
+3. **Avoid SELECT \*** - Be explicit about columns needed
 4. **Use connection pooling** - Supabase handles this automatically
 5. **Monitor slow queries** - Check Supabase logs for bottlenecks
 
 ## Troubleshooting
 
 ### Error: "relation does not exist"
+
 Make sure you ran `01-create-tables.sql` first.
 
 ### Error: "permission denied for schema public"
+
 Check RLS policies - you may need to use service role for admin operations.
 
 ### Counts not updating
+
 Verify triggers were created in `03-create-triggers.sql`. Check:
+
 ```sql
 SELECT * FROM pg_trigger WHERE tgname LIKE '%update_poll_vote_count%';
 ```
 
 ### Mock data UUIDs not working
+
 Replace placeholder UUIDs in `05-mock-data.sql` with real user IDs from Supabase Auth:
+
 1. Go to Supabase Dashboard > Authentication > Users
 2. Copy actual user IDs
 3. Replace in the mock data script
@@ -257,6 +290,7 @@ Replace placeholder UUIDs in `05-mock-data.sql` with real user IDs from Supabase
 ## Future Features
 
 The schema supports these planned features:
+
 - **Emoji reactions**: `reactions` table ready
 - **Notifications**: `notifications` table ready
 - **Trending algorithm**: `trending_score` column added
