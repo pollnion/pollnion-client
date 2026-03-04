@@ -13,7 +13,9 @@ This directory contains Claude-specific configuration for this workspace.
     ├── lint-fix.md        # /project:lint-fix
     ├── test.md            # /project:test
     ├── new-component.md   # /project:new-component
-    └── new-screen.md      # /project:new-screen
+    ├── new-screen.md      # /project:new-screen
+    ├── create-pr.md       # /project:create-pr
+    └── push.md            # /project:push
 ```
 
 ## Custom Slash Commands
@@ -27,6 +29,8 @@ Use these commands inside Claude Code (run `claude` in your terminal to start).
 | `/project:test`          | `/project:test [pattern]`         | Runs the full test suite or a filtered subset     |
 | `/project:new-component` | `/project:new-component MyButton` | Scaffolds a component + test file                 |
 | `/project:new-screen`    | `/project:new-screen profile`     | Creates a new Expo Router screen                  |
+| `/project:create-pr`     | `/project:create-pr "My title"`   | Creates a GitHub PR for the current branch        |
+| `/project:push`          | `/project:push "commit message"`  | Pushes the current branch to remote               |
 
 ### Examples
 
@@ -36,6 +40,8 @@ Use these commands inside Claude Code (run `claude` in your terminal to start).
 /project:test PollCard
 /project:format
 /project:lint-fix
+/project:push "fix: update styles"
+/project:create-pr
 ```
 
 ### Adding New Commands

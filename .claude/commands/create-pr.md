@@ -21,6 +21,7 @@ gh pr create --title "<title>" --body "<body>"
 ```
 
 Guidelines for the PR:
+
 - **Title**: Short and imperative (under 70 characters), e.g. "Add poll creation screen"
 - **Body**: Include a Summary section (2-4 bullet points) and a Test plan section (checklist)
 - Base branch should be `main`
@@ -30,6 +31,7 @@ Guidelines for the PR:
 If $ARGUMENTS is provided, use it as the PR title instead of generating one.
 
 Example body format:
+
 ```
 ## Summary
 - Brief description of changes
