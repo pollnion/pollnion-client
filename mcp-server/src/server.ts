@@ -3,9 +3,11 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { Octokit } from '@octokit/rest';
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join, relative } from 'path';
+import { fileURLToPath } from 'url';
 import { z } from 'zod';
 
-const PROJECT_ROOT = join(import.meta.url.replace('file://', ''), '../../../');
+const __dirname = fileURLToPath(new URL('.', import.meta.url));
+const PROJECT_ROOT = join(__dirname, '../../');
 const SRC_DIR = join(PROJECT_ROOT, 'src');
 const APP_DIR = join(PROJECT_ROOT, 'app');
 
