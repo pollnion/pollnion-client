@@ -7,4 +7,10 @@ module.exports = defineConfig([
   {
     ignores: ['dist/*'],
   },
+  {
+    files: ['src/__tests__/**/*.{ts,tsx}'],
+    rules: {
+      'import/no-unresolved': 'off',
+    },
+  },
 ]);

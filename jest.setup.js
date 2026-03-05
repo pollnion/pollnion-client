@@ -1,5 +1,8 @@
 require('@testing-library/jest-dom');
 
+// React Native global required by react-native and related packages
+global.__DEV__ = true;
+
 // Mock Expo modules
 jest.mock('expo-router', () => ({
   useRouter: jest.fn(),
