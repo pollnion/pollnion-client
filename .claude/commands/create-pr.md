@@ -1,48 +1,137 @@
 Create a pull request for the current branch on GitHub.
 
-Steps to follow:
+Target base branch: $ARGUMENTS
 
-1. Run `git status` to check for any uncommitted changes. If there are uncommitted changes, warn the user before proceeding.
+If `$ARGUMENTS` is provided, use it as the base branch (e.g. `main`, `staging`, `beta`).
+If `$ARGUMENTS` is **not** provided, ask the user which branch to target before proceeding.
 
-2. Run `git branch -r` to list all available remote branches.
+---
 
-3. Ask the user which branch they want to target as the base for the PR. Show the available branches and ask them to pick one. Common options are `main`, `staging`, and `beta`.
+## Pre-flight Checks
 
-4. Run `git log <base-branch>..HEAD --oneline` to summarize the commits on this branch relative to the chosen base.
+### 1. Check for uncommitted changes
 
-5. Run `git diff <base-branch>...HEAD --stat` to understand the scope of changes.
-
-6. Before creating the PR, ensure the branch is pushed to remote:
-
+```bash
+git status
 ```
+
+- If there are **unstaged** changes, warn the user and ask whether to stash, commit, or abort.
+- If there are **staged but uncommitted** changes, warn the user and ask whether to commit them first or proceed without them.
+- Do **not** silently discard or commit changes on behalf of the user.
+
+### 2. Confirm the current branch
+
+```bash
+git branch --show-current
+```
+
+Display the current branch name so the user can confirm they are on the correct branch before creating the PR.
+
+### 3. Confirm the base branch
+
+If `$ARGUMENTS` was provided, use it as `<base-branch>` and confirm with the user:
+
+> "You're about to open a PR from `<current-branch>` into `$ARGUMENTS`. Proceed?"
+
+If `$ARGUMENTS` was **not** provided, list available remote branches and ask the user to choose:
+
+```bash
+git branch -r
+```
+
+Common options: `main`, `staging`, `beta`. Use the user's answer as `<base-branch>`.
+
+---
+
+## Gather Diff Context
+
+### 4. Summarize commits on this branch
+
+```bash
+git log <base-branch>..HEAD --oneline
+```
+
+Use the output to understand what was changed. This feeds into writing an accurate PR title and summary.
+
+### 5. Review changed files and scope
+
+```bash
+git diff <base-branch>...HEAD --stat
+```
+
+Use the file list to identify affected areas (screens, components, hooks, config, etc.) and mention them in the PR body.
+
+### 6. Check for failing tests before opening the PR
+
+```bash
+npm test
+```
+
+If tests fail, report the failures to the user and ask whether to fix them first or proceed anyway. Do not silently continue past failures.
+
+---
+
+## Push and Create the PR
+
+### 7. Push the current branch to remote
+
+```bash
 git push -u origin HEAD
 ```
 
-7. Create the pull request using the `gh` CLI with the chosen base branch:
+If the push fails (e.g. rejected due to diverged history), report the error and do **not** force-push without explicit user confirmation.
 
-```
+### 8. Create the pull request
+
+```bash
 gh pr create --title "<title>" --body "<body>" --base <base-branch>
 ```
 
-Guidelines for the PR:
+**Title guidelines:**
 
-- **Title**: Short and imperative (under 70 characters), e.g. "Add poll creation screen"
-- **Body**: Include a Summary section (2-4 bullet points) and a Test plan section (checklist)
+- Imperative mood, under 70 characters
+- Describes _what_ the PR does, not _how_
+- Examples: `"Add poll creation screen"`, `"Fix login redirect on session expiry"`
 
-8. Report the PR URL once created.
+**Body guidelines:**
 
-If $ARGUMENTS is provided, use it as the PR title instead of generating one.
+- Write a **Summary** section: 2–5 bullet points covering what changed and why
+- Write a **Test plan** section: checklist of steps to verify correctness
+- Note any breaking changes, migrations, or dependencies
+- Reference related issues if applicable (e.g. `Closes #42`)
 
-Example body format:
+---
 
-```
+## Completion Report
+
+After the PR is created, report:
+
+1. **PR URL** — the full GitHub link
+2. **Base branch** — confirm what branch it targets
+3. **Commits included** — paste the one-line log summary
+4. **Files changed** — paste the `--stat` summary
+
+---
+
+## PR Body Template
+
+```markdown
 ## Summary
-- Brief description of changes
+
+-
+-
+-
 
 ## Test plan
-- [ ] Run `npm test` and confirm all tests pass
-- [ ] Run `npm run lint` and confirm no errors
-- [ ] Manually test the affected screens/components
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
+- [ ] Run `npm test` — all tests pass
+- [ ] Run `npm run lint` — no errors
+- [ ] Run `npm run format:check` — no formatting issues
+- [ ] Manually tested affected screens/components on iOS and/or Android
+
+## Notes
+
+<!-- Breaking changes, migrations, dependencies, or anything reviewers should know -->
+
+🤖 Generated with [Claude Code](https://claude.ai/claude-code)
 ```
