@@ -10,7 +10,8 @@ import { useColorScheme } from '@/hooks/use-color-scheme';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const { width } = useWindowDimensions();
-  const isLargeScreen = width > 768; // Hide tabs on tablets/large screens
+  const TABLET_MIN_WIDTH = 768;
+  const isLargeScreen = width > TABLET_MIN_WIDTH;
 
   return (
     <Tabs

@@ -6,6 +6,13 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { supabase } from '@/lib/supabase';
 
+function getAuthErrorMessage(message: string): string {
+  if (message.includes('already registered') || message.includes('duplicate'))
+    return 'This email is already registered.';
+  if (message.includes('Password should be')) return 'Password must be at least 6 characters.';
+  return 'Something went wrong. Please try again.';
+}
+
 export default function SignupScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
@@ -42,14 +49,16 @@ export default function SignupScreen() {
       });
 
       if (signUpError) {
-        setError(signUpError.message);
+        setError(getAuthErrorMessage(signUpError.message));
       } else {
         // Redirect to login or home (depends on email confirmation requirement)
         router.replace('/login');
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
-      console.error(err);
+      setError('An unexpected error occurred. Please try again.');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Signup error:', err);
+      }
     } finally {
       setLoading(false);
     }

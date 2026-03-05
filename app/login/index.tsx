@@ -6,6 +6,13 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { supabase } from '@/lib/supabase';
 
+function getAuthErrorMessage(message: string): string {
+  if (message.includes('Invalid login credentials')) return 'Invalid email or password.';
+  if (message.includes('Email not confirmed'))
+    return 'Please confirm your email before signing in.';
+  return 'Something went wrong. Please try again.';
+}
+
 export default function LoginScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
@@ -30,13 +37,15 @@ export default function LoginScreen() {
       });
 
       if (signInError) {
-        setError(signInError.message);
+        setError(getAuthErrorMessage(signInError.message));
       } else {
         router.replace('/(tabs)');
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
-      console.error(err);
+      setError('An unexpected error occurred. Please try again.');
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Login error:', err);
+      }
     } finally {
       setLoading(false);
     }

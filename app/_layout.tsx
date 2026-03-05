@@ -23,7 +23,6 @@ export default function RootLayout() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is authenticated
     const checkAuth = async () => {
       try {
         const {
@@ -40,17 +39,20 @@ export default function RootLayout() {
       }
     };
 
-    // Listen for auth changes
-    const { data: subscription } = supabase.auth.onAuthStateChange((event, session) => {
+    checkAuth();
+  }, [loaded]);
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setUserSession(!!session);
     });
 
-    checkAuth();
-
     return () => {
-      subscription.subscription.unsubscribe();
+      subscription.unsubscribe();
     };
-  }, [loaded]);
+  }, []);
 
   if (isLoading || !loaded) {
     return null;
